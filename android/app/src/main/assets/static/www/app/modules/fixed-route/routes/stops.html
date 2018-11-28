@@ -1,0 +1,58 @@
+<style>
+    .header__mobile .header-group-stuck{
+        opacity: 1;
+    }
+    #map-container{
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position:fixed;
+    }
+</style>
+
+<div class="control-block fixed-route__wrapper">  
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <input id="inpStopSearch" type="text" class="form-control search-bar" allselect
+                       ng-model="vm.search_stop_text"
+                       ng-change="vm.filterStopChange()"
+                       placeholder="Search">
+                <div class="search-icon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <select id="fromStop" ng-options="stop as stop.Name for stop in vm.allStops track by stop.Id" ng-model="vm.fromStop" ng-change="vm.fromStopChanged()">
+                    <option value="''">Select a from stop</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <select id="toStop" ng-options="stop as stop.Name for stop in vm.toStops track by stop.Id" ng-model="vm.toStop">
+                    <option value="''">Select a from stop</option>
+                </select>
+            </div>
+        </div>
+    </div>
+   
+    
+    <div class="row" ng-repeat="stop in vm.filteredStops">
+        <div class="col-xs-12">
+            <span ng-click="vm.getStop(stop)">{{stop.name}}</span>
+        </div>
+    </div>
+
+
+</div>

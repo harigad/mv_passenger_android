@@ -1,0 +1,128 @@
+<style>
+.header__mobile .header-group-stuck{
+  opacity: 1;
+}
+</style>
+<div id="drawer" class="stops fixed-route__wrapper" ng-class="{true:'open'}[!vm.isHidden]">
+  <!-- <header class="section-header">
+        <back-control></back-control>
+
+        <h1 class="page-header">Find a bus stop</h1>
+
+        <button class="minimize d-none-md d-none-lg d-none-sm" ng-click="vm.clearPins()" ng-class="{false:'active'}[!vm.isHidden]">
+            <span class="i i-md i-arrow white"></span>
+        </button>
+    </header> -->
+  <div class="fixed-top">
+    <div class="tab-group">
+      <ul>
+        <li class="stops selected">
+          <a href="" ng-click="vm.gotoStops()">Bus stops</a>
+        </li>
+        <li class="routes">
+          <a href="" ng-click="vm.gotoRoutes()">Routes</a>
+        </li>
+        <hr />
+      </ul>
+    </div>
+    <div id="search-form">
+      <div id="from" class="form-group form-inline">
+        <label>From</label>
+        <input class="form-control" type="search" id="txtFromStopName" ng-model="vm.fromStopName" ng-keydown="vm.handleKeyPress($event, 'from')"
+          ng-click="vm.populateFromStops();" ng-focus="vm.highlightParent($event);" ng-blur="vm.blurParent($event)" autocomplete="off"
+          autocorrect="off" autocapitalize="off" spellcheck="false" />
+      </div>
+      <div id="to" class="form-group form-inline">
+        <label>To</label>
+        <input class="form-control" type="search" id="txtToStopName" ng-model="vm.toStopName" ng-keydown="vm.handleKeyPress($event, 'to')"
+          ng-click="vm.populateToStops()" ng-focus="vm.highlightParent($event);" ng-blur="vm.blurParent($event)" autocomplete="off"
+          autocorrect="off" autocapitalize="off" spellcheck="false" />
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-group">
+  
+    <div ng-hide="!vm.showFromStops">
+      <div class="list-item" ng-show="vm.fromStops.length > 0">
+        <div class="item-block">
+          <div class="item-content">
+            <p class="name">
+              <small class="alias">SELECT ORIGIN</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="list-item animate-repeat" ng-repeat="stop in vm.fromStops | filter: vm.fromStopName | orderBy: 'Name'" ng-click="vm.selectFromStop(stop);">
+        <div class="item-block">
+          <div class="item-content">
+            <p class="name">
+              <span>{{stop.Name}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-hide="!vm.showToStops">
+      <div class="list-item" ng-show="vm.toStops.length > 0">
+        <div class="item-block">
+          <div class="item-content">
+            <p class="name">
+              <small class="alias">SELECT DESTINATION</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="list-item animate-repeat" ng-repeat="stop in vm.toStops | filter: vm.toStopName | orderBy: 'Name'" ng-click="vm.selectToStop(stop);">
+        <div class="item-block">
+          <div class="item-content">
+            <p class="name">
+              <span>{{stop.Name}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-hide="!vm.showRoutes">
+      <div class="list-item" ng-hide="vm.upcomingSchedules.length < 1">
+        <div class="item-block">
+          <div class="item-content">
+            <p class="name">
+              <small class="alias">ARRIVING AT {{vm.fromStopName}}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <route-card ng-repeat="schedule in vm.upcomingSchedules" route-info="schedule" on-select="vm.mapRoute(schedule);" pinnable="true"></route-card>
+      <div ng-show="vm.upcomingSchedules.length < 1">
+        <div class="list-item" ng-show="vm.toStops.length > 0">
+          <div class="item-block">
+            <div class="item-content full-width">
+              <p class="name">
+                <small class="alias text-center">NO ROUTES FOUND</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="control-options" class="d-md-none">
+    <button class="minimize" ng-click="vm.clearPins()" ng-class="{true:'active'}[vm.isHidden]">
+      <span class="i i-md i-arrow"></span>
+    </button>
+  </div>
+
+  <div id="pinned-route" class="d-md-none" ng-class="{true:'active'}[vm.isHidden]" ng-if="vm.isAnyRouteSelected">
+    <button class="close" ng-click="vm.clearPins()">Close</button>
+
+    <route-card route-info="vm.activeSchedule" on-select="" pinnable="false"></route-card>
+  </div>
+
+  <div id="map-container">
+    <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+      <ui-gmap-marker coords="vm.position.coords" idKey="99999" options="{icon: vm.position.icon, zIndex:10}"></ui-gmap-marker>
+    </ui-gmap-google-map>
+  </div>

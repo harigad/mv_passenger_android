@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="header-group">
+    <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+    <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+    </div>
+</div>
+<div class="container">
+  <div class="module module--wide">
+    <div class="module__body--wide">
+      <div class="cell cell--form-group">
+        <label class="form-control--input">
+          <input type="text" ng-model="vm.searchText" placeholder="Route Name" ng-change="vm.filterChange()" aria-label="Select Route"/>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="module__group col-md-6" ng-repeat="route in vm.filterIncidents">
+      <div id="{{route.id}}" class="module module--full">
+        <div class="module__header module__header--commuter">
+          <span class="module__header--title">{{route.longName}}</span>
+          <span class="module__header--date">{{route.shortName}}</span>
+        </div>
+        <div class="module__body--full">
+          <div class="cell" ng-repeat="stop in route.stops">
+            <div class="text-group--label" ng-class="stop.isHub ? 'text--pickup' : 'text--dropoff'">
+              <a class="text text--label" ng-click="vm.navigateToStop(stop)">{{stop.name}}</a>
+            </div>
+            <div class="text-group--list">
+              <ul>
+                <li class="text--primary text" ng-repeat="arrival in stop.arrivals"> {{arrival}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="module__footer">
+          <div class="cell">
+            <div class="cell__group cell__group--align-right cell__group--list">
+              <a class="text text--caption text--link" ng-click="vm.getMap($index)">Show on Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module__group col-md-6" ng-repeat="route in vm.futureSchedule.Routes">
+        <div id="{{route.id}}" class="module">
+          <div class="module__header module__header--commuter">
+            <span class="module__header--title">{{route.longName}}</span>
+            <span class="module__header--date">{{route.shortName}}</span>
+          </div>
+          <div class="module__body">
+            <div class="cell" ng-repeat="stop in route.stops">
+              <div class="text-group--label" ng-class="stop.isHub ? 'text--pickup' : 'text--dropoff'">
+                <a class="text text--label" ng-click="vm.navigateToStop(stop)">{{stop.name}}</a>
+              </div>
+              <div class="text-group--list">
+                <ul>
+                  <li class="text--primary text" ng-repeat="arrival in stop.arrivals"> {{arrival}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="module__footer">
+            <div class="cell">
+              <div class="cell__group cell__group--align-right cell__group--list">
+                <a class="text text--caption text--link" ng-click="vm.getMap($index)">Show on Map</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div> 
+</div>
+<div class="stop-group-loading" ng-show="vm.isLoading">
+  <div id="loader">
+      <div class="loading-block">
+        <span class="spinner-lg"></span>
+        <span class="spinner-sm"></span>
+      </div>
+      <p class="text-center">
+        Getting Published Schedules
+      </p>
+    </div>
+  </div>
+</div>
+

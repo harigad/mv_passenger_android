@@ -1,0 +1,186 @@
+<div class="container-fluid">
+    <div class="header-group">
+        <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+        <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p> 
+    </div>
+
+    <section id="login-status" class="container" ng-if="!vm.isPassengerLoggedIn">
+        <h4 class="text-center">
+            You are not signed in
+        </h4>
+        <button class="btn-default btn" ng-click="vm.login()">Sign in now</button>
+    </section>
+
+    <div class="row">
+        <div class="mast__map col-lg">
+            <div>
+                <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' options="vm.map.mapOptions"
+                                    control="vm.map.control">                 
+                    <ui-gmap-marker ng-repeat="marker in vm.markers"
+                                    coords="marker"
+                                    options="{icon: marker.icon, zIndex:10}"
+                                      idkey="10" events="vm.map.markerEvent"></ui-gmap-marker>
+                    <ui-gmap-window show="vm.show" coords="vm.coords" closeClick="vm.show=false"
+                                    options="{pixelOffset: {width: 5, height: -55}}"
+                                    templateUrl="'infowindow.html'" templateParameter="vm.coords">
+                </ui-gmap-google-map>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="module module--full module--mast">
+                <div class="module__body--full">
+                    <div class="cell cell--form-group">
+                        <label id="time-of-day" class="text text--label">Time of Day</label>
+                        <div class="form-group--toggle">
+                            <label class="form-control--toggle">
+                                <input type="radio" name="timeOfDay-am" value="AM" ng-model="vm.selectedConfig.schedule" aria-labelledby="time-of-day"
+                                       ng-click="vm.scheduleChanged()" />
+                                <span class="text text--primary">Morning</span>
+                            </label>
+                            <label class="form-control--toggle">
+                                <input type="radio" name="timeOfDay-pm" value="PM" ng-model="vm.selectedConfig.schedule"
+                                       ng-click="vm.scheduleChanged()" aria-labelledby="time-of-day"/>
+                                <span class="text text--primary">Evening</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="cell cell--form-group">
+                        <label id="input-from" class="text text--label">From</span></label>
+                        <div class="form-control--input">
+                            <select dir="rtl" name="pickups" ng-model="vm.selectedConfig.pickup" ng-change="vm.pickupChanged()"
+                                    ng-options="pickup.name for pickup in vm.pickupStops" aria-labelledby="input-from"></select>
+                        </div>            
+                      
+                    </div>
+                    <div class="cell cell--form-group">
+                            <label id="input-to" class="text text--label">To</label>
+                            <div class="form-control--input">
+                            <select dir="rtl" name="dropoffs" ng-model="vm.selectedConfig.dropoff"
+                                    ng-disabled="vm.selectedConfig.pickup.id === undefined"
+                                    ng-change="vm.dropoffChanged()"
+                                    ng-options="dropoff.name for dropoff in vm.dropoffStops"
+                                    aria-labelledby="input-to"></select>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module__group">
+                <div class="module__divider">
+                    <h4>Desired Days</h4>
+                </div>
+                <div class="module module--full">
+                    <div class="module__body--wide">
+                        <div class="cell cell--daypicker">
+                            <div class="form-group--daypicker">
+                                <label class="form-control--daypicker" ng-repeat="dayOfWeek in vm.daysOfWeek">
+                                    <input type="checkbox" name="daysOfWeek" ng-model="dayOfWeek.selected" value="{{dayOfWeek.name}}"
+                                           ng-disabled="dayOfWeek.name == 'S'" />
+                                    <span><small>{{dayOfWeek.name}}</small></span>
+                                </label>
+                            </div>
+                            <a class="close--daypicker" ng-click="vm.clearWeekSelection()">Cancel / Clear Selection</a>
+                        </div>
+
+                        <div class="cell cell--form-group">
+                            <label id="trip-times" for="pickups" class="text text--label">Time</label>
+                            <div class="form-control--input">
+                                <select dir="rtl" aria-labelledby="trip-times" ng-model="vm.selectedConfig.tripTime"
+                                        ng-disabled="vm.selectedConfig.pickup.id === undefined || vm.selectedConfig.dropoff.id === undefined"
+                                        ng-options="tripTime.pickupTime for tripTime in vm.tripTimes"></select>
+                            </div>
+                        </div>
+
+                        <div class="cell cell--form-group">
+                            <label id="weeks" class="text text--label">Weeks</label>
+                            <div class="form-control--input">
+                                <select dir="rtl" aria-labelledby="weeks" ng-model="vm.selectedConfig.numOfWeeks"
+                                        ng-options="numWeek.name for numWeek in vm.numOfWeeks"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="module__note">
+                    <small>Pre-select the time, days, and the number of weeks you want to travel. You can change the times for a specific day on the next screen.</small>
+                </div>
+            </div>
+
+            <div class="module__group" ng-if="vm.selectedConfig.schedule == 'AM'">
+                <div class="module__divider">
+                    <h4>Vehicles and Parking</h4>
+                </div>
+                <div class="module module--full">
+                    <div class="module__body--full">
+                        <div class="cell cell--form-group">
+                            <label class="form-control--switch">
+                                <input type="checkbox" ng-model="vm.parkingSelected" />
+                                <span class="text text--label">Reserve Parking</span>
+                            </label>
+                        </div>
+                        <div class="cell cell--form-group" ng-if="vm.parkingSelected">
+                            <label class="text text--label" id="vehicle-select">Vehicles</label>
+                            <div class="form-control--input">
+                                <select dir="rtl" name="passenger-vehicles" ng-model="vm.selectedConfig.vehicle"
+                                        ng-options="vehicle.licenceplate for vehicle in vm.passengerVehicles" aria-labelledby="vehicle-select"></select>
+                            </div>
+                        </div>
+                        <div class="cell cell--form-group justify-content-end"  ng-if="vm.parkingSelected">
+                                <button class="btn btn--default btn--xs" ng-click="vm.showAddVehicleDialog()">Add Vehicle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="module__group">
+                <div class="module__divider">
+                    <h4>Default Properties</h4>
+                </div>
+                <div class="module module--full">
+                    <div class="module__body--full">
+                        <div class="cell cell--form-group" ng-if="!vm.hasTemplates">
+                            <label class="form-control--switch">
+                                <input type="checkbox" ng-model="vm.addTemplate" 
+                                       ng-disabled="vm.selectedConfig.pickup.id === undefined || vm.selectedConfig.dropoff.id === undefined"/>
+                                <span class="text text--label">Set as default</span>
+                            </label>
+                        </div>
+                        <div class="cell cell--form-group" ng-if="vm.hasTemplates">
+                            <label class="form-control--switch">
+                                <input type="checkbox" ng-model="vm.useDefaultTemplate" />
+                                <span class="text text--label">Default {{vm.selectedConfig.schedule}} Reservation</span>
+                            </label>
+                        </div>
+                        <div class="cell cell--form-group" ng-if="vm.hasTemplates">
+                            <label class="form-control--switch">
+                                <input type="checkbox" ng-model="vm.overrideTemplate" />
+                                <span class="text text--label">Override</span>
+                            </label>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <div class="btn__group d-none d-md-block">
+                <button class="btn btn--primary btn--block"
+                        ng-disabled="vm.selectedConfig.pickup.id === undefined || vm.selectedConfig.dropoff.id === undefined "
+                        ng-click="vm.next()">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pos__sticky--bottom d-md-none">
+        <div class="btn__group">
+            <button class="btn btn--block btn--primary"
+                    ng-disabled="vm.selectedConfig.pickup.id === undefined || vm.selectedConfig.dropoff.id === undefined "
+                    ng-click="vm.next()">Next</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="infowindow.html">
+    <div class="map-popover">
+        <div class="header-group">
+            <p class="primary">{{parameter.name}}</p>
+            <p class="address">{{parameter.address}}</p>
+        </div>
+    </div>
+</script>

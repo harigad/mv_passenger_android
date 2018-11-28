@@ -1,0 +1,36 @@
+<div class="modal__content">
+    <div class="modal__header">
+        <h3 class="modal-title">Update Mobile Number</h3>
+    </div>
+    <div class="modal__body">
+        <div class="module__divider">
+            <h4>Update your module number.</h4>
+        </div>
+        <div class="module">
+            <div class="module__body">
+                <div class="cell form-control--input">
+                    <label>Number</label>
+                        <input type="tel"  
+                        ng-model="vm.clientTelephone" 
+                        maxlength="10" 
+                        class="form-control" 
+                        name="phone"
+                        clean="true"/>
+                </div>
+            </div>
+        </div>
+        <div class="module__footnote">
+            <span class="text text--footnote">
+                    To contact the driver we need a valid mobile number.
+            </span>
+        </div>
+
+    
+    </div>
+    <div class="modal__footer">
+        <div class="btn__group">
+            <button class="btn btn--default btn--block" ng-click="vm.cancel()">Cancel</button>
+            <button class="btn btn--primary btn--block" ng-click="vm.updateSettings()">Update</button>
+        </div>
+    </div>
+</div>

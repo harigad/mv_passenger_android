@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="header-group">
+        <h1 class="title" ng-cloak>My Trips</h1>
+        <p class="headline" ng-cloak>{{drtInfo.alias}}</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="module__group" ng-if="(passengerFutureTrips | filter: {TripId: '!' + activeTrip.TripId}).length + passengerPastTrips.length === 0 && activeTrip.TripId === null" ng-hide="loading">
+        <div class="module">
+            <div class="module__body">
+                <div class="cell">
+                    <p class="text text--primary">You currently have no reservations.</p>
+                </div>
+            </div>
+            <div class="module__footer">
+                <div class="cell cell--align-end">
+                    <a href="#/on-demand/reservations" class="text text--link text--clickable">Create a Reservation</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 module__group" ng-if="activeTrip.TripId !== null">
+            <div class="module__divider"><h4>Active Trip</h4></div>
+            <trip-card-directive trip="{{activeTrip}}"
+                                 options="{{opts}}"
+                                 trip-type="active"
+                                 division-service-date="serviceDate"
+                                 on-trip-cancel="onTripCancel"
+                                 allow-trip-rating="true"></trip-card-directive>
+        </div>
+        <div class="col-md-6 module__group" ng-if="(passengerFutureTrips | filter: {TripId: '!' + activeTrip.TripId}).length > 0">
+            <div class="module__divider"><h4>Upcoming Trips</h4></div>
+            <trip-card-directive trip="{{passengerTrip}}"
+                                 options="{{opts}}"
+                                 division-service-date="serviceDate"
+                                 trip-type="upcoming"
+                                 on-trip-cancel="onTripCancel"
+                                 allow-trip-rating="true"
+                                 ng-repeat="passengerTrip in passengerFutureTrips | filter: {TripId: '!' + activeTrip.TripId}">
+
+            </trip-card-directive>
+        </div>
+        <div class="col-md-6 module__group" ng-if="passengerPastTrips.length > 0">
+            <div class="module__divider"><h4>Past Trips</h4></div>
+            <trip-card-directive trip="{{passengerTrip}}"
+                                 options="{{opts}}"
+                                 division-service-date="serviceDate"
+                                 trip-type="past"
+                                 allow-trip-rating="true"
+                                 ng-repeat="passengerTrip in passengerPastTrips"></trip-card-directive> 
+        </div>
+    </div>
+</div>
+
+<div id="loader" ng-show="loading">
+    <div class="loading-block">
+        <span class="spinner-lg"></span>
+        <span class="spinner-sm"></span>
+    </div>
+    <p class="text-center">
+        UPDATING
+    </p>
+</div>
+
+

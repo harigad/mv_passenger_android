@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="60px" viewBox="0 0 55 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>pin-hub</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <path d="M35.5,60 C36.8807119,60 38,58.8807119 38,57.5 C38,56.1192881 36.8807119,55 35.5,55 C34.1192881,55 33,56.1192881 33,57.5 C33,58.8807119 34.1192881,60 35.5,60 Z" id="path-2"></path>
+        <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="5" height="5" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+        <linearGradient x1="9.02099616%" y1="100.456099%" x2="9.02099603%" y2="-81.5019087%" id="linearGradient-4">
+            <stop stop-color="#818181" offset="0%"></stop>
+            <stop stop-color="#D8D8D8" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-5" x="17" y="0" width="38" height="31" rx="2"></rect>
+        <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="38" height="31" fill="white">
+            <use xlink:href="#path-5"></use>
+        </mask>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="4a---Bus-Stops-Map---Address-Entered" transform="translate(-259.000000, -170.000000)">
+            <g id="pin-hub" transform="translate(259.000000, 170.000000)">
+                <path d="M32.2570338,28 C33.1089757,28 34.1361974,28.5507562 34.5506504,29.2289259 L42.8267273,42.7710741 C43.2415148,43.4497911 42.8857832,44 42.0351893,44 L10.7429662,44 C9.89102427,44 8.86380263,43.4492438 8.44934957,42.7710741 L0.173272721,29.2289259 C-0.241514835,28.5502089 0.114216828,28 0.964810741,28 L21.2570338,28 L32.2570338,28 Z M34.9433261,57 C34.1601042,57 25,44 25,44 L28.1328875,44 C28.1328875,44 35.726548,57 34.9433261,57 L34.9433261,57 Z" id="Rectangle-9" fill-opacity="0.200000018" fill="#000000" filter="url(#filter-1)"></path>
+                <use id="Oval-9" stroke="#7A0DDA" mask="url(#mask-3)" fill="#9012FE" xlink:href="#path-2"></use>
+                <g id="Rectangle-10-+-Rectangle-10" transform="translate(33.000000, 31.000000)">
+                    <path d="M0,0 L5,0 C5,0 3.75,26 2.5,26 C1.25,26 0,0 0,0 Z" id="Rectangle-10" fill="#828282"></path>
+                    <path d="M2.70001221,0 L4.95001221,0 C4.95001221,0 3.82501221,26 2.70001221,26 C2.70001221,22.2857143 2.70001221,0 2.70001221,0 Z" id="Rectangle-10" fill="url(#linearGradient-4)"></path>
+                </g>
+                <use id="Rectangle-9" stroke="#7A0DDA" mask="url(#mask-6)" fill="#9012FE" xlink:href="#path-5"></use>
+                <g id="Group-7" transform="translate(21.000000, 4.000000)">
+                    <rect id="Rectangle-29" fill="#FFFFFF" x="14.8639819" y="11.9330559" width="5.23379644" height="5.23379644"></rect>
+                    <ellipse id="Oval" fill="#FFFFFF" cx="23.8661118" cy="7.74601873" rx="2.09351858" ry="2.09351858"></ellipse>
+                    <ellipse id="Oval-Copy-2" fill="#FFFFFF" cx="10.4675929" cy="7.53666687" rx="2.09351858" ry="2.09351858"></ellipse>
+                    <path d="M14.9686578,17.0621764 L13.0844911,18.9463431" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+                    <ellipse id="Oval-Copy-4" fill="#FFFFFF" cx="11.9330559" cy="20.516482" rx="2.09351858" ry="2.09351858"></ellipse>
+                    <ellipse id="Oval-Copy" fill="#FFFFFF" cx="23.8661118" cy="2.09351858" rx="2.09351858" ry="2.09351858"></ellipse>
+                    <ellipse id="Oval-Copy-3" fill="#FFFFFF" cx="2.09351858" cy="7.53666687" rx="2.09351858" ry="2.09351858"></ellipse>
+                    <path id="Line" stroke="#979797" stroke-linecap="square"></path>
+                    <path d="M12.0377318,9.1068058 L14.8813743,11.9504483" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+                    <path d="M19.9931024,12.0377318 L22.6120934,9.41874091" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+                    <path id="Line" stroke="#979797" stroke-linecap="square"></path>
+                    <path d="M8.5,7.5 L4.5,7.5" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+                    <path d="M24.5,6.5 L23.5,3.5" id="Line" stroke="#FFFFFF" stroke-linecap="square"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

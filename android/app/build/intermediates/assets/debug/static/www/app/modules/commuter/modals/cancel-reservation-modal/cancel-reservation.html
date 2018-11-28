@@ -1,0 +1,40 @@
+
+<div class="modal__content modal__content--fs">
+    <div class="modal__header modal__header--cancel">
+        <h4 class="modal-title">
+            Cancel Reservation
+         </h4>
+        <button type="button" class="btn--back" data-dismiss="modal"
+                ng-click="vm.cancel()"
+                aria-label="Close">
+            <span aria-hidden="true">Back</span>
+        </button>
+    </div>
+    <div class="modal__body" ng-if="!vm.cancelError">
+        <h4>Are you sure you want to cancel this reservation?</h4>
+        <hr/>
+        <h5 class="headline text-left">{{::vm.routeName}}</h5>
+        <p>{{vm.reservationDate}} @ {{::vm.startTime}}</p>
+    </div>
+
+    <div class="modal__body modal__body--error" ng-if="vm.cancelError">
+            <h4>{{vm.errorMessage}}</h4>
+            <hr/>
+            <h5 class="headline text-left">{{::m.routeName}}</h5>
+            <p>{{vm.reservationDate}} @ {{::vm.startTime}}</p>
+        </div>
+
+    <div class="modal__footer">
+            <div class="button-group">
+                    <button type="button" class="btn btn--default btn--rounded btn--block"
+                    ng-click="vm.cancel()"
+                    data-dismiss="modal">
+                Go Back
+            </button>
+            <button ng-if="!vm.cancelError" type="button" class="btn btn--cancel btn--rounded btn--block"
+                    ng-click="vm.cancelReservation()" ng-disabled="vm.MakeDisable()">
+                Cancel Reservation
+            </button>
+        </div>
+    </div>
+</div>

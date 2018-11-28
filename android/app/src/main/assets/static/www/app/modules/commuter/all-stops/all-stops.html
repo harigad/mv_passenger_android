@@ -1,0 +1,126 @@
+<div class="tabs__container container-fluid">
+  <div class="row">
+    <div class="tabs col-sm-6 col-md-4 offset-md-8" aria-hidden="true">
+      <button ng-click="vm.showList = true" class="btn btn-sm btn--block" ng-class="{'active' : vm.showList}">List</button>
+      <button ng-click="vm.displayMap()" class="btn btn-sm btn--block" ng-class="{'active' : !vm.showList}">Map</button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div id="search" class="module module--wide">
+    <div class="module__body--wide">
+      <div class="cell cell--form-group">
+        <div class="form-control--input form-control--input-left">
+          <input type="text" ng-model="vm.search" ng-keyup="$event.keyCode == 13 && vm.locationSearch();" placeholder="Address, City or Zip" aria-label="Address, City or Zip">
+        </div>
+        <button class="btn btn--sm btn--primary" type="submit" ng-click="vm.locationSearch()">
+          <span>Search</span>
+        </button> 
+      </div>
+    </div>
+  </div>
+
+  <div class="header-group">
+    <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+    <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+  </div>
+
+
+</div>
+<div id="map-container" ng-hide="vm.showList" aria-hidden="true">
+  <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+    <ui-gmap-marker ng-repeat="stop in vm.closestBusStop" coords="stop" idKey="stop.id" options="{icon: stop.icon}" events="vm.markerEvent"></ui-gmap-marker>
+    <ui-gmap-marker ng-repeat="stop in vm.allOtherStops" coords="stop" idKey="stop.id" options="{icon: stop.icon, animation: api.Animation.Drop}"
+      events="vm.markerEvent"></ui-gmap-marker>
+    <!--ng-if="$index >= 1"-->
+    <ui-gmap-marker coords="vm.position.coords" ng-if="vm.position != null" idKey="99999" options="{icon: vm.position.icon, zIndex:10}"></ui-gmap-marker>
+    <ui-gmap-marker coords="vm.location.coords" ng-if="vm.location != null" idKey="99990" options="{icon: vm.location.icon, zIndex:11}"></ui-gmap-marker>
+    <ui-gmap-window show="vm.show" coords="vm.coords" closeClick="vm.show=false" options="{pixelOffset: {width: 0, height: -55}}"
+      templateUrl="'infowindow.html'" templateParameter="vm.coords">
+    </ui-gmap-window>
+  </ui-gmap-google-map>
+</div>
+
+<div class="stops__block container" ng-if="vm.showList">
+  <div id="stops__closest" ng-if="vm.closestCount > 0">
+    <div class="module__divider">
+      <h4>Closest Stops</h4>
+    </div>
+    <div class="module module--wide" ng-if="vm.closestCount > 0" ng-cloak>
+      <div class="module__body--wide">
+        <div class="cell cell--clickable" 
+             ng-repeat="stop in vm.closestBusStop" 
+             ng-if="!stop.isHub" 
+             ng-click="vm.navigateToClosestStop($index)" >          
+            <div class="cell__group">
+              <span class="text text--primary">{{stop.name}}</span>
+              <address class="text text--secondary">{{stop.address}}</address>
+            </div>          
+          <!--<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+            <li class="dropdown-item">
+              <a ng-click="vm.openMapApp(vm.closestBusStop[$index])" class="send-to-app" data-tap-disabled="true">Send to Map App</a>
+            </li>
+            <li class="dropdown-item">
+              <a ng-click="vm.getDirectionsToClosestStop($index)" data-tap-disabled="true">Get Directions</a>
+            </li>
+            <li class="dropdown-item dropdown-item--book" >
+              <a class="btn btn--block btn--book" ng-click="vm.navigateToClosestStop($index)" data-tap-disabled="true">Show Schedule</a>
+            </li>
+          </ul>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="stops__all" ng-if="vm.otherCount > 0">
+    <div class="module__divider">
+      <h4>Bus Stops</h4>
+    </div>
+    <div class="module module--wide">
+      <div class="module__body--wide">
+        <div class="cell cell--clickable" 
+             ng-repeat="stop in vm.allOtherStops" 
+             ng-if="!stop.isHub"  ng-click="vm.navigateToOtherStop($index)">          
+            <div class="cell__group">
+              <span class="text text--primary">{{stop.name}}</span>
+              <address class="text text--secondary">{{stop.address}}</address>
+            </div>          
+          <!--<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+            <li class="dropdown-item text-center">
+              <a ng-click="vm.openMapApp(vm.allOtherStops[$index])" class="send-to-app" data-tap-disabled="true">Send to Map App</a>
+            </li>
+            <li class="dropdown-item text-center">
+              <a ng-click="vm.getDirectionsToOtherStop($index)" data-tap-disabled="true">Get Directions</a>
+            </li>
+            <li class="dropdown-item dropdown-item--book">
+              <a class="btn btn--block btn--book" ng-click="vm.navigateToOtherStop($index)" data-tap-disabled="true">Show Schedule</a>
+            </li>
+          </ul>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</div>
+
+<script type="text/ng-template" id="infowindow.html">
+  <div class="map-popover" ng-controller="infoWindowController">
+    <div class="header-group">
+      <p class="primary">{{parameter.name}}</p>
+      <p class="address">{{parameter.address}}</p>
+    </div>
+    <div class="button-block" ng-hide="parameter.isHub">
+      <div class="btn-group">
+        <button class="btn btn-default" ng-click="openMapApp(parameter)">
+          <span class="send-to-app">Send to App</span>
+        </button>
+        <button class="btn btn-default" ng-click="getDirectionsToSelectedStop(parameter)">Directions</button>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-reserve" ng-click="navigateToSelectedStop(parameter)">Show Schedule</button>
+      </div>
+    </div>
+  </div>
+</script>

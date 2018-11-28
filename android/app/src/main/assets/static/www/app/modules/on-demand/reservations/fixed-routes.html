@@ -1,0 +1,13 @@
+<div class="modal__content">
+    <div class="modal__header">
+        <h4 class="modal-title">Available {{vm.frInfo.alias}}(s) at {{vm.fromStopName}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="vm.cancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal__body">
+        <div class="module__group">
+            <route-card ng-repeat="schedule in vm.upcomingSchedules" route-info="schedule" pinnable="false"></route-card> 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="19px" viewBox="0 0 20 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>Star Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FBDA61" offset="0%"></stop>
+            <stop stop-color="#F76B1C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bus-schedual-myTRip" transform="translate(-874.000000, -34.000000)" stroke="#F6A623" fill="url(#linearGradient-1)">
+            <polygon id="Star-Copy" points="884 49 878.122147 52.0901699 879.244717 45.545085 874.489435 40.9098301 881.061074 39.954915 884 34 886.938926 39.954915 893.510565 40.9098301 888.755283 45.545085 889.877853 52.0901699"></polygon>
+        </g>
+    </g>
+</svg>

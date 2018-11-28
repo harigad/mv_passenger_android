@@ -1,0 +1,124 @@
+<div class="container-fluid">
+    <div class="header-group">
+        <h1 class="title">Confirmation</h1>
+        <p class="headline">Advanced Reservation</p>
+    </div>
+</div>
+
+<div class="container">
+    <!--Display the from and to location-->
+    <div class="row">
+        <div class="col">
+            <div class="module module--full">
+                <div class="module__body--full">
+                    <div class="cell">
+                        <div class="cell__group">
+                            <span class="text text--primary">From</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::vm.pickup.name}}</span>
+                            <address class="text text--secondary">{{::vm.pickup.address}}</address>
+                        </div>
+                    </div>
+
+                    <div class="cell">
+                        <div class="cell__group">
+                            <span class="text text--primary">To</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::vm.dropoff.name}}</span>
+                            <address class="text text--secondary">{{::vm.dropoff.address}}</address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="module__group module__group--week col-md-6 col-sm-12" ng-repeat="week in vm.weeksToDisplay" ng-if="week.days && week.days.length >0">
+            <div class="module__divider">
+                <h4>{{week.from}} &mdash; {{week.to}}</h4>
+            </div>
+            <div class="module module--wide" ng-repeat="day in week.days">
+                <div class="module__body--wide">
+                    <div class="cell">
+                        <div class="cell__group">
+                            <p class="text text--headline">{{::day.date | date:'EEEE'}}</p>
+                            <p class="text text--caption">{{::day.date|date:'MM/dd/yyyy'}}</p>
+                        </div>
+
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text__time--from">{{::day.trip.pickupTime}}</span>
+                            <span class="text text__time--to">{{::day.trip.dropoffTime}}</span>
+                        </div>
+                    </div>
+                    <div class="cell form-control--errors" ng-if="day.reservationFailed">
+                        <p class="text text--warning text--caption">{{day.reservationError}}</p>
+                    </div>
+                </div>
+
+                <div class="module__footer">
+                    <div class="cell" ng-if="!day.isReserved">
+                        <div class="cell__group">
+                            <div class="cell__group cell__group--list">
+                                <span class="text text--caption text--available" ng-if="(day.vehicle && day.vehicle.id)"
+                                      uib-tooltip="{{::day.vehicle.licenceplate}}">
+                                    Parking Available: <span class="text--muted">{{::day.vehicle.licenceplate}}</span>
+                                </span>
+                                <span class="text text--caption text--available" ng-if="!day.isWaitlist">Seats Available</span>
+                                <span class="text text--caption text--waitlist" ng-if="day.isWaitlist && vm.divisionAllowsWaitlist">Waitlist Only</span>
+                                <span class="text text--caption text--waitlist" ng-if="day.isWaitlist && !vm.divisionAllowsWaitlist">Seats Unavailable</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Waitlisted Trips -->
+                    <div class="cell cell--no-padding" ng-if="day.isWaitlist && day.isReserved">
+                        <div class="cell__group cell__group--flex anim--success">
+                            <svg width="30px" height="24px" viewBox="0 0 34 24">
+                                <g class="lines" stroke="#F76D1D" stroke-width="3" fill="none" fill-rule="evenodd">
+                                    <path d="M0.800003052 8.21000671 12.2927254 19.7072746 31 1 30 0 12.2927254 18 1.63999939 7.3500061z" stroke-dasharray="150"
+                                          style="stroke-dashoffset: 150px;"></path>
+                                </g>
+                            </svg>
+                            <strong class="text text--caption text--waitlist">Waitlist Confirmed</strong>
+                        </div>
+                        <div class="cell__group">
+                            <button class="btn btn--default btn--xs" ng-click="vm.showReservation(day.reservation)">
+                                Show Reservation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Available Trips -->
+                    <div class="cell cell--no-padding" ng-if="!day.isWaitlist && day.isReserved">
+                        <div class="cell__group cell__group--flex anim--success">
+                            <svg width="30px" height="24px" viewBox="0 0 34 24">
+                                <g class="lines" stroke="#417505" stroke-width="2" fill="none" fill-rule="evenodd">
+                                    <path d="M0.800003052 8.21000671 12.2927254 19.7072746 31 1 30 0 12.2927254 18 1.63999939 7.3500061z" stroke-dasharray="150"
+                                          style="stroke-dashoffset: 150px;"></path>
+                                </g>
+                            </svg>
+                            <strong class="text text--caption text--available">Reserved</strong>
+                        </div>
+                        <div class="cell__group">
+                            <button class="btn btn--default btn--xs" ng-click="vm.showReservation(day.reservation)">
+                                Show Reservation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="pos__sticky--bottom ">
+        <div class="btn__group">
+            <button class="btn btn--block btn--default" ng-click="vm.back()">Back</button>
+            <button class="btn btn--block btn--book" ng-click="vm.reserve()" ng-if="!vm.reserving">Reserve</button>
+            <button class="btn btn--block btn--primary" ng-click="vm.bookReturnTrip()" ng-if="vm.reserving && vm.schedule == 'AM'">Book Return Trip</button>
+        </div>
+    </div>
+</div>

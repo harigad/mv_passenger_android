@@ -1,0 +1,125 @@
+<div id="reservation-modal" ng-class="{'reservation__success': vm.isReserved}">
+    <div class="modal__header modal__header--book">
+        <h4 class="modal-title" ng-if="vm.isReserved">{{vm.modalSuccessText}}</h4>
+        <h4 class="modal-title" ng-if="!vm.isReserved">{{vm.modalText}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="vm.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div id="reservation-details" class="module__group">
+            <div class="module__divider">
+                <h4>Trip Details</h4>
+            </div>
+            <div class="module module--full">
+                <div class="module__body--full">
+                    <div class="cell" ng-show="vm.isReserved">
+                        <div class="cell__label">
+                            <span class="text text--label">Confirmation Number</span>
+                        </div>
+                        <div class="cell__group">
+                            <span class="text text--primary">{{vm.confirmationNumber}}</span>
+                        </div>
+                    </div>
+                    <div class="cell">
+                        <div class="cell__label">
+                            <p class="text text--label">Pickup</p>
+                            <p class="text text--secondary">{{::vm.reservationData.trip.pickupTime}}</p>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <p class="text text--primary">{{::vm.reservationData.pickupStop.name | uppercase}}</p>
+                            <p class="text text--secondary">{{::vm.reservationData.pickupStop.address}}</p>
+                        </div>
+                    </div>
+
+                    <div class="cell">
+                        <div class="cell__label">
+                            <p class="text text--label">Dropoff</p>
+                            <p class="text text--secondary">{{::vm.reservationData.trip.dropoffTime}}</p>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <p class="text text--primary">{{::vm.reservationData.dropoffStop.name | uppercase}}</p>
+                            <p class="text text--secondary">{{::vm.reservationData.dropoffStop.address}}</p>
+                        </div>
+                    </div>
+
+                    <div class="cell">
+                        <div class="cell__label">
+                            <span class="text text--label">Reservation Date</span>
+                        </div>
+                        <div class="cell__group">
+                            <span class="text text--primary">{{::vm.reservationData.reservationDate | date:'MM/dd/yyyy'}}</span>
+                        </div>
+                    </div>
+
+                    <div class="cell cell--form-group" ng-if="vm.numCompanions.length > 0">
+                        <label class="text text--label">Guests</label>
+                        <div class="form-control--input">
+                            <select ng-model="vm.selectedCompanions" ng-change="vm.updateLabels()"
+                                    ng-options="companions as companions for companions in vm.numCompanions"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="parking" class="module__group" ng-if="vm.isAMReservation">
+            <div class="module__divider">
+                <h4>Parking</h4>
+            </div>
+            <div class="module module--full">
+                <div class="module__body">
+                    <div class="cell">
+                        <div class="cell__group">
+                            <span class="text text--label">Available Parking </span>
+                        </div>
+                        <div class="cell__group">
+                            <span class="text text--label" ng-if="!vm.parkingNotAvailable">{{vm.availableParkingSlots}}</span>
+                            <div class="cell-label" ng-if="vm.parkingNotAvailable">Unavailable</div>
+                        </div>
+                    </div>
+                    <div class="cell cell--form-group" ng-if="!vm.hasVehicles">
+                        <label class="form-control--switch">
+                            <input ng-disabled="vm.isReserved" type="checkbox" ng-model="vm.needsParking">
+                            <span>Reserve Parking</span>
+                        </label>
+                    </div>
+                    <div class="cell cell--form-group" ng-if="vm.hasVehicles && vm.needsParking">
+                        <label class="text text--label">Vehicle</label>
+                        <div class="form-control--input">
+                            <select ng-model="vm.selectedVehicle"
+                                    ng-options="vehicle.licenceplate for vehicle in vm.vehicles"
+                                    ng-disabled="!vm.needsParking || vm.isReserved"
+                                    ng-change="vm.updateLabels()"></select>
+                        </div>
+                    </div>
+
+                    <div class="cell cell--clickable" data-dismiss="modal" ng-click="vm.navigateToAddVehicles();"
+                         ng-if="!vm.hasVehicles && vm.needsParking">
+                        <span class="text text--label">Add a Vehicle</span>
+                    </div>                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal__footer">
+        <div class="button-group">
+            <button type="button" class="btn btn--default btn--block" data-dismiss="modal" ng-click="vm.cancel();">
+                Close
+            </button>
+
+            <button ng-if="vm.isReserved" type="button" class="btn btn--primary btn--block " data-dismiss="modal"
+                    ng-click="vm.navigateToReservationPage();">
+                View Reservation
+            </button>
+
+            <button ng-if="!vm.isReserved"
+                    type="button" class="btn btn--book btn--block" data-dismiss="modal" ng-click="vm.reserve();"
+                    ng-disabled="vm.MakeDisable()">
+                {{vm.btnText}}
+            </button>
+        </div>
+    </div>
+</div>
+

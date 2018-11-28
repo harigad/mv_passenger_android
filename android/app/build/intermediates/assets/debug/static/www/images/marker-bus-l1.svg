@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>marker-bus-l1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M15.2413122,21.1527861 L11,26 L6.75861856,21.1527069 C2.78910959,19.4927506 0,15.5728475 0,11 C0,4.92486775 4.923532,0 11,0 C17.0751322,0 22,4.923532 22,11 C22,15.5720845 19.2113515,19.4926684 15.2413122,21.1527861 Z" id="path-1"></path>
+        <filter x="-4.5%" y="-3.8%" width="109.1%" height="115.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="marker-bus-l1">
+            <g id="bubble" transform="translate(4.000000, 2.000000)">
+                <g id="Combined-Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

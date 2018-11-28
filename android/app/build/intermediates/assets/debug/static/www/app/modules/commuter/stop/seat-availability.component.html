@@ -1,0 +1,46 @@
+<div ng-switch on="divisionAllowsWaitlist">
+    <div ng-switch-when="true">
+        <div ng-switch on="trip.totalPassengers > 0">
+            <div ng-switch-when="true">
+                <div ng-switch on="trip.isWaitlistAllowed">
+                    <div ng-switch-when="true">
+                        <div ng-switch on="trip.availableCapacity > 0">
+                            <div ng-switch-when="true">
+                                <span class="text text--secondary text--available">
+                                    Seats Available ({{trip.availableCapacity}})
+                                </span>
+                            </div>
+                            <div ng-switch-default>
+                                <span class="text text--secondary text--waitlist">
+                                    Waitlist Only ({{trip.numberOfWaitlists}})
+                                </span>
+                            </div>
+                        </div>                       
+                    </div>
+                    <div ng-switch-default>
+                        <span class="text text--secondary text--warning">
+                            Seats Unavailable
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div ng-switch-default>                
+                <span class="text text--secondary text--warning">
+                    Not In Service
+                </span>
+            </div>
+        </div>
+    </div>
+    <div ng-switch-default>
+        <!--we don't need to check for trip waitlist permission when division toggle for waitlist is off-->
+        <span class="text text--secondary text--available" ng-if="trip.availableCapacity > 0">
+            Seats Available ({{trip.availableCapacity}})
+        </span>
+        <span class="text text--secondary text--warning" ng-if="trip.availableCapacity <= 0 && trip.totalPassengers > 0">
+            Seats Unavailable
+        </span>
+        <span class="text text--secondary text--warning" ng-if="trip.availableCapacity <= 0 && trip.totalPassengers <= 0">
+            Not In Service
+        </span>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<section class="content">
+    <style>
+        html, body {
+            height: 100% !important;
+        }
+
+        .angular-google-map,
+        .angular-google-map-container {
+            height: 180px !important;
+            padding: 0;
+        }
+
+        #map-container {
+            position: fixed !important;
+            width: 100% !important;
+            top: 50px !important;
+        }
+    </style>
+
+    <!--<div id="map_canvas" style="width:100%;height:250px;"></div>-->
+    <div id="map-container">
+        <ui-gmap-google-map center='vm.center' zoom='vm.zoom' control="vm.mapControl" options="vm.mapOptions">
+            <ui-gmap-marker coords="vm.selectedStop.coords" options="vm.options" events="vm.markerEvents"
+                            idkey="10"></ui-gmap-marker>
+        </ui-gmap-google-map>
+    </div>
+
+    <div id="stops" class="content">
+        <!--<section id="stop-mast" class="container">-->
+        <div class="mast-block container">
+            <div class="row" ng-show="vm.showDirections">
+                <span class="col-xs-5">From location:</span>
+                <input class="col-xs-5" type="text" ng-model="vm.fromLocation" ng-keyup="$event.keyCode == 13 && vm.getDirection();" />
+                <button class="col-xs-2" type="button" ng-click="vm.getDirection()"><span class="glyphicon glyphicon-globe"></span></button>
+            </div>
+            <div id="schedule-block" class="row">
+                <div id="routes-panel" class="col-xs-12">
+                    <div ng-show="vm.hasStopDescription">Note: {{vm.stopDescription}}</div>
+                    <div id="directions"></div>
+                </div>
+            </div>
+        </div>
+        <!--</section>-->
+    </div>
+</section>

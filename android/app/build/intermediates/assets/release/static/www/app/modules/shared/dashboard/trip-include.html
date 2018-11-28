@@ -1,0 +1,110 @@
+<div id="slu-block" class="module" ng-repeat="inc in vm.todaysTrips track by $index"
+      ng-click="vm.showDrtTrip(inc)">
+    <div class="module__header module__header--demand">
+        <span class="module__header--title">On Demand</span>
+        <span class="module__header--date">
+            <span ng-if="vm.allowFaring">{{inc.calculatedFare | currency}} &mdash;</span> <span> {{::inc.schedPickupTime | date : 'MM/dd/yyyy'}}</span>
+        </span>
+    </div>
+    <div class="module__body module__body--carot">
+        <div class="cell cell--location">
+            <div class="cell__label">
+                <span class="text text--primary">From</span>
+            </div>
+            <div class="cell__group">
+                <p class="text text--primary">{{::inc.startName}}</p>
+                <p class="text text--secondary text-right" ng-if="inc.Status == 'Reserved'">{{inc.promiseWindowStartTime}} &mdash; {{inc.promiseWindowEndTime}}</p>
+                <p class="text text--secondary text-right" ng-if="inc.Status == 'Start'">{{inc.performPickupTime | date : 'h:mm a'}}</p>
+            </div>
+        </div>
+        <div class="cell cell--location">
+            <div class="cell__label">
+                <span class="text text--primary">To</span>
+            </div>
+            <div class="cell__group">
+                <p class="text text--primary">{{::inc.endName}}</p>
+                <p class="text text--secondary text-right" ng-if="inc.tripType != 'APPOINTMENT'">{{::inc.estimatedDestinationTime | date : 'h:mm a'}}</p>
+                <p class="text text--secondary text-right" ng-if="inc.tripType == 'APPOINTMENT'">{{::inc.schedDestinationTime | date : 'h:mm a'}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!--<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+        <li>
+            <a class="btn btn-secondary" ng-click="vm.navigate('/on-demand/my-trips','internal')">
+                My Trips
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-cancel" ng-disabled="vm.allowCancel(inc);"
+               ng-click="vm.cancelTrip(inc,$event);">
+                Cancel
+            </a>
+        </li>
+    </ul>-->
+    <!--<div class="route-item dropup" ng-repeat="inc in vm.todaysTrips track by $index" uib-dropdown>
+        <div class="dropdown-toggle clearfix" uib-dropdown-toggle is-open="status.isopen">
+            <div class="reservation-info">
+                <div class="stop-info">
+                    <div class="reservation-date clearfix">
+                        <div class="route-name">
+                            <small>TRIP DATE</small>
+                            <span>{{inc.schedPickupTime | date : 'MM/dd/yyyy'}}</span>
+                        </div>
+                        <div class="pull-right" ng-if="vm.allowFaring">
+                            <strong>{{inc.calculatedFare | currency}}</strong>
+                        </div>
+
+                    </div>
+                    <div class="from-to-block clearfix">
+                        <div class="from-group">
+                            <small>FROM</small>
+                            <p><span>{{inc.startName}}</span></p>
+                        </div>
+                        <div class="to-group">
+                            <small>TO</small>
+                            <p><span>{{inc.endName}}</span></p>
+                        </div>
+                    </div>
+                    <div class="reservation-details clearfix">
+                        <div class="window-arrival pull-left" ng-if="inc.Status == 'Reserved'">
+                            <small class="label label-default">PROMISE WINDOW</small>
+                            <span class="time">{{inc.promiseWindowStartTime}}<small> to </small>{{inc.promiseWindowEndTime}}</span>
+                        </div>
+                        <div class="window-arrival pull-left" ng-if="inc.Status == 'Start'">
+                            <small class="label label-default">PICKED UP AT</small>
+                            <span class="time">{{inc.performPickupTime | date : 'h:mm a'}}</span>
+                        </div>
+                        <div class="estimated-arrival pull-right" ng-if="inc.tripType != 'APPOINTMENT'">
+                            <small class="label label-default">DROP OFF </small>
+                            <span class="time">{{inc.estimatedDestinationTime | date : 'h:mm a'}}</span>
+                        </div>
+                        <div class="estimated-arrival pull-right" ng-if="inc.tripType == 'APPOINTMENT'">
+                            <small class="label label-default">ARRIVE BY </small>
+                            <span class="time">{{inc.schedDestinationTime | date : 'h:mm a'}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="button-group">
+                    <span class="more-options"></span>
+                </div>
+            </div>
+
+        </div>
+        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+            <li>
+                <a class="btn btn-secondary"  ng-click="vm.navigate('/on-demand/my-trips','internal')" >
+                    My Trips
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-cancel" ng-disabled="vm.allowCancel(inc);"
+                   ng-click="vm.cancelTrip(inc,$event);">
+                    Cancel
+                </a>
+            </li>
+        </ul>
+    </div>-->
+</div>
+

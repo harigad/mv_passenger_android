@@ -1,0 +1,34 @@
+<link href="/css/archive/fr-landing.css" rel="stylesheet">
+
+<style>
+    header.header__mobile{
+        background-color:rgba(255,255,255,.7)!important;
+    }
+    .header__mobile .header-group-stuck{
+        opacity: 1!important;
+    }
+</style>
+
+<section id="map-overlay" class="fixed-route__wrapper">
+    <div class="tab-group">
+        <ul>
+            <li class="stops" ng-class="{'selected': vm.optionSelection == 'stop' }"><a href ng-click="vm.optionSelection = 'stop'">Bus stops</a></li>
+            <li class="routes" ng-class="{'selected': vm.optionSelection == 'route' }"><a href ng-click="vm.optionSelection = 'route'">Routes</a></li>
+            <hr />
+        </ul>
+    </div>
+    <div id="search-form">
+        <div id="search" class="form-group form-inline" ng-click="vm.optionSelection == 'route' ? vm.gotoRoutes() : vm.gotoStops()">
+            <label><i class="i i-sm i-search"></i></label>
+            <input class="form-control" type="button" value="Where are you going today?" />
+        </div>
+    </div>
+</section>
+
+
+<div id="map-container" class="fixed-route__wrapper">
+    <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+        <ui-gmap-marker coords="vm.position.coords" idKey="99999" options="{icon: vm.position.icon, zIndex:10}"></ui-gmap-marker>
+        <!--<ui-gmap-markers models="vm.allStops" coords="'coords'" icon="'icon'"></ui-gmap-markers>-->
+    </ui-gmap-google-map>
+</div>

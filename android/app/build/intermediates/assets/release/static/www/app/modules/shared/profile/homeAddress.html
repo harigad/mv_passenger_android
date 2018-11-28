@@ -1,0 +1,91 @@
+<div ng-form="EditHomeAddressForm" name="EditHomeAddressForm" novalidate>
+	<div class="module__group">
+		<div class="module__divider"><h4>Your Home Address</h4></div>
+		<div class="module">
+			<div class="module__body">
+				<!--Address-->
+				<div class="cell cell--form-group">
+					<label class="text text--label text--required">Address</label>
+					<div class="form-control--input">
+						<input type="text" ng-model="HomeAddressSearch.Address" name="v_streetAddress" ng-disabled="!allowEditHomeAddress" required ng-required="true">
+					</div>
+				</div>
+				<div class="cell form-control--errors" ng-if="(EditHomeAddressForm.v_streetAddress.$error.required) && (EditHomeAddressForm.v_streetAddress.$touched)">
+					<span class="text text--warning text--caption">Required</span>
+				</div>
+
+				<!--Suite (Address 2)-->
+				<div class="cell cell--form-group">
+					<label class="text text--label text--required">Address 2</label>
+					<div class="form-control--input">
+						<input type="text" clearable ng-model="HomeAddressSearch.Suite"  name="v_suite" ng-disabled="!allowEditHomeAddress">
+					</div>
+				</div>
+
+				<!--City-->
+				<div class="cell cell--form-group">
+					<label for="city" class="text text--label text--required">City</label>
+					<div class="form-control--input">
+						<input type="text" clearable ng-pattern="/^[a-zA-Z '.,-]*$/" ng-model="HomeAddressSearch.City" ng-disabled="!allowEditHomeAddress" name="city" required ng-required="true">
+					</div>
+				</div>
+				<div class="cell form-control--errors" ng-if="(EditHomeAddressForm.v_city.$error.required) && (EditHomeAddressForm.v_city.$touched || submitted)">
+					<span class="text text--warning text--caption">Required</span>
+				</div>	
+
+				<!--State-->
+				<div class="cell cell--form-group">
+					<label class="text text--label text--required">State</label>
+					<div class="form-control--input">
+						<select name="v_state" required ng-required="true" ng-model="HomeAddressSearch.StateId"
+							ng-options="state.Id as (state.Name) for state in states"
+							ng-disabled="!allowEditHomeAddress">
+							<option value=""></option>
+						</select>
+					</div>
+				</div>
+				<div class="cell form-control--errors" ng-if="(EditHomeAddressForm.v_state.$error.required) && (EditHomeAddressForm.v_state.$touched || submitted)">
+					<span class="text text--warning text--caption">
+						Required
+					</span>
+				</div>
+
+				<!--State-->
+				<div class="cell cell--form-group">
+					<label for="v_zip" class="text text--label">Zip</label>
+					<div class="form-control--input">		
+						<input type="text" clearable ng-model="HomeAddressSearch.Zip" ng-disabled="!allowEditHomeAddress"
+								ng-pattern="/^((\d{5}-\d{4})|\d{5})$/" name="v_zip">
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="btn__group" ng-if="allowEditHomeAddress">
+			<button id="btnGoogleSearch" type="button" class="btn btn--primary" ng-click="GoogleSearch()" ng-disabled="(EditHomeAddressForm.$pristine || EditHomeAddressForm.$invalid)" data-tap-disabled="true">SEARCH</button>
+		</div>
+	</div>
+
+	<!--GOOGLE SEARCH SECTION-->
+	<div class="module__group" ng-if="hasHomeAddress">
+		<div class="module__divider"><h4>Confirm Your Address</h4></div>
+		<div class="module">
+			<div class="module__body">
+				<div class="cell cell--form-group" ng-repeat="location in googleLocations">
+					<label class="form-group--radio">
+						<div class="form-control--radio">
+							<input type="radio" name="googleLocation"
+							ng-model="HomeAddress.GooglePlaceId"
+							ng-value="location.GooglePlaceId"
+							ng-change="SelectedHomeAddress(location)" />
+							<span>{{location.Name}}</span>
+						</div>
+					</label>
+				</div>
+			</div>			
+		</div>
+		<div class="btn__group">
+			<button id="btnSubmit" type="submit" class="btn btn--primary btn--block" ng-click="UpdateHomeAddress()"
+			ng-disabled="invalid">Confirm</button>
+		</div>
+	</div>				
+</div>

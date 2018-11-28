@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="7px" height="22px" viewBox="0 0 7 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>g-back</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Header" transform="translate(-10.000000, -10.000000)" fill="#FFFFFF">
+            <g id="g-back">
+                <path d="M20.5,24 L24,24 L13.5,18 L3,24 L6.5,24 L13.5,20 L20.5,24 Z" transform="translate(13.500000, 21.000000) rotate(-90.000000) translate(-13.500000, -21.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

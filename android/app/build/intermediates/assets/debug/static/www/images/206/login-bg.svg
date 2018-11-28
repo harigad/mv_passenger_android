@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300px" height="291px" viewBox="0 0 300 291" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>login-bg</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FAD961" offset="0%"></stop>
+            <stop stop-color="#F76B1C" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="0%" x2="101.999998%" y2="100.999999%" id="linearGradient-2">
+            <stop stop-color="#3023AE" offset="0%"></stop>
+            <stop stop-color="#C86DD7" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="login-bg">
+            <polygon id="Path" fill="url(#linearGradient-1)" points="300 0.0548363268 300 291 0 291 0 0.0548363268"></polygon>
+            <polygon id="Path" fill="#4A90E2" points="300 0.0548363268 300 109.181818 0 291 0 0.0548363268"></polygon>
+            <polygon id="Path" fill="url(#linearGradient-2)" points="137 0.0548363268 0 291 0 0.0548363268"></polygon>
+        </g>
+    </g>
+</svg>

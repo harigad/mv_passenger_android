@@ -1,0 +1,65 @@
+<div class="modal__content modal__content--fs">
+    <div class="modal__header modal__header--vehicle">
+        <h4 class="modal-title">Add New Vehicle</h4>
+        <button type="button" class="btn--back" data-dismiss="modal" aria-label="Close" ng-click="vm.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal__body">
+        <form name="formVehicleAdd" id="formVehicleAdd"  novalidate>
+            <div class="alert alert-danger" ng-show="vm.showMessage"><small>{{vm.message}}</small></div>
+            <div class="module module--wide">
+                <div class="module__body module__body--wide"> 
+                    <div class="cell form-control--input">            
+                            <label for="imodel" class="text text--label text--required">Year</label>   
+                            <input ng-model="vm.vehicleInfo.year" ng-pattern="/^(19|20)[0-9][0-9]$/"                                    
+                                    type="text" required/>    
+                                   
+                    </div>
+                    <div class="cell form-control--errors"  ng-if="!vm.isYearValid()">
+                        <detail class="text text--warning text--caption">Invalid Year</detail>
+                    </div>
+                    <div class="cell form-control--errors"  ng-if="formVehicleAdd.imodel.$error.required && formVehicleAdd.imodel.$touched">
+                        <detail class="text text--warning text--caption">Required</detail>
+                    </div>
+                    <div class="cell form-control--input">
+                            <label for="make" class="text text--label text--required">Make</label>
+                            <input type="text" ng-model="vm.vehicleInfo.make" maxlength="15" name="make" required />
+                    </div>
+                    <div class="cell form-control--errors"  ng-if="formVehicleAdd.make.$error.required && formVehicleAdd.make.$touched">
+                            <detail class="text text--warning text--caption">Required</detail>
+                        </div>
+                    <div class="cell form-control--input">
+                            <label for="model" class="text text--label text--required">Model</label>
+                            <input type="text"  ng-model="vm.vehicleInfo.model" maxlength="15" required name="model" />   
+                    </div>
+                    <div class="cell form-control--errors" ng-if="formVehicleAdd.model.$error.required && formVehicleAdd.model.$touched">
+                            <detail class="text text--warning text--caption">Required</detail>
+                    </div>
+
+                    <div class="cell form-control--input">
+                            <label for="color" class="text text--label text--required">Color</label>
+                            <input type="text"  ng-model="vm.vehicleInfo.color" maxlength="15" name="color" required />      
+                    </div>
+                    <div class="cell form-control--errors"  ng-if="formVehicleAdd.color.$error.required && formVehicleAdd.color.$touched">
+                            <detail class="text text--warning text--caption">Reuqired</detail>
+                    </div>
+                    <div class="cell form-control--input">
+                            <label for="plateNum" class="text text--required text--label">Plate #</span></label>
+                            <input type="text"  ng-model="vm.vehicleInfo.licencePlate" maxlength="10" name="plateNum" required />    
+                    </div>
+                    <div class="cell form-control--errors"  ng-if="formVehicleAdd.plateNum.$error.required && formVehicleAdd.plateNum.$touched">
+                            <detail class="text text--warning text--caption">Required</detail>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal__footer">
+        <button type="button" class="btn btn--primary btn--block" ng-disabled="!formVehicleAdd.$valid || vm.isSaving"
+                data-dismiss="modal" ng-click="vm.save()">
+            {{vm.isSaving? "Adding Vehicle" : "Add Vehicle"}}
+        </button>
+    </div>
+</div>

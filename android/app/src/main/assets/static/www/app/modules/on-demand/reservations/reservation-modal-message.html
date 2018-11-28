@@ -1,0 +1,11 @@
+<div class="modal__content">
+    <div class="modal__header">
+        <h4 class="modal-title">{{vm.header}}</h4>
+        <button class="btn--back" data-dismiss="modal" aria-label="Close" ng-click="vm.cancel()">
+                <span aria-hidden="true">Back</span>
+            </button>
+    </div>
+    <div class="modal__body">
+        <div dynamic="vm.msg"></div>
+    </div>
+</div>

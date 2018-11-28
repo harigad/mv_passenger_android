@@ -1,0 +1,142 @@
+<div class="container-fluid">
+    <div class="header-group">
+        <h1 class="title" ng-cloak>My Trips</h1>
+        <p class="headline" ng-cloak>Commuter</p>
+    </div>
+</div>
+    
+    <div class="container">
+    <div class="row">
+        <div class="module__group col-md-6" ng-repeat="trip in vm.pastTrips">
+            <div class="module" ng-click="vm.showTripDetails(trip)">
+                <div class="module__header module__header--commuter module__header--{{trip.status | lowercase}}">
+                    <span class="module__header--title">{{::trip.status}} - {{::trip.confirmationNumber}}</span>
+                    <span class="module__header--date">{{::trip.reservationDate | date:'MM/dd/yyyy'}} @ {{::trip.pickupTime}}</span>
+                </div>
+                <div class="module__body module__body--carot">
+                    <div class="cell cell--location">
+                        <div class="cell__label">
+                            <span class="text text--primary">From</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::trip.pickupStopName}}</span>
+                            <address class="text text--secondary">{{::trip.pickupAddress}}</address>
+                        </div>
+                    </div>
+                    <div class="cell cell--location">
+                        <div class="cell__label">
+                            <span class="text text--primary">To</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::trip.dropoffStopName}}</span>
+                            <address class="text text--secondary">{{::trip.dropoffAddress}}</address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <div class="module__group col-12" ng-if="vm.todaysTrips.length > 0">
+            <div class="module__divider">
+                <h4>Today's Trips</h4>
+            </div>
+        </div>
+        <div class="module__group col-md-6" ng-repeat="trip in vm.todaysTrips">
+            <div class="module" ng-click="vm.showTripDetails(trip)">
+                <div class="module__header module__header--commuter module__header--{{trip.status | lowercase}}">
+                    <span class="module__header--title">{{::trip.status}} - {{::trip.confirmationNumber}}</span>
+                    <span class="module__header--date">{{::trip.reservationDate | date:'MM/dd/yyyy'}} @ {{::trip.pickupTime}}</span>
+                </div>
+                <div class="module__body module__body--carot">
+                    <div class="cell cell--location">
+                        <div class="cell__label">
+                            <span class="text text--primary">From</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::trip.pickupStopName}}</span>
+                            <address class="text text--secondary">{{::trip.pickupAddress}}</address>
+                        </div>
+                    </div>
+                    <div class="cell cell--location">
+                        <div class="cell__label">
+                            <span class="text text--primary">To</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::trip.dropoffStopName}}</span>
+                            <address class="text text--secondary">{{::trip.dropoffAddress}}</address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </div>
+
+    <div class="row">
+        <div class="module__group col-12" ng-if="vm.pastTrips.length > 0">
+            <div class="module__divider">
+                <h4>Past Trips</h4>
+            </div>
+        </div>
+        <div class="module__group col-12" ng-if="vm.futureTrips.length > 0">
+            <div class="module__divider">
+                <h4>Upcoming Trips</h4>
+            </div>
+        </div>
+        <div class="module__group col-md-6" ng-repeat="trip in vm.futureTrips">
+            <div class="module" ng-click="vm.showTripDetails(trip)">
+                <div class="module__header module__header--commuter module__header--{{trip.status | lowercase}}">
+                    <span class="module__header--title">{{::trip.status}} - {{::trip.confirmationNumber}}</span>
+                    <span class="module__header--date">{{::trip.reservationDate | date:'MM/dd/yyyy'}} @ {{::trip.pickupTime}}</span>
+                </div>
+                <div class="module__body module__body--carot">
+                    <div class="cell cell--location">
+                        <div class="cell__label">
+                            <span class="text text--primary">From</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::trip.pickupStopName}}</span>
+                            <address class="text text--secondary">{{::trip.pickupAddress}}</address>
+                        </div>
+                    </div>
+                    <div class="cell cell--location">
+                        <div class="cell__label">
+                            <span class="text text--primary">To</span>
+                        </div>
+                        <div class="cell__group cell__group--align-right">
+                            <span class="text text--primary">{{::trip.dropoffStopName}}</span>
+                            <address class="text text--secondary">{{::trip.dropoffAddress}}</address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>       
+       
+    </div>
+
+    <div class="row">
+        <div class="module__group" ng-if="vm.loading">
+            <div id="loader">
+                <div class="loading-block">
+                    <span class="spinner-lg"></span>
+                    <span class="spinner-sm"></span>
+                </div>
+                <p class="text-center">UPDATING</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="module__group col-sm-12">
+            <div class="module" ng-if="vm.totalTripsCount == 0">
+                <div class="module__body">
+                    <div class="cell">
+                        <p class="text text--primary">You do not have any commuter reservations.</p>
+                    </div>
+                </div>
+                <div class="module__footer">
+                    <div class="cell cell--align-end">
+                        <a href="#/commuter/adv-schedule-setup" class="text text--link text--clickable">Create a Reservation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

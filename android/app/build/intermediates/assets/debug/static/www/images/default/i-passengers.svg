@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>i-passengers</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M10.4380556,8.9225641 C11.7922222,8.15333333 12.6666667,6.63512821 12.6666667,5.23076923 C12.6666667,3.23051282 10.8958333,1 8.5,1 C6.10416667,1 4.33333333,3.23051282 4.33333333,5.23076923 C4.33333333,6.63512821 5.20777778,8.15333333 6.56194444,8.9225641 C3.35472222,9.71205128 1,12.4233333 1,15.6153846 C1,15.8266667 1.18777778,16 1.41666667,16 L15.5833333,16 C15.8122222,16 16,15.8266667 16,15.6153846 C16,12.4233333 13.6452778,9.71205128 10.4380556,8.9225641 L10.4380556,8.9225641 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-1" y="-1" width="17" height="17">
+            <rect x="0" y="0" width="17" height="17" fill="white"></rect>
+            <use xlink:href="#path-1" fill="black"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="i-passengers" stroke="#9B9B9B" stroke-width="2">
+            <use id="icon_companion" mask="url(#mask-2)" xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

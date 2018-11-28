@@ -1,0 +1,140 @@
+<div class="container-fluid">    
+    <div class="header-group">
+        <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+        <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+    </div>
+    <div class="row" ng-cloak>
+        <div class="mast__map col-lg-6" aria-hidden="true">
+            <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' options="vm.map.mapOptions"
+                                control="vm.map.control">             
+                <ui-gmap-marker ng-repeat="marker in vm.markers"
+                                coords="marker"
+                                options="{icon: marker.icon, zIndex:10}"
+                                idkey="10" events="vm.map.markerEvent"></ui-gmap-marker>
+
+                <ui-gmap-window show="vm.show" coords="vm.coords" closeClick="vm.show=false"
+                                options="{pixelOffset: {width: 5, height: -55}}"
+                                templateUrl="'infowindow.html'" templateParameter="vm.coords">
+
+            </ui-gmap-google-map>
+        </div>
+        <div class="col-lg">
+            <div class="module module--wide" ng-if="vm.specialEvent && !vm.companionAllowed">
+                <div class="module__body--wide">
+                    <div class="cell">
+                        {{vm.specialEvent.description}}
+                    </div>
+                    <div class="cell">
+                        <button class="btn btn--default" ng-click="vm.selectGuestDay()">
+                            Navigate To Guest Day
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module module--full module--mast">
+                <div class="module__body--full">
+                    <div class="cell cell--form-group">
+                        <div class="form-group--label">
+                            <span class="text text--label">Time of day</span>
+                        </div>
+                        <div class="form-group--toggle">
+                            <label for="time-of-day--am" class="form-control--toggle">
+                                <input id="time-of-day--am" type="radio" name="time-of-day" value="AM" ng-model="vm.selectedSchedule" />
+                                <span class="text text--primary">Morning</span>
+                            </label>
+                            <label for="time-of-day--pm" class="form-control--toggle">
+                                <input id="time-of-day--pm" type="radio" name="time-of-day" value="PM" ng-model="vm.selectedSchedule" />
+                                <span class="text text--primary">Evening</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="cell cell--form-group">
+                        <div class="form-control--input">
+                            <label for="select_hub" class="text text--label" ng-if="vm.selectedSchedule =='AM'">Destination</label>
+                            <label for="select_hub" class="text text--label" ng-if="vm.selectedSchedule =='PM'">Source</label>
+                            <select name="select-hubs" id="select_hub" ng-model="vm.selectedHub"
+                                    ng-options="hub.name for hub in vm.hubs track by hub.name"></select>
+                        </div>
+                    </div>
+                    <div class="cell cell--form-group">   
+                            <div class="form-control--input">
+                            <label class="text text--label" for="from_dt">Date</label>
+                            <input type="text"
+                                   ng-model="vm.selectedReservationDate"
+                                   ng-change="vm.dateChanged()"
+                                   ng-click="vm.openCalendar()"
+                                   id="from_dt" name="from_dt"
+                                   uib-datepicker-popup="MM/dd/yy"
+                                   is-open="vm.calendar.opened"
+                                   show-button-bar="true"
+                                   ng-required="false"
+                                   datepicker-options="vm.calendar.dateOptions"
+                                   datepicker-append-to-body="true"
+                                   close-text="Close"
+                                   ng-readonly="true" />
+                            </div>
+                    </div>
+                    <div class="cell cell--text">
+                        <label class="form-control--input">
+                            <span class="text text--primary">Parking</span>
+                            <span class="text text--primary text--available"
+                                  ng-if="vm.selectedSchedule == 'AM' &&  vm.availableParking > 0 && vm.isPassengerLoggedIn">
+                                Parking Available ({{vm.availableParking}})
+                            </span>
+                            <span class="text text--primary text--na"
+                                  ng-if="(vm.availableParking <= 0 || vm.selectedSchedule == 'PM')">
+                                Parking Unavailable
+                            </span>
+                        </label>
+                    </div>
+                    <div class="cell cell--form-group" ng-if="vm.hasReservation">
+                        <label class="form-control--input">                            
+                            <button class="btn btn--block btn--primary" ng-click="vm.viewReservation()">
+                                Show Reservation
+                            </button>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module module--wide">
+                <div class="module__body--wide"  ng-switch="vm.nonPerformedTrips.length">  
+                    <div ng-switch-default class="cell cell--clickable modal-trigger" ng-repeat="trip in vm.nonPerformedTrips"
+                         ng-click="vm.reserve(trip)" ng-class="{'status--reserved': trip.tripId === vm.passengerReservation.tripId}">                             
+                            <non-performed-trip-component trip="trip" division-allows-waitlist="vm.divisionAllowsWaitlist"></non-performed-trip-component>                                                  
+                        </div>
+                        <div class="cell" ng-switch-when="0">
+                            <span>No schedules available</span>
+                        </div>
+                </div>
+            </div>
+
+            <div class="module module--wide">
+                <div class="module__body module__body--wide">
+                    <div class="cell">
+                        <button class="btn btn--primary btn--block btn--sm" ng-click="vm.openMapApp()">
+                        Open in Map App
+                        </button>
+                    </div>
+                    <div class="cell">
+                        <button class="btn btn--primary btn--block btn--sm" ng-click="vm.getDirectionsToSelectedStop()">
+                        Show Directions
+                        </button>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>        
+    </div>
+</div>
+<script type="text/ng-template" id="infowindow.html">
+    <div class="map-popover">
+        <div class="header-group">
+            <p class="primary">{{parameter.name}}</p>
+            <p class="address">{{parameter.address}}</p>
+        </div>
+    </div>
+</script>
+

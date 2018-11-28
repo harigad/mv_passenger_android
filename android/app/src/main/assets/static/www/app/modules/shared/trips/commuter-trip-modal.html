@@ -1,0 +1,165 @@
+<div class="modal__content modal__content--fs">
+    <div class="modal__header modal__header--trip">
+        <button class="btn--back" ng-click="vm.close();" aria-label="Close" data-dismiss="modal">Back</button>
+    </div>
+
+    <div class="modal__body modal__body--trip">
+
+        <div class="mast__map mast__map--modal" ng-show="vm.details == true">
+            <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' options="vm.map.mapOptions"
+                                control="vm.map.control">
+                <ui-gmap-marker ng-repeat="marker in vm.markers"
+                                coords="marker"
+                                options="{icon: marker.icon, zIndex:10}"
+                                idkey="10" events="vm.map.markerEvent"></ui-gmap-marker>
+
+                <ui-gmap-window show="vm.show" coords="vm.coords" closeClick="vm.show=false"
+                                options="{pixelOffset: {width: 5, height: -55}}"
+                                templateUrl="'infowindow.html'" templateParameter="vm.coords">
+            </ui-gmap-google-map>
+        </div>
+
+        <div class="mast__qr mast__qr--modal" ng-show="vm.reservationInfo.isActive && !vm.isWaitlisted && !vm.details">
+            <div ng-show="!vm.reservationInfo.encryptedId">QR Code Unavailable</div>
+            <div id="ticketQRcode" class="qr-codex" title=''></div>
+        </div>
+
+        <div class="module module--full module--mast ">
+            <div class="module__body--full">
+                <div class="cell" ng-if="!vm.isWaitlisted && vm.reservationInfo.isActive">
+                    <div class="tabs">
+                        <button class="btn__tab" ng-class="{'active' : vm.details == true}"
+                                ng-click="vm.details = true;">
+                            Details
+                        </button>
+                        <button class="btn__tab text-center" ng-class="{'active' : vm.details !== true}"                                
+                                ng-click="vm.details = false;" ng-disabled='!vm.reservationInfo.isActive'>
+                            Ticket
+                        </button>
+                    </div>
+                </div>
+                <div class="cell" ng-show="!vm.reservationInfo.isActive && vm.reservationInfo.allowEditing">
+                    <p class="text text--caption text--warning text-center">NOT IN SERVICE</p>
+                </div>
+                <div class="cell">
+                    <div class="cell__label">
+                        <span class="text text--primary">From</span>
+                    </div>
+                    <div class="cell__group cell__group--align-right">
+                        <span class="text text--primary">
+                            {{::vm.reservationInfo.pickupStopName}}
+                        </span>
+                        <address class="text text--secondary">
+                            {{::vm.reservationInfo.pickupAddress}}
+                        </address>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="cell__label">
+                        <span class="text text--label">To</span>
+                    </div>
+                    <div class="cell__group cell__group--align-right">
+                        <span class="text text--primary">
+                            {{::vm.reservationInfo.dropoffStopName}}
+                        </span>
+                        <address class="text text--secondary">
+                            {{::vm.reservationInfo.dropoffAddress}}
+                        </address>
+                    </div>
+                </div>
+                <div class="cell" ng-if="vm.reservationInfo.companions >0">
+                    <div class="cell__label">
+                        <span class="text text--label">Guests</span>
+                    </div>
+                    <div class="cell__group cell__group--align-right">
+                        <span class="text text--primary">
+                            {{::vm.reservationInfo.companions}}
+                        </span>                        
+                    </div>
+                </div>
+                <div class="cell" ng-if="vm.reservationInfo.scheduleType == 'AM'">
+                    <span class="text text--label">Vehicle</span>
+                    <span class="text text--primary">
+                        <span ng-if="vm.reservationInfo.vehicleId">{{vm.reservationInfo.licenceplate}}</span>
+                        <span ng-if="!vm.reservationInfo.vehicleId">N/A</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="module__divider">
+            <h4>Trip Details - {{vm.reservationInfo.status | uppercase}}</h4>
+        </div>
+        <div class="module module--full">
+            <div class="module__body--full">
+                <div class="cell">
+                    <div class="cell__group">
+                        <p class="text text--caption">Block</p>
+                        <p class="text text--primary">{{vm.reservationInfo.routeName}}</p>
+                    </div>
+                </div>
+
+                <div class="cell" ng-if="vm.reservationInfo.isActive">
+                    <div class="cell__group">
+                        <p class="text text--caption">BIN ID</span>
+                        <p class="text text--primary">{{vm.reservationInfo.boardingNumber}}</span>
+                    </div>
+                </div>
+
+                <div class="cell">
+                    <div class="cell__group">
+                        <p class="text text--caption">Scheduled</p>
+                        <p class="text text--primary">
+                            {{::vm.reservationInfo.reservationDate | date:'MM/dd/yyyy'}} @ {{vm.reservationInfo.pickupTime}}
+                        </p>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="cell__group">
+                        <p class="text text--caption">Confirmation</p>
+                        <p class="text text--primary">{{vm.reservationInfo.confirmationNumber}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="module module--full"  ng-if="vm.reservationInfo.boarded">
+            <div class="module__body--full">               
+
+                <div class="cell stars">
+                    <div class="stars__content" uib-rating ng-model="vm.selectedRating" max="5"
+                         read-only="!vm.canRateTrip()"
+                         readOnly="!vm.canRateTrip()"
+                         ng-click="vm.showRatingModal()">
+                    </div>
+                </div>
+                <div class="cell" ng-if="vm.reservationInfo.feedbackComment != null">
+                    <div class="text text--caption">Comments:</div>
+                    <div class="text text--primary">{{vm.reservationInfo.feedbackComment}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal__footer">
+        <div class="btn__group">
+            <button class="btn btn--cancel btn--block" ng-click="vm.cancel()"
+                    ng-if="vm.reservationInfo.allowEditing || vm.isWaitlisted">
+                Cancel Reservation
+            </button>
+            <button class="btn btn--default btn--block" ng-click="vm.modifyReservation()"
+                    ng-if="vm.reservationInfo.allowEditing">
+                Modify Reservation
+            </button>
+            <hr />
+            <button class="btn btn--dedault btn-block" ng-click="vm.close()">Back</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="infowindow.html">
+    <div class="map-popover">
+        <div>
+            <p class="primary">{{parameter.name}}</p>
+            <p class="address">{{parameter.address}}</p>
+        </div>
+    </div>
+</script>

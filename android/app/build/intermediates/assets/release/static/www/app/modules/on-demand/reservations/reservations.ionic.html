@@ -1,0 +1,25 @@
+<ion-view class="is-reservations">
+
+    <!--
+        This template is here because we want to have the 'from' and 'to' drop down
+        scroll on the mobile app. Setting overflow-scroll="true"
+        allows this to happen. Do not remove. Kevin
+        -->
+    <!-- 
+        #ionContent.keyboard-up is here to stop the white background on the keyboard in iOS.
+        Once again, I have to do silly stuff to get the keyboard to work in iOS.
+    -->
+        <style>
+            #ionContent .scroll{
+                -webkit-transform: translate3d(0,1px,0);
+            }
+            #ionContent.keyboard-up{
+                height:100vh!important;
+            }
+            </style>
+    <ng-include src="'app/shared/ionic/ionic-header-partial.html'"></ng-include>
+    <ion-content id="ionContent" overflow-scroll="true" direction="xy" >
+        <div class="{{vm.ionicCustomClassName}}" ng-include="vm.ionicInclude"></div>
+    </ion-content>
+</ion-view>
+

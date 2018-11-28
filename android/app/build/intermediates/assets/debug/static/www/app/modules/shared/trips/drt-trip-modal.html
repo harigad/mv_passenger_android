@@ -1,0 +1,229 @@
+<div class="modal__content modal__content--fs">
+  <div class="modal__header modal__header--trip">
+    <button class="btn--back" ng-click="vm.closeModal();">Back</button>
+  </div>
+  <!-- Body Start -->
+  <div class="modal__body modal__body--trip">
+
+    <!-- Map -->
+    <div class="mast__map mast__map--modal">
+      <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' options="vm.map.mapOptions" control="vm.map.control">
+        <ui-gmap-marker ng-repeat="marker in vm.markers" coords="marker" options="{icon: marker.icon, zIndex:10}" idkey="10" events="vm.map.markerEvent"></ui-gmap-marker>
+        <ui-gmap-window show="vm.show" coords="vm.coords" closeClick="vm.show=false" options="{pixelOffset: {width: 5, height: -55}}"
+          templateUrl="'infowindow.html'" templateParameter="vm.coords">
+      </ui-gmap-google-map>
+    </div>
+
+    <!-- Location -->
+    <div class="module__group">
+      <div class="module module--full module--mast">
+        <div class="module__body--full ">
+          <!--PICK-->
+          <div class="cell">
+            <div class="cell__group">
+              <p class="text text--label">From</p>
+            </div>
+            <div class="cell__group cell__group--align-right">
+              <p class="text text--primary">{{vm.passengerTrip.startName}}</p>
+              <p class="text text--secondary">{{vm.passengerTrip.startAddress}}</p>
+            </div>
+          </div>
+
+          <!--DROP-->
+          <div class="cell">
+            <div class="cell__group">
+              <span class="text text--label">To</span>
+            </div>
+            <div class="cell__group cell__group--align-right">
+              <p class="text text--primary">{{vm.passengerTrip.endName}}</p>
+              <p class="text text--secondary">{{vm.passengerTrip.endAddress}}</p>
+            </div>
+          </div>
+
+          <!--PickNotes-->
+          <div class="cell" ng-if="vm.options.allowLocationNotes && vm.passengerTrip.fromLocationNote">
+            <div class="cell__group">
+              <span class="text--label">Pick up note</span>
+            </div>
+            <div class="cell__group">
+              <span class="text--primary">{{vm.passengerTrip.fromLocationNote}}</span>
+            </div>
+          </div>
+
+          <!--DropNotes-->
+          <div class="cell" ng-if="vm.options.allowLocationNotes && vm.passengerTrip.toLocationNote">
+            <div class="cell__group">
+              <span class="text--label">Drop off note</span>
+            </div>
+            <div class="cell__group">
+              <span class="text--primary">{{vm.passengerTrip.toLocationNote}}</span>
+            </div>
+          </div>
+
+          <!--Promise-->
+        </div>
+      </div>
+    </div>
+
+    <!-- Departure -->
+    <div class="module__group">
+      <div class="module__divider">
+        <h4>Departure Details</h4>
+      </div>
+      <div class="module module--full">
+        <div class="module__body--full">
+          <div class="cell" ng-if="vm.passengerTrip.tripType == 'APPOINTMENT'">
+            <div class="cell__group">
+              <p class="text text--caption">Scheduled</p>
+              <p class="text text--primary">{{vm.passengerTrip.schedPickupTime | date: 'MM/dd/yyyy, hh:mm a'}}</p>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="cell__group">
+              <p class="text text--caption">Promise Window</p>
+              <p class="text text--primary">{{vm.passengerTrip.promiseWindowStartTime | date: 'h:mm a'}} - {{vm.passengerTrip.promiseWindowEndTime| date: 'h:mm a'}}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrival -->
+    <div class="module__group" ng-if="vm.passengerTrip.schedDestinationTime || passengerTrip.schedDestinationTime | date: 'h:mm a' || vm.passengerTrip.performDropoffTime || vm.passengerTrip.estimatedDestinationTime || vm.passengerTrip.estimatedDestinationTime">
+      <div class="module__divider">
+        <h4>Arrival Details</h4>
+      </div>
+      <div class="module module--full">
+        <div class="module__body--full">
+          <div class="cell" ng-if="vm.passengerTrip.tripType == 'APPOINTMENT' &&  vm.passengerTrip.Status != 'End' && vm.passengerTrip.Status != 'Cancel' && vm.passengerTrip.Status != 'No-show' && vm.passengerTrip.schedDestinationTime">
+            <div class="cell__label">
+              <span class="text text--primary">Arrive by</span>
+            </div>
+            <div class="cell__group">
+              <span class="text text--primary">{{vm.passengerTrip.schedDestinationTime | date: 'h:mm a'}}</span>
+            </div>
+            
+          </div>
+          <div class="cell" ng-if="vm.passengerTrip.Status == 'End' && vm.passengerTrip.performDropoffTime">
+            <div class="cell__label">
+              <span class="text text--label">Arrived</span>
+              <span class="text text--primary">{{vm.passengerTrip.performDropoffTime | date: 'h:mm a'}}</span>
+            </div>
+          </div>
+          <div class="cell" ng-if="vm.passengerTrip.tripType != 'APPOINTMENT' && vm.passengerTrip.Status == 'Start' && vm.passengerTrip.estimatedDestinationTime">
+            <div class="cell__label">
+              <span class="text text--label">Estimated</span>
+            </div>
+            <div class="cell__group">
+              <span class="text text--primary">{{vm.passengerTrip.estimatedDestinationTime | date: 'h:mm a'}}</span>
+            </div>
+          </div>
+          <div class="cell" ng-if="vm.passengerTrip.tripType != 'APPOINTMENT' && vm.passengerTrip.Status != 'Start' && vm.passengerTrip.Status != 'End' && vm.passengerTrip.Status != 'Cancel' && vm.passengerTrip.Status != 'No-show' && vm.passengerTrip.performDropoffTime == null">
+            <div class="cell__label">
+              <span class="text text--label">Estimated Arrival</span>
+            </div>
+            <div class="cell__group">{{vm.passengerTrip.estimatedDestinationTime | date: 'h:mm a'}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passenger Info -->
+    <div class="module__group">
+      <div class="module__divider">
+        <h4>Passenger Information</h4>
+      </div>
+      <div class="module module--full">
+        <div class="module__body--full">
+          <div class="cell" ng-if="vm.options.allowMultipleSeatBooking">
+            <div class="cell__group">
+              <span class="text text--label">Passengers</span>
+            </div>
+            <div class="cell__group cell__group--align-right">
+              <span class="text text--primary">{{vm.passengerTrip.totalNumberOfPassengers}}</span>
+            </div>
+          </div>
+          <div class="cell" ng-if="vm.passengerTrip.NumberOfCompanions > 0">
+            <div class="cell__group">
+              <span class="text text--label" ng-if="!vm.options.allowChildren">Companions</span>
+              <span class="text text--label" ng-if="vm.options.allowChildren">Children</span>
+            </div>
+            <div class="cell__group cell__group--align-right">
+              <span class="text text--primary">{{vm.passengerTrip.NumberOfCompanions}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accessability -->
+      <div class="module__group" ng-if="vm.passengerTrip.handicapped || vm.passengerTrip.NumberOfPCAs > 0 || vm.passengerTrip.handicapped > 0  || vm.passengerTrip.NumberOfPCAs > 0 || vm.passengerTrip.NumberOfServiceAnimals > 0 || (vm.passengerTrip.numberOfXLWheelChairs && vm.passengerTrip.numberOfXLWheelChairs > 0) || (vm.passengerTrip.numberOfWalkers && vm.passengerTrip.numberOfWalkers > 0) || (vm.passengerTrip.numberOfScooters && vm.passengerTrip.numberOfScooters > 0) || (vm.passengerTrip.NumberOfBikes && vm.passengerTrip.NumberOfBikes > 0)">
+        <div class="module__divider">
+        <h4>Options</h4>
+        </div>
+        <div class="module module--full">
+        <div class="module__body--full">
+            <div class="cell">
+            <div class="cell__label align-self-start">
+                <span class="text text--primary">Accessibility</span>
+            </div>
+            <div class="cell__group">
+                <p class="text text--primary" ng-if="vm.passengerTrip.handicapped> 0">Wheelchair</p>
+                <p class="text text--primary" ng-if="vm.passengerTrip.numberOfXLWheelChairs && vm.passengerTrip.numberOfXLWheelChairs > 0">XL Wheelchair</p>
+                <p class="text text--primary" ng-if="vm.passengerTrip.numberOfWalkers && vm.passengerTrip.numberOfWalkers > 0">Walker</p>
+                <p class="text text--primary" ng-if="vm.passengerTrip.numberOfScooters && vm.passengerTrip.numberOfScooters > 0">Scooter</p>
+                <p class="text text--primary" ng-if="vm.passengerTrip.NumberOfBikes > 0">Bike</p>
+                <p class="text text--primary" ng-if="vm.passengerTrip.NumberOfPCAs > 0">Personal Care Assistant</p>
+                <p class="text text--primary" ng-if="vm.passengerTrip.NumberOfServiceAnimals > 0">Service Animal</p>
+                
+                
+            </div>
+            </div>
+        </div>
+        </div>
+      </div>
+      <!-- Trip rating for completed trips -->
+      <div class="module__group"  ng-if="vm.displayRatingOption()">
+        <div class="module module--full">
+          <div class="module__body--full">
+            <div class="cell">
+              <star-rating-directive options="{{vm.options}}" trip-info="vm.passengerTrip" allow-trip-rating="{{true}}">
+              </star-rating-directive>
+            </div>
+            <div class="cell" ng-if="vm.passengerTrip.ratingComment">
+              <span class="text text--label">Comment</span>
+              <span class="text text--primary">{{vm.passengerTrip.ratingComment}}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="module__footnote module__footnote--full d-flex justify-content-between">
+        <span class="text text--caption">Reserved at</span>
+        <span class="text text--caption">{{vm.passengerTrip.CreatedDate | date: 'MM/dd/yyyy, hh:mm a'}}</span>
+      </div>
+      <!--Additional-->
+    </div>
+
+    <div class="modal__footer">
+      <div class="btn__group btn__group--bottom">
+        <button class="btn btn--block btn--cancel" ng-if="vm.passengerTrip.Status === 'Reserved' && vm.serviceDate <= vm.passengerTrip.serviceDate"
+          ng-click="vm.cancel()" ng-disabled="vm.passengerTrip.isCancelling">
+          {{vm.passengerTrip.isCancelling?"Cancelling Trip":"Cancel Trip"}}
+        </button>
+        <button class="btn btn--block btn--default" ng-click="vm.closeModal();">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="infowindow.html">
+    <div class="map-popover">
+      <div>
+        <p class="primary">{{parameter.name}}</p>
+        <p class="address">{{parameter.address}}</p>
+      </div>
+    </div>
+  </script>

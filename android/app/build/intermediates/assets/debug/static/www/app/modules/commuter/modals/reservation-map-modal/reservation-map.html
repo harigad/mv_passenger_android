@@ -1,0 +1,36 @@
+<style>   
+     html, body, #map-container, #map, #tab-content, #map-dialog{
+		width: 100%;
+		height: 100%;
+	}
+
+    .angular-google-map,
+    .angular-google-map-container {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div class="map-dialog">
+     <div class="modal-content">
+            <button type="button" class="close close-modal" ng-click="vm.cancel();" data-dismiss="modal"></button>
+            <ui-gmap-google-map id="map-dialog" center="vm.map.center" zoom="vm.map.zoom" pan="true" draggable="true" control="vm.mapControl" options="vm.mapOptions">
+             <ui-gmap-marker ng-repeat="stop in vm.stopMarker" coords="stop" idKey="stop.stopId"
+                             options="{icon: stop.icon}"
+                             events="vm.markerEvent"></ui-gmap-marker>
+             <ui-gmap-marker coords="vm.myLocation.coords" idKey="99999" options="{icon: vm.myLocation.icon, zIndex:10}"></ui-gmap-marker>
+             <ui-gmap-window show="vm.show" coords="vm.coords" closeClick="vm.show=false" options="{pixelOffset: {width: 10, height: -40}}"
+                             templateUrl="'infowindow.html'" templateParameter="vm.coords">
+                 <!--<ui-gmap-polyline path="vm.locations" draggable="false" geodesic="true" stroke="vm.map.lineStyle" fit="true"></ui-gmap-polyline>-->
+         </ui-gmap-google-map>
+      </div>
+</div>
+<script type="text/ng-template" id="infowindow.html">
+    <div class="map-popover">
+        <div class="header-group">
+            <p class="primary">{{parameter.stopName}}</p>
+            <p class="address">{{parameter.address}}</p>
+        </div>
+       
+    </div>
+</script>

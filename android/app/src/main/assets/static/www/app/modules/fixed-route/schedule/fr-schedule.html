@@ -1,0 +1,67 @@
+<style>
+    .header__mobile .header-group-stuck{
+        opacity: 1;
+    }
+</style>
+<div id="drawer" class="fixed-route__wrapper static search-only open" >
+    <!-- <header class="section-header">
+        <back-control ng-if="!vm.showBackButton" ></back-control>
+        <button class="go-back" ng-if="vm.showBackButton" ng-click="vm.showSchedules()">Back</button>
+        <h1 class="page-header">SCHEDULE</h1>
+        <button class="minimize">
+            <span class="i i-md i-arrow white"></span>
+        </button>
+    </header> -->
+
+        <div class="fixed-top">
+            <div id="search-form">
+                <div id="search-form">
+                    <div class="form-group form-inline">
+                        <label>
+                            <span class="i i-xs i-search"></span>
+                        </label>
+                        <input id="inpRouteSearch" type="text" class="form-control" allselect
+                               ng-model="vm.searchText" placeholder="Search" ng-focus="vm.highlightParent($event)" ng-blur="vm.blurParent($event)" autofocus>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+            <div class="scroll-group">
+                <div class="list-item">
+                        <div class="item-block">
+                            <div class="item-content">
+                                <p class="name">
+                                    <small class="alias">Schedule</small>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                <div class="list-item" ng-repeat="route in vm.scheduleView.routes | filter: vm.searchText">
+                    <div class="item-block full-width">
+                        <div class="item-content">
+                            <p class="name"><span>{{route.name | routeShortName}}</span></p>
+                            <p class="name"><small class="short-desc">{{route.name | routeStopsName }}</small></p>
+                            <div class="item-well no-flex full-width" ng-repeat="stop in route.stops| orderBy: 'sequence'">
+                                <h4 class="well-header">{{stop.name}}</h4>
+                                <div class="well-content">
+                                    <ul class="stop-times">
+                                        <li ng-repeat="trip in stop.trips | filter: vm.filterEmptyTimes">
+                                            <span ng-click="vm.showTrip(trip.id)">{{trip.time}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+<div id="map-container">
+    <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+        <ui-gmap-marker coords="vm.position.coords" idKey="99999" options="{icon: vm.position.icon, zIndex:10}"></ui-gmap-marker>
+    </ui-gmap-google-map>
+</div>

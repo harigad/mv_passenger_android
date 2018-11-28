@@ -1,0 +1,25 @@
+<div class="cell__group cell__group--align-left" uib-dropdown-toggle>
+    <div class="text__group">
+        <span class="text text__time--from">{{::trip.pickupTime}}</span>
+        <span class="text text__time--to">{{::trip.dropoffTime}}</span>
+        <span class="text text--secondary" ng-if="trip.allowedCompanions > 0">
+            Guests allowed
+        </span>
+    </div>
+    <div class="cell__group cell__group--align-right cell__group--list justify-content-start">
+        <span class="text text--secondary" ng-show="trip.vehicle && trip.vehicle.name">
+            {{trip.vehicle && trip.vehicle.name}}&nbsp;
+        </span>
+        <span class="text text--secondary">
+            {{::trip.routeName}}
+        </span>
+        <seat-availability trip="trip" division-allows-waitlist="divisionAllowsWaitlist"></seat-availability>
+
+        <span class="text text--secondary" ng-if="trip.eta != null">
+            ETA {{trip.eta}}<small>m</small>
+        </span>
+        <span class="text text--secondary" ng-if="trip.eta.indexOf('-') > -1">
+            Departed
+        </span>
+    </div>
+</div>

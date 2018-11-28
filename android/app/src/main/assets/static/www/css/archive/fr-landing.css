@@ -1,0 +1,8 @@
+.fixed-route--wrapper #top-nav {
+  left: 0 !important; }
+  .fixed-route--wrapper #top-nav .menu-button {
+    left: 0; }
+    .fixed-route--wrapper #top-nav .menu-button .dropdown-toggle {
+      width: 50px;
+      height: 50px;
+      padding: 20px 14px; }

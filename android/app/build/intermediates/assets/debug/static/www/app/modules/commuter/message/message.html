@@ -1,0 +1,14 @@
+<div class="modal-content">
+    <div class="modal__header">
+        <h4 class="modal-title">{{vm.title}}</h4>
+        <button type="button" class="btn--back" data-dismiss="modal" aria-label="Close" ng-click="vm.cancel();">
+                <span aria-hidden="true">Back</span>
+        </button>
+    </div>
+
+    <div class="modal__body" dynamic="vm.content"></div>
+</div>
+<!--<div class="panel" ng-class="'panel-primary': vm.isInfo, 'panel-danger': vm.isError, 'panel-success': vm.IsSuccess">
+    <div class="panel-heading">{{vm.title}}</div>
+    <div class="panel-body">{{vm.content}}</div>
+</div>-->

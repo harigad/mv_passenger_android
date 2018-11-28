@@ -1,0 +1,14 @@
+
+
+<div id="hero" ng-controller="MenuController" class="ng-cloak">
+    <!-- Wrapper for slides -->    
+    <data-owl-carousel class="dashboard__carousel owl-carousel" data-options="carouselOptions" ng-disable-scroll="owl-grab">
+        <div ng-repeat="service in vm.allowedServices"  class="carousel__item" ng-class="service.Service.Name|lowercase" owl-carousel-item>
+                <div class="carousel__item--content" dynamic="service.Html"></div>
+                <button class="carousel__item--trigger btn btn--ol-white btn--xs"
+                        ng-click="vm.navigate(service.Path,service.Type, service.Service.Name)" 
+                        data-tap-disabled="true">{{service.ButtonText|lowercase}}</button>
+        </div>
+    </data-owl-carousel>
+</div>
+

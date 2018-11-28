@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="14px" height="13px" viewBox="0 0 14 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>i-pickup</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Published-Schedule" transform="translate(-7.000000, -5.000000)" fill="#FFFFFF" stroke="#FFFFFF">
+            <g id="Group-8">
+                <g id="Group-7">
+                    <path d="M14.0079147,17.5900002 L8,11.2950001 L8.40052765,10.8753334 L14.0079147,16.7506668 L19.6153018,10.8753334 L20.0158295,11.2950001 L14.0079147,17.5900002 Z M20.0158295,5.41966667 L19.6153018,5 L14.0079147,10.8753334 L8.40052765,5 L8,5.41966667 L14.0079147,11.7146667 L20.0158295,5.41966667 Z" id="i-pickup" transform="translate(14.007915, 11.295000) scale(1, -1) translate(-14.007915, -11.295000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

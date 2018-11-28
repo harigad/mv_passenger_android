@@ -1,0 +1,51 @@
+<div class="login__mv">
+    <div class="container-fluid">
+        <div class="header-group">
+                <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+                <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+        </div>
+    </div>
+    <form name="formUser" id="formUser" ng-submit="formUser.$valid " novalidate="">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <span class="error">{{vm.message}}</span>
+                    <div class="module module--wide">
+                        <div class="module__body module__body--wide">
+                            <div class="cell cell--form-group">
+                                <label class="text text--label">Email</label>
+                                <div class="form-control--input">
+                                    <input type="email" ng-model="vm.username" name="username" aria-label="Email"/>
+                                </div>
+                            </div>
+
+                            <div class="cell cell--form-group">
+                                <label class="text text--label">Password</label>
+                                <div class="form-control--input">
+                                    <input type="password" ng-model="vm.password" name="password" aria-label="Password"/>
+                                </div>
+                            </div>
+                            
+                            <div class=" cell cell--button cell--block">
+                                <div class="btn__group">
+                                    <input type="button" value="Login" ng-disabled="vm.isClicked"  ng-click="vm.isClicked=!vm.isClicked; vm.login()" class="btn btn--primary btn--block" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+               
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <a href="#/register" class="text text--link " data-tap-disabled="true">Create New Account</a>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <a href="#/forgot-password" class="text text--link " data-tap-disabled="true">Forgot Password</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

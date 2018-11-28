@@ -1,0 +1,61 @@
+
+<div class="modal__content">
+    <div class="modal__header">
+        <button type="button" class="btn--back" data-dismiss="modal"
+                ng-click="vm.cancel()"
+                aria-label="Close">Back</button>
+        <h4 class="modal-title" ng-if="!vm.cancelError">Cancellation</h4>
+        <h4 class="modal-title" ng-if="vm.cancelError">Cancellation Error</h4>
+    </div>
+
+    <div class="modal__body" ng-if="vm.cancelError">
+        <p class="headline">Sorry, could not cancel your trip</p>
+    </div>
+
+    <div class="modal__body" ng-if="!vm.cancelError">
+        <div class="module module--full">
+            <div class="module__body--full">
+                <div class="cell d-block">
+                    <p class="text text--primary">{{vm.tripToCancel.from}} &mdash; {{vm.tripToCancel.to}}</p>
+                    <p class="text text--primary">{{vm.tripToCancel.scheduledTime | date:'MM/dd/yyyy @ h:mma'}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="module"  ng-if="vm.showCancelOptions">
+            <div class="module__body">
+                <div class="cell cell--form-group">
+                        <label class="text text--label">Reason</label>
+                        <div class="form-control--input">
+                            <select id="selectCancelReason" ng-model="vm.cancelReason"
+                                    ng-options="reason as reason.Reason for reason in vm.cancelReasons">
+                                <option value="">--</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="cell cell--text-area d-block" >
+                    <label class="text text--label " ng-class="{'text--required' : vm.cancelReason.Reason == 'Other'}">Comments</label>
+                    <div class="form-control--input">
+                        <textarea id="cancelTripText"  ng-model="vm.reasonComment" rows="3" class="d-block" ng-keyup="vm.disallowSpecialChar()" style="width:100%" data-tap-disabled="true"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal__footer">
+        <div class="btn__group">
+            <button type="button" class="btn btn--default btn--block"
+                    ng-click="vm.cancel()"
+                    data-dismiss="modal"
+                    data-tap-disabled="true">
+                Close
+            </button>
+    
+            <button ng-if="!vm.cancelError" type="button" class="btn btn--cancel btn--block"
+                    ng-click="vm.cancelTrip()" ng-disabled="vm.MakeDisable()"
+                    data-tap-disabled="false">
+                <span class="hidden-xs">Yes,</span> Cancel trip
+            </button>
+        </div>
+    </div>    
+</div>

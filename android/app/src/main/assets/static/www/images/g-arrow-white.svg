@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="16px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44 (41411) - http://www.bohemiancoding.com/sketch -->
+    <title>g-down-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/arrow/down/white" transform="translate(-2.000000, 0.000000)" fill="#FFFFFF">
+            <path d="M2.09923376,5.20004752 C1.9695251,5.32335608 1.9695251,5.534986 2.0843002,5.65488117 C2.20120866,5.77648304 2.41625196,5.78501651 2.53956052,5.66981474 L7.43947575,1.05961062 L7.43947575,15.6799951 C7.43947575,15.8566378 7.58283795,16 7.75948066,16 C7.93612337,16 8.07948557,15.8566378 8.07948557,15.6799951 L8.07948557,1.05961062 L12.9794008,5.66981474 C13.1027094,5.78501651 13.3194594,5.77818973 13.4346611,5.65488117 C13.5494362,5.53157261 13.5528496,5.33316957 13.4197276,5.20004752 L7.97964404,0.079968917 C7.82945507,-0.0420596231 7.64598558,-0.0100591318 7.53931728,0.079968917 L2.09923376,5.20004752 Z" id="g-down-white" transform="translate(7.760103, 8.000000) scale(1, -1) translate(-7.760103, -8.000000) "></path>
+        </g>
+    </g>
+</svg>

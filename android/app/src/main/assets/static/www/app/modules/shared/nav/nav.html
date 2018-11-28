@@ -1,0 +1,40 @@
+<nav ng-controller="nav" role="navigation" aria-label="navigation">    
+
+    <!--MAIN NAV-->
+    <a ng-repeat="page in pages track by $index" ng-if="page.level == 1" href="#/{{page.url}}" 
+        class="{{page.class}} d-none d-md-block d-lg-block" 
+        ng-class="{'active': isActive(page.name)}" 
+        aria-hidden="true">
+        {{page.alias}}
+    </a>
+    
+    <!--DROPDOWN MENU-->
+    <div class="dropdown" uib-dropdown uib-keyboard-nav>
+		<button class="link--menu" uib-dropdown-toggle type="button">Menu</button>
+		<div class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+            <div ng-repeat="page in pages track by $index" ng-if="page.level === 1">
+                <a class="dropdown-item" href="#/{{page.url}}"><strong>{{page.alias}}</strong></a>
+                <button class="dropdown-item" ng-repeat="sub in page.subPages"  
+                ng-if="(sub.showActive != false)" ng-click="pagelink(sub.url, page.service, page.showAsModal, $event, sub.isExternal);">
+                {{sub.alias}}</button>
+                <div class="dropdown-divider"></div>
+            </div>
+
+            <div class="dropdown-item__group" ng-repeat="page in pages track by $index" ng-class="page.class" ng-if="page.level === 2">
+                <button class="dropdown-item dropdown-item--minor"
+                    ng-click="pagelink(page.url, page.service,page.showAsModal,$event);"
+                    ng-class="{'active': isActive(page.name)}">{{page.alias}}</button>
+            </div>
+           
+            <div class="dropdown-item__group">
+                    <div class="dropdown-divider"></div>
+                <a class="dropdown-item"  href="tel:+1{{supportPhoneNumber}}">
+                    <span>Contact Support</span>
+                    <br/>
+                    <small>{{supportPhoneNumber}}</small>
+                </a>
+            </div>
+		</div>
+    </div>	
+
+</nav>

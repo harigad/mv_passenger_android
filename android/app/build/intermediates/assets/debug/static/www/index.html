@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html ng-app="oneMVApp" ng-controller="OneMVController as vm" lang="en-US">
+<head>    
+    <title ng-bind="ngMeta.title"></title>  
+    <!-- Arbitrary tags -->
+    <meta property="og:type" content="{{ngMeta['og:type']}}" />
+    <meta property="og:locale" content="{{ngMeta['og:locale']}}" />
+    <meta name="author" content="{{ngMeta['author']}}" />
+    <!-- OR <meta name="author" content="{{ngMeta.author}}" /> -->
+    <meta name="description" content="{{ngMeta.description}}" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">   
+    <link rel="apple-touch-icon" sizes="180x180" ng-href="images/{{vm.brand}}/flavicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" ng-href="images/{{vm.brand}}/flavicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" ng-href="images/{{vm.brand}}/flavicon/favicon-16x16.png">
+    <link rel="manifest" ng-href="images/{{vm.brand}}/flavicon/manifest.json">
+    <link rel="mask-icon" ng-href="images/{{vm.brand}}/flavicon/safari-pinned-tab.svg" color="#18619b">
+    <link rel="shortcut icon" ng-href="images/{{vm.brand}}/flavicon/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/archive/fixed-route.css" rel="stylesheet">
+    <link ng-href="css/{{vm.brand}}.css" rel="stylesheet"/>
+    <link href="css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="css/owl.theme.default.css" rel="stylesheet" />    
+    <link href="css/angular-csp.css" rel="stylesheet" />
+    <link href="css/toastr.css" rel="stylesheet" />
+    <link href="css/angucomplete-alt.css" rel="search" />
+</head>
+
+
+<body id="page-body" class="{{vm.brand}} is-ionic" ui-router-styles>
+    <div id="page-wrapper" class="ui-view-container" ng-cloak>
+        <ng-include src="'app/modules/shared/nav/nav.ionic.html'" class="header__mobile--ionic"></ng-include>
+        <main id="content" ui-view role="main" ng-cloak></main>
+        <ng-include src="'app/modules/shared/nav/nav.footer.ionic.html'" class="footer__mobile--ionic"></ng-include>
+    </div>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="node_modules/html5shiv/dist/html5shiv.min.js"></script>
+      <script src="node_modules/respond/main.js"></script>
+    <![endif]-->
+    <script src="environmentConfig.js"></script>
+    <script src="qrCode.js"></script>
+    <script src="non-ang.bundle.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCztqRTaQzgBxu0DMV9cDKq0IciqMaQI5E&libraries=drawing,geometry&language=en"></script>   
+    <script src="ang.bundle.js"></script>    
+    <script src="web.bundle.js"></script>
+    <script src="modules.bundle.js"></script>
+    
+    <script>
+        SlidingMarker.initializeGlobally();
+    </script>
+</body>
+</html>

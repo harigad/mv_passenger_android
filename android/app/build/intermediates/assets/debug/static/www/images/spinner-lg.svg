@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>spinner-lg</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5---Stop-Details-Tooltip---Logged-Out" transform="translate(-163.000000, -543.000000)">
+            <g id="spinner-lg" transform="translate(163.000000, 543.000000)">
+                <path d="M12,0 C5.372583,0 0,5.372583 0,12 C0,18.627417 5.372583,24 12,24 L12,22.1538462 C6.39218562,22.1538462 1.84615385,17.6078144 1.84615385,12 C1.84615385,6.39218562 6.39218562,1.84615385 12,1.84615385 L12,2.3869795e-15 Z" id="Combined-Shape" fill="#EFEFEF"></path>
+                <path d="M24,0 C17.372583,0 12,5.372583 12,12 C12,18.627417 17.372583,24 24,24 L24,22.1538462 C18.3921856,22.1538462 13.8461538,17.6078144 13.8461538,12 C13.8461538,6.39218562 18.3921856,1.84615385 24,1.84615385 L24,2.3869795e-15 Z" id="Combined-Shape" fill="#184D8A" transform="translate(18.000000, 12.000000) scale(-1, 1) translate(-18.000000, -12.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

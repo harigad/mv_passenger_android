@@ -1,0 +1,42 @@
+<style>
+    html, body, #map-container, #map, #tab-content {
+        width: 100%;
+        height: 100%;
+    }
+
+    #map-container {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .angular-google-map,
+    .angular-google-map-container {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div id="map-container">
+    <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions">
+        <ui-gmap-marker coords="vm.stop" idKey="vm.stop.id" ng-if="vm.stop != null" options="{icon: vm.stop.icon, zIndex:9}"></ui-gmap-marker>
+        <ui-gmap-marker ng-repeat="hub in vm.hubs" coords="hub" idKey="hub.StopId" options="{icon:vm.hubIcon, zIndex:10}"></ui-gmap-marker>
+        <ui-gmap-marker coords="vm.busLocation" ng-if="vm.busLocation != null" idKey="99990" options="{icon: vm.busLocation.icon, zIndex:11}" events="vm.markerEvent"></ui-gmap-marker>
+        
+        <ui-gmap-window show="vm.show" coords="vm.busLocation" closeClick="vm.show=false" options="{pixelOffset: {width: 0, height: -30}}"
+                        templateUrl="'infowindow.html'" templateParameter="vm.tripDetails" ng-cloak>
+
+        </ui-gmap-window>
+    </ui-gmap-google-map>
+</div>
+<script type="text/ng-template" id="infowindow.html">
+    <div class="map-popover" ng-controller="infoWindowController">
+        <div class="header-group">
+            <p class="label-vehicle"><span class="label label-primary">{{parameter.busName}}</span></p>
+            <p class="address">{{parameter.ETA}}</p>
+            
+        </div>
+        
+        <div class="close"><a ng-click="vm.show=false">Close</a></div>
+    </div>
+</script>

@@ -1,0 +1,82 @@
+<div class="container-fluid">
+        <div class="header-group">
+            <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+            <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+        </div>
+        <div class="container">
+            <uib-tabset active="active" type="pills">
+                <uib-tab index="0" heading="Commuter" ng-if="vm.hasCommuter">
+                    <article class="module__group" ng-repeat="notification in vm.CommuterNotifications">
+                        <div ng-switch on="!!notification.LinkedId">
+                            <div ng-switch-when="true" module module--full ng-click="vm.showTripInfo(notification)">
+                                <notification-item data="notification"></notification-item>
+                            </div>
+                            <div ng-switch-default module module--full>
+                                <notification-item data="notification"></notification-item>
+                            </div>
+                        </div>
+                    </article>
+    
+                    <article class="module__group" ng-if="vm.CommuterNotifications.length == 0 && !vm.isCommuterNotificationLoading">
+                        <div class="module module--full">
+                            <div class="module__body module__body--full">
+                                <div class="cell d-block">
+                                    <span class="text text--primary">There are no new {{::vm.commuterInfo.alias}} notifications at this time.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+    
+                </uib-tab>
+                <uib-tab index="2" ng-if="vm.hasFixedRoute">
+                    <uib-tab-heading>
+                        Fixed Route
+                    </uib-tab-heading>
+                    <article class="module__group" ng-repeat="notification in vm.frNotifications" ng-if="vm.frNotifications.length > 0">
+                        <div module module--full>
+                            <notification-item data="notification"></notification-item>
+                        </div>
+                    </article>
+    
+                    <article class="module__group" ng-if="vm.frNotifications.length === 0 && !vm.isFrNotificationLoading">
+                        <div class="module module--full">
+                            <div class="module__body module__body--full">
+                                <div class="cell d-block">
+                                    <span class="text text--primary">There are no new {{::vm.fixedRouteInfo.alias}} notifications at this time.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </uib-tab>
+                <uib-tab index="3" ng-if="vm.hasDRT">
+                    <uib-tab-heading>
+                        On Demand
+                    </uib-tab-heading>
+                    <article class="module__group" ng-repeat="notification in vm.DRTNotifications" ng-if="vm.DRTNotifications.length > 0  && vm.isloggedIn">
+                        <div module module--full>
+                            <notification-item data="notification"></notification-item>
+                        </div>
+                    </article>
+    
+                    <article class="module__group" ng-if="vm.DRTNotifications.length === 0 && vm.isloggedIn && !vm.isDRTNotificationLoading">
+                        <div class="module module--full">
+                            <div class="module__body module__body--full">
+                                <div class="cell d-block">
+                                    <span class="text text--primary">There are no new {{::vm.drtInfo.alias}} notifications at this time.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="module__group" ng-if="!vm.isloggedIn">
+                        <div class="module module--full">
+                            <div class="module__body module__body--full">
+                                <div class="cell d-block">
+                                    <span class="text text--primary">Please login to view {{::vm.drtInfo.alias}} notifications.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>

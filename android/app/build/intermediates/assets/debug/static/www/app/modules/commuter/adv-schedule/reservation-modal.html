@@ -1,0 +1,45 @@
+<div class="modal__content">
+    <div class="modal__header">
+        <h4 class="modal-title">Your Reservation</h4>
+        <button type="button" class="btn--back" data-dismiss="modal" aria-label="Close" ng-click="vm.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal__body">
+        <div class="module" uib-dropdown-toggle ng-repeat="reservation in vm.passengerReservations track by $index"
+             ng-click="vm.showCommuterTrip(reservation)">
+            <div class="module__header module__header--commuter">
+                <span class="module__header--title">{{::reservation.status}}</span>
+                <span class="module__header--date">{{::reservation.reservationDate  | date:'MM/dd/yyyy'}}</span>
+            </div>
+            <div class="module__body">
+                <div class="cell cell--location">
+                    <div class="cell__label">
+                        <span class="text text--primary">From</span>
+                    </div>
+                    <div class="cell__group cell__group--align-left">
+                        <p class="text text--primary">{{::reservation.pickupStopName}}</p>
+                        <p class="text text--secondary">{{::reservation.pickupAddress}}</p>
+                    </div>
+                    <div class="cell__group cell__group--align-right align-self-start">
+
+                        <p class="text text--primary">{{reservation.pickupTime}}</p>
+                    </div>
+                </div>
+                <div class="cell cell--location">
+                    <div class="cell__label">
+                        <span class="text text--primary">To</span>
+                    </div>
+                    <div class="cell__group cell__group--align-left">
+                        <p class="text text--primary">{{::reservation.dropoffStopName}}</p>
+                        <p class="text text--secondary">{{::reservation.dropoffAddress}}</p>
+                    </div>
+                    <div class="cell__group cell__group--align-right align-self-start">
+                        <p class="text text--primary">{{reservation.dropoffTime}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

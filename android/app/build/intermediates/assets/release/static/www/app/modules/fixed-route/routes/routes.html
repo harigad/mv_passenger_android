@@ -1,0 +1,63 @@
+<style>
+    .header__mobile .header-group-stuck{
+        opacity: 1;
+    }
+</style>
+    <div id="drawer" class="fixed-route--wrapper">
+        <div class="fixed-top">
+            <div class="tab-group">
+                <ul>
+                    <li class="stops"><a href="" ng-click="vm.gotoStops()">Bus stops {{$root.bodyClass}}</a></li>
+                    <li class="routes selected"><a href="">Routes</a></li>
+                    <hr />
+                </ul>
+            </div> 
+            <div id="search-form">
+                <div class="form-group form-inline">
+                    <label>
+                        <span class="i i-xs i-search"></span>
+                    </label>
+                    <input id="inpRouteSearch" type="text" class="form-control" allselect
+                           ng-model="vm.search_text" placeholder="Search" ng-focus="vm.highlightParent($event)" ng-blur="vm.blurParent($event)">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-group">
+            <div class="route-select-list">
+                <div class="list-item">
+                        <div class="item-block">
+                            <div class="item-content">
+                                <p class="name">
+                                    <small class="alias">Routes</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <div class="list-item" ng-repeat="route in vm.filteredRoutes | filter: vm.filterChange">
+                    <div class="item-block">
+                        <div class="item-select">
+                            <label class="cb-{{route.color.replace('#','')}} checkbox">
+                                <input class="" type="checkbox" ng-click="vm.displayRoute(route)" ng-model="route.displayOnMap" title="{{(!route.IsActive) ? 'No Vehicle assigned' : ''}}"/>
+                                <span title="{{route.IsActive == false ? 'No Vehicle Assigned' : ''}}"></span>
+                            </label>
+                        </div>
+                        <div class="item-content" ng-mouseover="vm.hightlightRoute(route.id, true)" ng-mouseleave="vm.hightlightRoute(route.id, false)">
+                            <p class="name" ng-class="{'text-muted': !route.IsActive}">{{route.shortName}}</p>
+                            <small class="short-desc" ng-class="{'text-muted': !route.IsActive}">{{route.name}}</small>
+                        </div>
+                        <div class="item-button">
+                            <a class="i i-sm i-chevron-right" href="#/fixed-route/routes/{{route.id}}"></a>
+                        </div>
+                    </div>
+  
+                </div>
+            </div>
+
+        </div>
+
+        <div class="show-on-map ng-hide" ng-class="{true:'active'}[vm.displayButton()]">
+            <button class="btn btn-primary btn-block" ng-class="{true:'active'}[vm.isHidden]" ng-click="vm.isHidden = !vm.isHidden">Show on map</button>
+        </div>
+    </div>

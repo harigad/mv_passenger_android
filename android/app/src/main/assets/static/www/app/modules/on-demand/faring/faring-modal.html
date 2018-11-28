@@ -1,0 +1,207 @@
+<div class="modal__content--multipage" ng-init="showCompanionSelection = true">
+  <div class="modal__content" ng-show="showCompanionSelection">
+    <div class="modal__header">
+      <h4 class="modal-title">Confirm Trip Details</h4>
+      <a class="btn--back" ng-click="cancel()"></a>
+    </div>
+
+    <div class="modal__body">
+      <div class="module__group">
+        <div class="module module--full">
+          <div class="module__body--full">
+            <div class="cell">
+              <span class="text text--label"> {{reservationRequest.reservationType != $parent.reservationTypeEnum.APPOINTMENT ? "Depart at" : "Arrive By"}}</span>
+              <span class="text text--primary">{{requestedTime}}</span>
+            </div>
+
+            <!--From-->
+            <div class="cell">
+              <span class="text text--label">From</span>
+              <span class="text text--primary">
+                {{reservationRequest.FromLocation.Name != undefined ? reservationRequest.FromLocation.Name : reservationRequest.FromLocation.From}}
+              </span>
+            </div>
+            <div class="cell d-block" ng-if="$parent.options.allowLocationNotes">
+              <div class="form-control--input form-control--ltr form-control--block" ng-if="showFromNotes">
+                <input type="text" placeholder="Pickup Notes" ng-model="locationNotes.from" maxlength="35" />
+              </div>
+              <div class="btn__group btn__group--flex btn__group--end">
+                <button class="btn btn--default btn--xs" ng-click="showFromNotes = !showFromNotes" data-tap-disabled="true">
+                  {{showFromNotes === true ? 'Remove' : 'Add Note'}}
+                </button>
+              </div>
+            </div>
+
+            <!--To-->
+            <div class="cell">
+              <span class="text text--label">To</span>
+              <span class="text text--primary">
+                {{reservationRequest.ToLocation.Name != undefined ? reservationRequest.ToLocation.Name : reservationRequest.ToLocation.From}}</span>
+            </div>
+
+            <div class="cell d-block" ng-if="$parent.options.allowLocationNotes">
+              <div class="form-control--input form-control--ltr form-control--block" ng-if="showToNotes">
+                <input type="text" placeholder="Dropoff Notes" ng-model="locationNotes.to" maxlength="35" />
+              </div>
+
+              <div class="btn__group btn__group--flex btn__group--end">
+                <button class="btn btn--xs btn--default" ng-click="showToNotes = !showToNotes" data-tap-disabled="true">{{showToNotes === true ? 'Remove' : 'Add Note'}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="module__group" ng-if="maxCount >= 0 || !fareTypes.length == 0">
+        <div class="module__divider">
+          <h4>Faring and Companions</h4>
+        </div>
+        <div class="module module--full">
+          <div class="module__body--full">
+            <div class="cell">
+              <span class="text text--label">Base Fare</span>
+              <span class="text text--primary">{{ baseFare | currency }}</span>
+            </div>
+            <div class="cell" ng-repeat="companion in fareTypes | filter: { NumberOfPassengers: '!0'}">
+                <span class="text text--label"><strong>{{companion.NumberOfPassengers}}</strong> {{companion.Name | captialize}}</span>
+                <span class="text text--primary">{{ (companion.NumberOfPassengers * companion.Fare) | currency }}</span>
+            </div>
+            <div class="cell">
+              <strong class="text text--label">Total Fare</strong>
+              <strong class="text text--primary">{{(baseFare + companionFare) | currency}}</strong>
+            </div>
+          </div>
+          <div class="module__footer">
+            <div class="cell d-flex justify-content-end">
+              <button class="btn btn--default btn--xs" ng-click="editCompanions()">Edit Companions</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module__group">
+        <div class="module__divider">
+          <h4>Equipment</h4>
+        </div>
+        <div class="module module--full">
+          <div class="module__body--full">
+            <div class="cell cell--form-group" ng-repeat="aid in $parent.aids">
+                <label class="form-group--radio">
+                    <div class="form-control--radio">
+                      <input id="{{aid.KeyName}}" type="checkbox" name="aidGrp" 
+                             ng-value="aid.IsSelected"
+                             ng-model="aid.IsSelected" ng-click="clickMobilityAid(aid)">
+                      <span>{{aid.DisplayName}}</span>
+                    </div>
+              </label>
+            </div>
+            <div class="cell cell--form-group" ng-repeat="assistant in $parent.assistants">
+              <label class="form-control--switch">
+                <input type="checkbox" name="assistants" ng-model="assistant.IsSelected">
+                <span>{{assistant.DisplayName}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div id="faring-detail">
+                    <div class="info-inline--top" >
+                        <div class="body-group">
+                            <div class="form-group" >
+                                <label class="text-block"></label>
+                                <div id="equipment-group" class="btn-group btn-group-vertical">
+                                    <label class="btn btn-default text-left btn-block" ng-repeat="assistant in $parent.assistants">
+                                        <input type="checkbox" name="assistants" ng-model="assistant.IsSelected">
+                                        <span>{{assistant.DisplayName}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="info-inline--top">
+                        <span class="text-label">Total Fare</span>
+                        <ul class="text-list">
+                            <li>
+                                <span class="type text-right"><small>Base Fare</small></span>
+                                <span class="detail">{{baseFare | currency }}</span>
+                            </li>
+                            <li ng-if="companion.NumberOfPassengers =='0'">
+                                <span class="count">{{companionCount}} </span>
+                                <span class="type text-right"><small>Companions</small></span>
+                                <span class="detail">{{ companionFare | currency }}</span>
+                            </li>
+                            <li class="fare-total">
+                                <span class="type text-right">Total</span>
+                                <span class="detail text-large text-right">{{ (baseFare + companionFare) | currency }}</span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div> -->
+    </div>
+
+    <div class="modal__footer">
+      <div class="button-block--fullspan" ng-if="showCompanionSelection">
+        <button class="btn btn--default btn--block" ng-click="cancel()">Back</button>
+        <button class="btn btn--primary btn--block" ng-disabled="fareTypes.length == 0 || baseFare == undefined || baseFare == null"
+          ng-click="bookTrip()">Book Trip</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- fare calculator -->
+  <div class="modal__content" ng-if="!showCompanionSelection">
+    <div class="modal__header">
+      <h4 class="modal-title">Confirm Trip Details</h4>
+      <a class="btn--back" ng-click="cancel()"></a>
+    </div>
+    <div class="modal__body">
+      <div id="companions">
+        <div ng-repeat="fareType in fareTypes track by $index">
+          <div class="module__divider">
+              <h4>{{fareType.Name}} <strong>{{fareType.Fare | currency}}</strong></h4>
+          </div>
+          <div class="module counter">
+          <div class="counter-block">
+            <a class="decrease" ng-click="decreaseCount($index)"></a>
+            <input type="number" ng-model="fareType.NumberOfPassengers" ng-readonly="true" />
+            <a class="increase" ng-click="increaseCount($index)"></a>
+          </div>
+          </div>
+        </div>
+        <div class="alert alert-info" ng-show="maxCompanionCountWarning">Only {{maxCount}} companions are allowed for this service.</div>
+        <div class="module__group">
+          <div class="module__divider">
+            <h4 class="text text--label">Total Fare</h4>
+          </div>
+            <div class="module module--wide">
+              <div class="module__body--wide">
+                <div class="cell">
+                    <span class="text text--label"><strong>{{companionCount}}</strong> Companions</span>
+                    <span class="text text--primary">{{ companionFare | currency }}</span>
+                </div>
+                <div class="cell">
+                  <span class="text text--label">Base Fare</span>
+                  <span class="text text--primary">{{ baseFare | currency }}</span>
+                </div>
+              </div>
+             <div class="module__footer">
+               <div class="cell">
+                  <span class="text text--label">Total</span>
+                  <span class="text text--primary">{{(baseFare + companionFare) | currency}}</span>
+               </div>
+             </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <div class="btn__group" ng-show="!showCompanionSelection">
+        <button class="btn btn--default btn--block" ng-click="resetCompanions()">Cancel</button>
+        <button class="btn btn--primary btn--block" ng-click="saveCompanions()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

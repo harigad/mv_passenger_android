@@ -1,0 +1,174 @@
+<div id="controls">
+    <div ng-cloak class="overlay overlay__gps"  <div ng-if="!isUserAllowedToMakeAReservation()" ng-cloak class="gps-overlay">
+      <span>GPS must be enabled to make a reservation.</span>
+  </div>
+
+  <div id="adv-schedule" class="module__group" ng-if="options.isAdvancedReservation && isUserAllowedToMakeAReservation()">
+    <div class="module">
+      <div class="module__body module__body--drt-controls">
+        <div class="cell" ng-show="!isDateSelected" ng-click="timepickerClicked()" ng-class="{true: 'focused'}[displayDateTimepicker]">
+          <div class="cell__group cell__group--time-date">
+          <!-- <span class="input-group-addon"><span class="i-clock"></span></span> -->
+            <p class="text text--primary" ng-if="options.allowASAPReservations">NOW</p>
+            <p class="text text--caption">Advanced Reservations</p>
+          </div>
+        </div>
+        <div class="cell" ng-click="timepickerClicked()" ng-show="isDateSelected">
+          <div class="cell__group cell__group--time-date">
+            <p class="text text--caption">{{requestDateTime | date: "EEEE"}} {{requestDateTime | date: "MM/dd/yyyy"}}</p>
+            <p class="text text--primary">{{reservationRequest.reservationType == reservationTypeEnum.ADVANCED ? "Depart At " : (reservationRequest.reservationType
+              == reservationTypeEnum.APPOINTMENT ? "Arrive By ": "") }}
+              <strong>{{requestDateTime | date: "hh:mm a"}}</strong>
+            </p>
+          </div>
+          <div class="cell__group">
+            <button class="close--reservation" type="button" ng-click="resetDates()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="scheduling" class="module" ng-if="displayDateTimepicker == true">
+    <div class="module__header module__header--default">
+      <span class="module__header--title">Schedule Ride</span>
+      <a class="close" ng-click="closeDateTimePicker()">Close</a>
+    </div>
+    <div class="module__body--wide">
+      <div class="cell cell--form-group" ng-if="options.allowWillCall && options.allowPassengerWillCall">
+        <label class="form-control--switch">
+          <input type="checkbox" checked ng-model="reservationRequest.IsWillCall" />
+          <span class="text text--primary">Will Call</span>
+        </label>
+      </div>
+      <div class="cell cell--form-group" ng-hide="reservationRequest.reservationType == reservationTypeEnum.ASAP" ng-show="options.isAdvancedReservation">
+        <label class="text text--label">Type</label>
+          <div class="form-control--input">
+            <select ng-model="reservationRequest.reservationType" dir="rtl">
+              <option value="{{reservationTypeEnum.ADVANCED}}" ng-selected="reservationRequest.reservationType == reservationTypeEnum.ADVANCED"
+                ng-if="options.isAdvancedReservation">Depart At</option>
+              <option ng-if="options.allowAppointments" value="{{reservationTypeEnum.APPOINTMENT}}" ng-selected="reservationRequest.reservationType ==  reservationTypeEnum.APPOINTMENT"
+                ng-if="options.allowAppointments">Arrive By</option>
+            </select>
+          </div>
+
+      </div>
+      <div class="cell cell--form-group" ng-show="(options.isAdvancedReservation && !options.allowOnlySameDayAdvRes)">
+        <label class="text text--label">Date</label>
+          <div class="form-control--input">
+          <input type="text" ng-model="reservationRequest.ReservationDateView" class="date-field" name="from_dt" uib-datepicker-popup="MM/dd/yyyy"
+            datepicker-append-to-body="true" is-open="vm.isFromDp" datepicker-options="dateOptions" ng-required="false" close-text="Close"
+            ng-readonly="true" ng-click="vm.isFromDp = !vm.isFromDp" />
+          </div>
+
+      </div>
+      <div class="cell cell--form-group">
+        <label class="text text--label">Time</label>
+        <div class="form-control--input">
+          <select ng-model="timepickerObject.schedHrView" ng-options="n for n in populateHours()"></select>
+          <select ng-model="timepickerObject.schedMinView" ng-options="n for n in populateMinutes()"></select>
+          <select ng-model="timepickerObject.AMPMView">
+            <option>AM</option>
+            <option>PM</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="module__footer">
+      <div class="btn__group">
+        <button class="btn btn--primary btn--block" ng-click="setPickupDateTime()">Select {{(reservationRequest.reservationType == reservationTypeEnum.APPOINTMENT ? "Arrival " : "Pickup")}} Time</button>
+      </div>
+    </div>
+  </div>
+  <div id="controls-block" ng-if="isUserAllowedToMakeAReservation()">
+    <div id="from-field" class="input-group" ng-class="{true:'gps'}[isGpsEnabled]">
+      <span class="input-group-addon">From</span>
+      <location-search-directive on-location-selected="selectedLocationFrom(location)" minlength="0" homelocationonly=false selectedlocation="reservationRequest.ToLocation.LocationId"
+        locationfilter="{{options.allowCustomLocation}}" labelname="FROM"></location-search-directive>
+    </div>
+
+    <div id="to-field" class="input-group">
+      <span class="input-group-addon">To</span>
+      <location-search-directive on-location-selected="selectedLocationTo(location)" minlength="0" homelocationonly="{{options.dropoffHomeLocationOnly}}"
+        passengerid="{{options.homePassengerId}}" selectedlocation="reservationRequest.FromLocation.LocationId" locationfilter="{{options.allowCustomLocation}}"
+        labelname="TO"></location-search-directive>
+    </div>
+  </div>
+
+  <!-- faring disable button when no location and date/time is selected-->
+  <div id="button-block" class="btn__block" ng-class="{true:'a-hidden'}[isHidden || displayDateTimepicker]" ng-if="isUserAllowedToMakeAReservation()"
+    ng-cloak>
+    <button id="btn-faring" class="btn btn--primary btn--block" ng-click="displayFaring()" ng-if="options.allowFaring" ng-disabled="disableFaringButton()"  data-tap-disabled="true">
+      {{isSaving?"Requesting Trip..." : "Next"}}
+    </button>
+
+      <button id="btnSave" class="btn btn--primary btn--block" ng-click="saveReservation(reservationRequest)" ng-if="!options.allowFaring" ng-disabled="isSaving || !isAllowed"  data-tap-disabled="true">
+        {{isSaving?"Requesting Trip":((!options.allowASAPReservations && !isDateSelected) ? "Select Time" : "Book Trip") }}
+      </button>
+
+      <button class="btn btn--sm btn--white" data-tap-disabled="true" ng-click="toggleOptions()" ng-if="!options.allowFaring && (options.allowMultipleSeatBooking || options.isWheelChair || options.isCompanion || options.isPCA || options.isServiceAnimal)">Trip Options
+      </button>
+  </div>
+
+  <div id="options-block" ng-if="(!options.allowFaring && isUserAllowedToMakeAReservation()) && isHidden == true" class="module module--drt-options">
+    <div class="module__header module__header--default">
+      <span class="module__header--title">Trip Options</label>
+      <a class="close" ng-click="toggleOptions()">Close</a>
+    </div>
+    <div class="module__body">
+      <div class="cell cell--form-group" ng-if="options.allowMultipleSeatBooking && !options.allowChildren">
+        <label class="text text--label">Passengers</label>
+        <div class="form-control--input">
+          <select ng-model="reservationRequest.PassengerCount" dir="rtl">
+            <option ng-repeat="i in populateCount(options.passengersLimit) track by $index" value="{{$index+1}}">{{$index+1}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="cell cell--form-group" ng-if="options.allowMultipleSeatBooking && options.allowChildren">
+         <label class="text text--label">Children</label>
+         <div class="form-control--input">
+                <select ng-model="reservationRequest.CompanionsCount" dir="rtl">
+                    <option ng-repeat="i in childrenCount(options.childrenLimit) track by $index" value="{{$index}}">{{$index}}</option>
+                </select>
+         </div>
+      </div>
+      <div class="cell cell--form-group" ng-if="options.isCompanion">
+        <label class="text text--label">Companions </label>
+        <div class="form-control--input">
+          <select ng-model="reservationRequest.CompanionsCount" dir="rtl">
+            <option ng-repeat="i in populateCount(options.companionsLimit + 1) track by $index" value="{{$index}}">{{$index}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="cell cell--form-group" ng-if="options.allowEquipment && aids.length > 0" ng-repeat="aid in aids">
+        <label class="form-control--radio" for="{{aid.DisplayName}}">
+          <input id="{{aid.DisplayName}}" type="radio" name="aids" ng-model="aid.IsSelected" ng-value="true" ng-click="clickMobilityAid(aid)">
+          <span>{{aid.DisplayName}}</span>
+        </label>
+      </div>
+
+      <div class="cell cell--form-group" ng-if="options.allowEquipment && assistants.length > 0" ng-repeat="assistant in assistants">
+        <label class="form-control--switch">
+          <input type="checkbox" name="assistants" ng-model="assistant.IsSelected">
+          <span>{{assistant.DisplayName}}</span>
+        </label>
+      </div>
+      <div class="cell cell--form-group" ng-if="options.allowLocationNotes">
+        <label class="form-control--input">
+          <input type="text" class="text-left" ng-model="reservationRequest.locationNotes.from" maxlength="20" placeholder="Pickup location notes" style="padding-left:0;"/>
+        </label>
+      </div>
+      <div class="cell cell--form-group" ng-if="options.allowLocationNotes">
+        <label class="form-control--input">
+          <input type="text" class="text-left" ng-model="reservationRequest.locationNotes.to" maxlength="20" placeholder="Dropoff location notes" style="padding-left:0;"/>
+        </label>
+      </div>
+    </div>
+    <div class="module__footer">
+      <button class="btn btn--default btn--block" ng-click="toggleOptions()" data-tap-disabled="true"> Close
+      </button>
+    </div>
+  </div>
+
+
+
+</div>

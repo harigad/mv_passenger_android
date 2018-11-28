@@ -1,0 +1,61 @@
+<div class="modal__content trip-negotiation-modal">
+  <div class="modal__header">
+    <h5 class="modal-title">NEGOTIATED TIMES</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="vm.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal__body">
+      <div class="module module--full">
+          <div class="module__body--full">
+        <div class="cell d-block">
+          <p class="text text--label">From</p>
+          <p class="text text--primary">{{vm.reservation.FromLocation.Name}}</p>
+          <p class="text text--caption">{{vm.reservation.FromLocation.Address}} {{vm.reservation.FromLocation.From}}</p>
+        </div>
+        <div class="cell d-block">
+            <p class="text text--label">To</p>
+            <p class="text text--primary">{{vm.reservation.ToLocation.Name}}</p>
+            <p class="text text--caption">{{vm.reservation.ToLocation.Address}} {{vm.reservation.ToLocation.From}}</p>
+        </div>
+      </div>
+    </div>
+     <div class="module__divider">
+        <h4>Reservation</h4>
+     </div>
+     <div class="module module--full">
+      <div class="module__body--full">
+        <div class="cell d-block">
+            <p class="text text--label">Requested</p>
+            <p class="text text--primary"><span>{{vm.reservation.ReservationDate | date:'MM/dd/yyyy'}}</span> <span ng-if="vm.reservation.reservationType != '1'">@ {{vm.reservation.ReservationTime | date: 'h:mm a'}}
+            </span></p>
+        </div>
+        <div class="cell" ng-if="vm.reservation.reservationType != 'ADVANCED'">
+            <p class="text text--label">Type</p>
+            <p class="text text--primary">{{vm.selectedReservationType}}</p>
+        </div>
+
+      </div>
+    </div>
+    <div class="module__divider">
+        <h4>{{vm.proposedSlots.length === '1' ? 'Available time slot' : 'Available time slots'}}</h4>
+     </div>
+    <div class="module module--wide">  
+      <div class="module__body--wide">
+          <!-- <h3 ng-if="vm.proposedSlots.length > 1">AVAILABLE TIME SLOTS</h3> -->
+          <div class="cell form-group--radio" ng-repeat="proposedSlot in vm.proposedSlots">
+            <label class="form-control--radio">
+              <input type="radio" name="proposedSlot" ng-model="vm.selectedSlot" value="{{proposedSlot.ProposedDate}}" />
+              <span>{{vm.toPromiseWindow(proposedSlot)}}</span>
+            </label>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal__footer">
+    <div class="btn__group">
+      <button type="button" class="btn btn--block btn--default" data-dismiss="modal" ng-click="vm.reject();">Reject</button>
+      <button type="button" class="btn btn--block btn--primary" data-dismiss="modal" ng-click="vm.accept();">Accept</button>
+    </div>
+  </div>
+</div>

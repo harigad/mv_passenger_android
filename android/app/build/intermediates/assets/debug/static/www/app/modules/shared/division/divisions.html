@@ -1,0 +1,55 @@
+<style>
+  header {
+    opacity: 0;
+  }
+
+  footer {
+    opacity: 0;
+  }
+</style>
+<div class="division__wrapper">
+  <div class="division__body">
+    <span class="branding--mv"></span>
+    <div class="module" ng-if="vm.divisions && vm.showDivisionDropdown">
+      <div class="module__body">
+        <div class="cell form-control--input form-control--ltr">
+          <label class="text text--label">
+            <span>State</span>
+          </label>
+          <select ng-model="vm.selectedState" ng-change="vm.fetchDivisionsForSelectedState()">
+            <option value="{{state.Id}}" ng-repeat="state in vm.states">{{state.Name}}</option>
+          </select>
+        </div>
+        <div class="cell form-control--input form-control--ltr">
+          <label class="text text--label">
+            <span>Service</span>
+          </label>
+          <select ng-model="vm.selectedDivision">
+            <option value="{{division.Alias}}" ng-repeat="division in vm.divisions">{{division.DivisionName}}</option>
+          </select>
+        </div>
+        <div class="cell">
+            <button class="btn btn--primary btn--block" ng-click="vm.setDivision()">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" ng-if="!vm.showDivisionDropdown">
+      <div class="overlay__gps">
+        <span>Error while fetching services</span>
+      </div>
+      <div class="btn__group">
+        <button class="btn btn--ol-white btn--sm" ng-click="reloadPage()">Reload</button>
+      </div>
+    </div>
+    <div class="powered-by">
+      <span class="powered-by__label">Powered by</span>
+      <div class="powered-by__branding">
+        <div class="powered-by__branding--logo"></div>
+      </div>
+      <div class="copyright">
+        <small>&copy; 2011 - 2018 MV TRANSPORTATION, INC. ALL RIGHTS RESERVED. {{vm.env}}</small>
+      </div>
+    </div>
+  </div>
+

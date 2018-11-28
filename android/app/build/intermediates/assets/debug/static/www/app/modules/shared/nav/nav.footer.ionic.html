@@ -1,0 +1,52 @@
+<footer class="footer-nav" ng-controller="nav">
+    <nav>
+        <div class="{{page.class}}" ng-repeat="page in pages track by $index" ng-if="page.level == 1"
+         ng-class="{'active': isActive(page.name)}">
+            <a class="menu-trigger"  ng-click="pagelink(page.url, page.service,page.showAsModal,$event);">
+                <span class="tab-icon"></span>
+                <span class="tab-title">{{page.alias}}</span>
+            </a>
+        </div>
+        <div class="link--menu" uib-dropdown>
+           <div class="drop-up" uib-dropdown-menu>
+                <div class="dropdown-item__group">
+                    <a class="dropdown-item" href="#/dashboard/">
+                        <strong>Home</strong>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                </div>
+
+                <div ng-repeat="page in pages track by $index" ng-if="page.level === 1">
+                    <a class="dropdown-item" href="#/{{page.url}}"><strong>{{page.alias}}</strong></a>
+                    <a class="dropdown-item"
+                       ng-repeat="sub in page.subPages"
+                       ng-if="(sub.showActive != false) || (sub.name == 'Active Trip' && hasActiveTrip)"
+                       ng-click="pagelink(sub.url, page.service, page.showAsModal, $event, sub.isExternal);">{{sub.alias}}</a>
+                    <div class="dropdown-divider"></div>
+                </div>
+
+                <div class="dropdown-item__group" ng-repeat="page in pages" ng-class="page.class">
+                    <a class="dropdown-item" ng-if="page.level === 2"
+                       ng-click="pagelink(page.url, page.service,page.showAsModal,$event);"
+                       ng-class="{'active': isActive(page.url)}">{{page.name}}</a>
+                </div>
+                <div class="dropdown-item__group">
+                    <a class="dropdown-item" href="tel:+1{{supportPhoneNumber}}">
+                        <span>Contact Support</span>
+                        <br />
+                        <small>{{supportPhoneNumber}}</small>
+                    </a>
+                </div>
+                <div class="dropdown-item__group" ng-click="wipeLocalStorageInfo()">
+                    <a class="dropdown-item">Unregister</a>
+                </div>
+                
+            </div>
+
+            <a class="menu-trigger" uib-dropdown-toggle>
+                <span class="tab-icon"></span>
+                <span class="tab-title">Menu</span>
+            </a>
+        </div>
+    </nav>
+</footer>

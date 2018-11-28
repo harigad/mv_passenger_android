@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="header-group">
+        <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+        <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="module__divider"><h4>Your 10 digit phone number</h4></div>
+    <div class="module module--full">
+        <div class="module__body module__body--full">
+            <div class="cell cell--form-group">
+                <label class="text text--label" aria-labelledby="telephone--input">Phone</label>
+                <div class="form-control--input">
+                <input id="telephone--input" type="tel"
+                        ng-model="vm.clientTelephone"
+                        maxlength="19"
+                        name="phone"
+                        clean="true" phonenumber-directive maxlength="19" ng-maxlength="19"/>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="module__footnote">
+        <span class="text text--caption">This will allow our drivers to better communicate their status and location with you.</span>
+    </div>
+    <div class="btn__group">
+        <button class="btn btn--primary btn--block" ng-click="vm.updateSettings()" ng-disabled="vm.isSettingsUpdating">Save</button>
+    </div>
+    <div class="row" ng-if="!vm.isSettingsLoaded">
+            <div class="col-sm-12">
+                <p class="text text--caption text-center">{{vm.isSettingsLoading ? 'Loading..': 'Could not load settings'}}</p>
+            </div>
+        </div>
+</div>

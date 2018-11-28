@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="32px" viewBox="0 0 19 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>facebook</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M24.8611088,8 C15.8865687,8 16.7155758,15.3812714 16.7155758,15.3812714 L14,15.3812714 L14,22.9906115 L16.7139831,22.9906115 L16.7139831,37.3749994 L25.4117893,37.3749994 L25.4117893,22.9906115 L29.1383398,22.9906115 L29.1383398,16.1512968 L30.6112012,9.31354968 C27.7602448,8.13480343 24.8611088,8 24.8611088,8 L24.8611088,8 Z M27.5754901,13.5245893 C27.5754901,13.5245893 24.629369,13.0147659 23.9389279,13.8353426 C22.9247678,14.3357611 23.2480886,17.5549767 23.2480886,17.5549767 L26.9312376,17.5549767 L26.9312376,20.8153387 L23.2496813,20.8153387 L23.2496813,35.2639933 L18.8792766,35.2639933 L18.8792766,20.8169062 L16.1633026,20.8169062 L16.1633026,17.5549767 L18.9242707,17.5549767 C18.6722239,17.5549767 19.061244,14.3631921 19.0907092,14.0618437 C19.2463969,12.4606611 20.4469044,11.0507113 21.9898452,10.5256049 C24.1037737,9.80926578 26.0353365,10.2042712 28.1273651,10.7156621 C27.943805,11.6522324 27.7586521,12.5923296 27.5754901,13.5245893 L27.5754901,13.5245893 Z" id="path-1"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login" transform="translate(-34.000000, -571.000000)">
+            <g id="Facebook" transform="translate(21.000000, 563.000000)">
+                <g id="facebook">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

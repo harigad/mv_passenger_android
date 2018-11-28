@@ -1,0 +1,138 @@
+<style>
+  header {
+    background-color: rgba(255, 255, 255, .9)
+  }
+
+  #map-container {
+    top: 0;
+  }
+  .header__mobile .header-group-stuck{
+        opacity: 1;
+    }
+</style>
+
+<section id="drawer" class="routes fixed-route__wrapper" ng-class="{true:'open'}[!vm.isHidden]">
+  <!-- <header class="section-header">
+        <back-control></back-control>
+
+        <h1 class="page-header">Explore Routes {{$root.bodyClass}}</h1>
+
+        <button class="minimize d-block d-sm-none" ng-click="vm.isHidden = !vm.isHidden" ng-class="{true:'active'}[vm.isHidden]">
+            <span class="i i-md i-arrow white"></span>
+        </button>
+    </header> -->
+
+  <div class="content fixed-route__wrapper">
+    <div class="fixed-top">
+      <div class="tab-group">
+        <ul>
+          <li class="stops">
+            <a href="" ng-click="vm.gotoStops()">Bus stops {{$root.bodyClass}}</a>
+          </li>
+          <li class="routes selected">
+            <a href="">Routes</a>
+          </li>
+          <hr/>
+        </ul>
+      </div>
+      <div id="search-form">
+        <div class="form-group form-inline">
+          <label>
+            <span class="i i-xs i-search" aria-hidden="true"></span>
+          </label>
+          <input id="inpRouteSearch" type="text" class="form-control" allselect ng-model="vm.search_text" placeholder="Search" ng-focus="vm.highlightParent($event)"
+            ng-blur="vm.blurParent($event)" tab-index="1" autofocus>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <input type="button" id="btnRouteDisplay" class="btn btn-info"
+                        ng-click="vm.displaySelectedRoutes()" ng-show="vm.displayButton()" value="Show on Map"  />
+
+                </div>
+
+            </div>
+        </div>-->
+
+    <div class="scroll-group">
+      <div class="route-select-list">
+        <div class="list-item">
+          <div class="item-block">
+            <div class="item-content">
+              <p class="name">
+                <small class="alias">Routes</small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-item" ng-repeat="route in vm.filteredRoutes | filter: vm.filterChange">
+          <div class="item-block">
+            <div class="item-select">
+              <label class="cb-{{route.color.replace('#','')}} checkbox">
+                <input class="" type="checkbox" ng-click="vm.displayRoute(route)" ng-model="route.displayOnMap" title="{{(!route.IsActive) ? 'No Vehicle assigned' : ''}}"
+                />
+                <span title="{{route.IsActive == false ? 'No Vehicle Assigned' : ''}}"></span>
+              </label>
+            </div>
+            <div class="item-content" ng-mouseover="vm.hightlightRoute(route.id, true)" ng-mouseleave="vm.hightlightRoute(route.id, false)">
+              <p class="name" ng-class="{'text-muted': !route.IsActive}">{{route.shortName}}</p>
+              <small class="short-desc" ng-class="{'text-muted': !route.IsActive}">{{route.name}}</small>
+            </div>
+          </div>
+          <div class="item-buttons" ng-if="route.IsActive">
+              <a class="i i-sm i-chevron-right" href="#/fixed-route/routes/{{route.id}}"></a>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="show-on-map d-md-none" ng-show="vm.displayButton() && !vm.isHidden">
+      <button class="btn btn-primary btn-block" ng-class="{true:'active'}[vm.isHidden]" ng-click="vm.isHidden = !vm.isHidden">Show on map</button>
+    </div>
+  </div>
+
+</section>
+
+<div id="control-options" class="d-md-none fixed-route__wrapper" aria-hidden="true">
+  <button class="minimize" ng-click="vm.isHidden = !vm.isHidden" ng-class="{true:'active'}[vm.isHidden]">
+    <span class="i i-md i-arrow"></span>
+  </button>
+
+</div>
+
+<div id="pinned-route" class="d-md-none fixed-route__wrapper" ng-class="{true:'active'}[vm.isHidden]" aria-label="Pinned_Route">
+  <button class="close" ng-click="vm.isHidden = !vm.isHidden">Close</button>
+
+  <!-- add routes that are currently displayed on the map to the slider -->
+
+  <div class="list-item" ng-repeat="(key, value) in vm.routesOnMap track by $index" ng-if="value.displayOnMap">
+    <div class="item-block">
+      <div class="item-content">
+        <p class="name">
+          <span>{{value.route.shortName}}</span>
+        </p>
+        <small class="short-desc">{{value.route.name}}</small>
+        <!--<ul class="stop-times">
+                    <li class="active"><span>11:35AM</span></li>
+                    <li><span>11:45AM</span></li>
+                </ul>-->
+      </div>
+    </div>
+    <div class="item-buttons">
+        <a class="i i-sm i-chevron-right" href="#/fixed-route/routes/{{value.route.id}}"></a>
+      </div>
+  </div>
+</div>
+
+<div id="map-container" class="fixed-route__wrapper">
+  <div id="map">
+    <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+      <!--<ui-gmap-polyline ng-repeat="p in vm.lines" path="p.location" stroke="p.stroke" visible='p.visible'
+                            geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'></ui-gmap-polyline>-->
+    </ui-gmap-google-map>
+  </div>
+</div>

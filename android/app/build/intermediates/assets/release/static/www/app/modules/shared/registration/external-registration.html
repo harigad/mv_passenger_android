@@ -1,0 +1,115 @@
+<div id="verify">
+  <div class="container-fluid">
+    <div class="header-group">
+        <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+        <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+    </div>
+  </div>
+  <form name="formUser" id="formUser" ng-submit="formUser.$valid;vm.isClicked=!vm.isClicked; vm.registerExternal() " novalidate="">
+    <div class="container">
+      <div class="row justify-content-center">
+        <span class="error">
+          {{vm.message}}
+        </span>
+        <div class="col-md-8 col-lg-6">
+          <div class="module__group" ng-if="vm.showFirstName || vm.showLastName">
+            <div class="module__divider">
+              <h4>General Information</h4>
+            </div>
+            <div class="module module--full">
+              <div class="module__body--full">
+                <div class="cell form-group--input" ng-if="vm.showFirstName">
+                  <div class="form-control--input form-control--ltr">
+                    <label>
+                      <span class="text text--label text--required">First Name</span></label>
+                    <input type="text" ng-model="vm.firstName" name="userFirstName" maxlength="50" ng-required="true" ng-maxlength="50" aria-label="First Name"/>
+                  </div>
+                </div>
+                <div class="cell form-control--errors" ng-if="formUser.userFirstName.$touched && formUser.userFirstName.$error.required">
+                  <span class="text text--warning text--caption">Required</span>
+                </div>
+                <div class="cell form-group--input" ng-if="vm.showLastName">
+                  <div class="form-control--input form-control--ltr">
+                    <label>
+                      <span class="text text--label text--required">Last Name</span></label>
+                    <input type="text" ng-model="vm.lastName" name="userLastName" maxlength="50" ng-required="true" ng-maxlength="50"  aria-label="Last Name"/>
+                  </div>
+                </div>
+                <div class="cell form-control--errors" ng-if="formUser.userLastName.$touched && formUser.userLastName.$error.required">
+                  <span class="text text--warning text--caption">Required</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="module__group" ng-if="vm.showAllowSms">
+            <div class="module__divider">
+              <h4>Alerts and Notifications</h4>
+            </div>
+            <div class="module module--full">
+              <div class="module__body--full">
+                <div class="cell form-control--switch">
+                  <label>
+                    <input type="checkbox" ng-model="vm.allowSms" name="sms" />
+                    <span>SMS Alerts and Notifications.</span>
+                  </label>
+                </div>
+
+                <div class="cell form-control--input form-control--ltr">
+                  <label>
+                    <span class="text text--label" ng-class="{'text--required': vm.allowSms }">Phone Number</span>
+                  </label>
+                  <input type="tel" ng-model="vm.telNum" phonenumber-directive name="userPhoneNumber" ng-required="vm.allowSms" maxlength="16"
+                    ng-maxlength="16" ng-pattern="/^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/"  aria-label="Phone Number"
+                  />
+                </div>
+                <div class="cell form-control--errors" ng-if="formUser.userPhoneNumber.$touched && formUser.userPhoneNumber.$error.required">
+                    <span class="text text--warning text--caption" ng-show="formUser.userPhoneNumber.$error.pattern">Invalid Phone Number</span>
+                    <span class="text text--warning text--caption" ng-show="formUser.userPhoneNumber.$touched && formUser.userPhoneNumber.$error.required">required</span>
+                </div>
+              </div>
+
+              <div class="module__footer">
+                <div class="cell">
+                  <p class="text text--caption">Messaging and data rates may apply</p>
+                </div>
+              </div>
+            </div>
+            <div class="module__footnote">
+              <span class="text--caption">Allow ONEMV to send you notifications related to your reservations or trips.</span>
+            </div>
+          </div>
+
+          <div class="module__group">
+            <div class="module__divider">
+              <h4>Account Verification</h4>
+            </div>
+            <div class="module module--full">
+              <div class="module__body--full">
+                <div class="cell form-control--input form-control--ltr">
+                  <label>
+                    <span class="text text--label text--required">Passenger ID</span>
+                  </label>
+                  <input type="text" ng-model="vm.clientPassengerId" ng-required="true" name="orgId" ng-pattern="/^\w+$/"  aria-label="{{vm.organisationIdLabel}}"/>
+                </div>
+                <div class="cell form-control--errors" ng-if="formUser.orgId.$touched && formUser.orgId.$error.required">
+                  <span class="text text--warning text--caption">{{vm.organisationIdLabel}} is required</span>
+                </div>
+              </div>
+            </div>
+            <div class="module__footnote">
+              <span class="text--caption">Identification number assigned to you by your organization.</span>
+            </div>
+            <div class="recaptcha form-group" vc-recaptcha ng-if="vm.showRecaptcha" ng-model="vm.captchaResponse" data-size="320" key="vm.captchaPublicKey"
+              on-create="vm.WidgetCreate(widgetId)" on-success="vm.setCaptchaResponse(response)"></div>
+          </div>
+
+          <div class="btn__group">
+            <button ng-click="vm.cancel()" class="btn btn--default btn--block">Cancel</button>
+            <button type="submit" value="Register" ng-disabled="formUser.$invalid || vm.isClicked" class="btn btn--primary btn--block">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+    </div>
+

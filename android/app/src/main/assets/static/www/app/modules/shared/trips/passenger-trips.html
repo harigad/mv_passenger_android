@@ -1,0 +1,18 @@
+<div class="container-fluid">
+        <uib-tabset active="active" type="pills">
+            <uib-tab index="0" heading="Commuter" ng-if="vm.hasCommuter">
+                <ng-include src="'app/modules/shared/trips/commuter-trips.html'"></ng-include>
+            </uib-tab>
+            <uib-tab index="1" heading="On Demand" ng-if="vm.hasDrt">
+                <div class="module__group">
+                    <mv-passenger-trips passenger="{{vm.currentPassenger}}"
+                                        ng-if="vm.currentPassenger"
+                                        options="{{vm.userReservationOptions}}"
+                                        on-trip-cancelled="vm.onTripCancelled"
+                                        allow-trip-rating="true"
+                                        new-trip="{{vm.addedTrip}}">
+                    </mv-passenger-trips>   
+                </div>
+            </uib-tab>
+        </uib-tabset>    
+</div>

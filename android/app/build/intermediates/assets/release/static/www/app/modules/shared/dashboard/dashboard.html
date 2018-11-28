@@ -1,0 +1,76 @@
+<style>
+  a.nav-left{
+    display:none!important;
+  }
+</style>
+<div class="container-fluid">
+  <div class="header-group">
+    <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+    <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+  </div>
+</div>
+<div ng-include="'app/modules/shared/dashboard/menu/menu.html'"></div>
+<div class="module__group--mast">
+  <div class="container" ng-if="vm.isUserLoggedIn">
+    <div id="reservations">
+      <div class="reservations-block">
+        <div class="row module__mast">
+          <div class="col-12 module__divider" ng-if="vm.showCommuter || vm.showDrt">
+            <h4>Your Reservations</h4>
+          </div>
+          <div class="col-md" ng-if="vm.showCommuter">
+            <div class="module__group">
+              <ng-include src="'app/modules/shared/dashboard/reservation-include.html'"></ng-include>
+              <div class="module" ng-if="!vm.passengerReservations || vm.passengerReservations.length === 0" ng-cloak>
+                <div class="module__body">
+                  <div class="cell">
+                    <div class="cell__group">
+                      <p class="text text--primary text-center">You do not have any {{vm.commuterInfo.alias}} reservations scheduled for today.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md" ng-if="vm.showDrt">
+            <div class="module__group">
+              <ng-include src="'app/modules/shared/dashboard/trip-include.html'"></ng-include>
+              <div class="module" ng-if="vm.todaysTrips.length === 0" ng-cloak>
+                <div class="module__body">
+                  <div class="cell">
+                    <div class="cell__group">
+                      <p class="text text--primary text-center">You do not have any {{vm.drtInfo.alias}} trips scheduled for today.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="login-status" class="container" ng-if="!vm.isUserLoggedIn">
+    <div class="module">
+      <div class="module__header module__header--default">
+        <span class="module__header--title">You are not signed in</span>
+      </div>
+      <div class="module__body">
+        <div class="cell">
+          <button class="btn--primary btn--block btn" ng-click="vm.login()" data-tap-disabled="true">Sign in now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="powered-by__container">
+  <div class="powered-by">
+    <small>Powered By</small>
+    <div class="mv-branding">
+      <div class="branding">MV</div>
+    </div>
+    <div class="copyright">
+      <small>&copy; 2011 - {{vm.currentYear}} MV TRANSPORTATION, INC. ALL RIGHTS RESERVED. {{data.DivisionName}}</small>
+    </div>
+  </div>
+</div>

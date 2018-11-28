@@ -1,0 +1,31 @@
+<div class="modal__content">
+    <div class="modal__header">
+        <h4 class="modal-title">Rate your Trip</h4>
+        <button class="btn--back" ng-click="vm.cancel()">Cancel</button>
+    </div>
+    <div class="modal__body">
+        <div class="stars__content stars__content--lg d-flex">
+            <div uib-rating ng-model="vm.feedbackInfo.rating" max="5"></div>
+        </div>
+        <div class="module">
+            <div class="module__body">
+                <div class="cell d-block">
+                    <label class="text text--label d-block">Comments</label>
+                </div>
+                <div class="cell d-block form-control--input">
+                    <textarea ng-model="vm.feedbackInfo.comment" rows="5"
+                              maxlength="250" class="d-block" style="width:100%;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal__footer">
+        <div class="btn__group">
+            <button class="btn btn--default btn--block" ng-click="vm.cancel()">Cancel</button>
+            <button class="btn btn--primary btn--block" 
+                    ng-disabled="vm.disableSubmit()" 
+                    ng-click="vm.saveFeedback()">Submit</button>
+        </div>
+    </div>
+</div>

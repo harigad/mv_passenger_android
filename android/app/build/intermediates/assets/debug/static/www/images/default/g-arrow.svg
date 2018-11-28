@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>g-arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="25" cy="25" r="25"></circle>
+    </defs>
+    <g id="Mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Confirmation---Open" transform="translate(-310.000000, -187.000000)">
+            <g id="g-arrow" transform="translate(310.000000, 187.000000)">
+                <g id="Oval-3">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#F6A623" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <path d="M18.1240422,21.5000594 C17.9619064,21.6541951 17.9619064,21.9187325 18.1053752,22.0686015 C18.2515108,22.2206038 18.5203149,22.2312706 18.6744506,22.0872684 L24.7993447,16.3245133 L24.7993447,34.5999939 C24.7993447,34.8207972 24.9785474,35 25.1993508,35 C25.4201542,35 25.599357,34.8207972 25.599357,34.5999939 L25.599357,16.3245133 L31.724251,22.0872684 C31.8783867,22.2312706 32.1493242,22.2227372 32.2933264,22.0686015 C32.4367953,21.9144658 32.441062,21.666462 32.2746594,21.5000594 L25.474555,15.0999611 C25.2868188,14.9474255 25.057482,14.9874261 24.9241466,15.0999611 L18.1240422,21.5000594 Z" id="Page-1" stroke="#FFFFFF" fill="#FFFFFF" transform="translate(25.200129, 25.000000) scale(1, -1) translate(-25.200129, -25.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

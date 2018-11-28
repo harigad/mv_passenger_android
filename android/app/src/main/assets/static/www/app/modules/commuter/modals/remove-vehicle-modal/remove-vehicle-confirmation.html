@@ -1,0 +1,20 @@
+
+<div class="modal__content">
+    <div class="modal__header">
+        <h4 class="modal-title">Remove Vehicle</h4>
+        <button type="button" class="btn--back" data-dismiss="modal"
+                ng-click="vm.cancel()"
+                aria-label="Close">
+                Back
+        </button>
+    </div>
+    <div class="modal__body">        
+        <h4 class="text-center"> Are you sure you want to remove the vehicle?</h4>
+    </div>
+    <div class="modal__footer">
+        <div class="btn__group">
+            <button class="btn btn--cancel btn--block" ng-click="vm.removeVehicle()">Remove Vehicle</button>
+            <button class="btn btn--default btn--block" ng-click="vm.cancel()"data-dismiss="modal">Close</button>
+        </div>  
+    </div>
+</div>

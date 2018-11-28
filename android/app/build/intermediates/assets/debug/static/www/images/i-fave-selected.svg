@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="28px" viewBox="0 0 30 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>i-fave-selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="113.574219%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FCE9A5" offset="0%"></stop>
+            <stop stop-color="#F6CA43" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5b---Stop-Details-Reserved" transform="translate(-10.000000, -221.000000)" stroke="#FFB63E" fill="url(#linearGradient-1)">
+            <polygon id="i-fave-selected" points="25 243.5 16.1832212 248.135255 17.8670761 238.317627 10.7341523 231.364745 20.5916106 229.932373 25 221 29.4083894 229.932373 39.2658477 231.364745 32.1329239 238.317627 33.8167788 248.135255"></polygon>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,26 @@
+<style>
+    .header-group-stuck{
+        opacity: 1!important;
+    }
+    .header__mobile, .header__desktop{
+  background-color: rgba(255,255,255,.7)!important;
+}
+</style>
+<link href="css/main2.css" rel="stylesheet"/>
+
+<reservation-form-directive passenger="vm.currentPassenger"
+                            ng-if="vm.currentPassenger"
+                            mode="reservation"
+                            options="vm.reservationFormOptions"
+                            on-reservation-success="vm.onReservationSuccess"
+                            >
+</reservation-form-directive>
+
+<a id="active-trip" class="btn" href="#/on-demand/active-trip" ng-if="vm.hasActiveTrip"><i class="i-active"></i>View Active Trip</a>
+<a id="active-trip" class="btn" href="#/on-demand/my-trips" ng-if="vm.hasFutureTrips"><i class="i-active"></i>Upcoming Trips</a>
+
+<div id="map-container" ng-show="vm.showMap">
+    <ui-gmap-google-map tabindex="-1" aria-hidden="true" center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+        <ui-gmap-marker coords="vm.position.coords" ng-if="vm.position != null" idKey="99999" options="{icon: vm.position.icon, zIndex:10}"></ui-gmap-marker>
+    </ui-gmap-google-map>
+</div>

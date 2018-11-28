@@ -1,0 +1,82 @@
+<div id="reservation-modal" class="modal__content">
+    <div class="modal__header">
+        <h4 class="modal-title">Modify Reservation</h4>
+        <button type="button" class="btn--back" data-dismiss="modal" aria-label="Close" ng-click="vm.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal__body">
+        <div class="module module--wide">
+            <div class="module__body module__body--wide">
+                <div class="cell" ng-if="vm.reservationInfo.scheduleType == 'AM'">
+                    <div class="form-control--input">
+                        <label class="text text--label">Vehicle</label>
+                        <select ng-model="vm.selectedVehicleId"
+                                ng-options="vehicle.id as vehicle.licenceplate for vehicle in vm.passengerVehicles"></select>
+                    </div>
+                </div>
+                <div class="cell" ng-if="vm.reservationInfo.scheduleType == 'AM'">
+                    <div class="cell__group">
+                        <span class="text text--available" ng-if="vm.availableParking > 0">
+                            Parking Available ({{vm.availableParking}})
+                        </span>
+                        <span class="text text--na" ng-if="vm.availableParking <= 0">
+                            Parking Unavailable
+                        </span>
+                    </div>
+
+                    <button type="button" class="btn btn--default" ng-disabled="vm.passengerVehicles.length === 1"
+                            data-dismiss="modal" ng-click="vm.manageVehicle()">
+                        Update
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="module module--wide">
+            <div class="module__body module__body--wide">
+                <div class="cell cell--no-padding" ng-repeat="trip in vm.trips">
+                    <label class="form-control--radio">
+                        <input type="radio" name="{{trip.tripId}}" ng-model="vm.selectedTripId" value={{trip.tripId}}>
+                        <span class="cell__group">
+                            <span class="text-group">
+                                <time class="text text__time--from">{{trip.pickupTime}}</time>
+                                <time class="text text__time--to">{{trip.dropoffTime}}</time>
+                            </span>
+                           <seat-availability trip="trip"  division-allows-waitlist="vm.divisionAllowsWaitlist"></seat-availability>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="module__note">
+            <small class="text--warning">Modifying a confirmed reservation may place you into waitlist.</small>
+        </div>
+        <div class="module" ng-if="vm.message!=''">
+            <div class="module__body">
+                <div class="cell">
+                    <p class="text text--warning">{{vm.message}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal__footer">
+
+        <div class="btn__group">
+            <button ng-if="!vm.isReserved" type="button" class="btn btn--primary btn--block"
+                    ng-disabled="vm.selectedTripId == vm.currentTripId"                    
+                    data-dismiss="modal" ng-click="vm.modifyTrip();">
+                Modify Reservation Time
+            </button>
+
+            <button type="button" class="btn btn--default btn--block" ng-disabled="vm.isSaving"
+                    data-dismiss="modal" ng-click="vm.cancel();">
+                Close
+            </button>
+        </div>
+    </div>
+</div>

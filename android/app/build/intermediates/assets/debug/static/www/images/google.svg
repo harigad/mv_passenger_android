@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="19px" viewBox="0 0 31 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>google</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0.005101434,8.48321544 C-0.157457807,4.20659091 3.58855963,0.254798656 7.86919091,0.203283404 C10.051148,0.0172561037 12.1735764,0.864682006 13.8246403,2.24672175 C13.1475009,2.99111715 12.4586275,3.72749906 11.7219594,4.41665866 C10.2689431,3.53345828 8.51856928,2.86032564 6.81971074,3.45818877 C4.0796717,4.23835865 2.42059438,7.4735165 3.43430007,10.154313 C4.27371249,12.9538808 7.67915687,14.4904663 10.3479331,13.3142013 C11.7299729,12.8193687 12.6406481,11.5443662 13.0407499,10.1740605 C11.4566558,10.142579 9.87284803,10.1623265 8.28904022,10.1188247 C8.28503347,9.17638178 8.28102673,8.23765941 8.28503347,7.29521648 C10.9260487,7.29149594 13.571357,7.28348245 16.216379,7.30723671 C16.3789382,9.61569241 16.0383652,12.0867073 14.5375541,13.9398255 C12.4823818,16.5851337 8.68484907,17.3612968 5.59622349,16.3238369 C2.31756387,15.2465957 -0.0661613318,11.9441818 0.005101434,8.48321544" id="path-1"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="1" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.576470588   0 0 0 0 0.152941176   0 0 0 0 0.109803922  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M24.9341423,3.68516122 C24.9395437,4.7472976 24.9499605,5.81483533 24.9553619,6.87735752 C26.0174983,6.8877744 27.0854218,6.89317575 28.1475582,6.89857709 L28.1475582,10.0799707 C27.0854218,10.085372 26.0174983,10.0907734 24.9553619,10.0961747 C24.9445592,11.1637125 24.9395437,12.2262347 24.9341423,13.2937724 C23.8716201,13.288371 22.8094837,13.2937724 21.7523629,13.2937724 C21.741946,12.2262347 21.741946,11.1637125 21.7311433,10.1015761 C20.6690069,10.0907734 19.6010834,10.085372 18.538947,10.0799707 L18.538947,6.89857709 C19.6010834,6.89317575 20.6636056,6.8877744 21.7311433,6.87735752 C21.7365447,5.81483533 21.7473474,4.7472976 21.7577642,3.68516122 L24.9341423,3.68516122 Z" id="path-3"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="1" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.576470588   0 0 0 0 0.152941176   0 0 0 0 0.109803922  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login" transform="translate(-131.000000, -577.000000)">
+            <g id="Google" transform="translate(123.000000, 563.000000)">
+                <g id="google" transform="translate(8.000000, 14.000000)">
+                    <g id="Fill-23">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="Fill-24">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

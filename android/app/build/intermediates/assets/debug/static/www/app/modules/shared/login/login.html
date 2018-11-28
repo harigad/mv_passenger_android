@@ -1,0 +1,49 @@
+<style>
+    header, footer, nav{
+      overflow: hidden!important;
+      min-height: 0px!important;
+      height:0px!important;
+      transition:all .5s!important;
+      background:transparent;
+      padding:0;
+    }
+  </style>
+
+<div class="login">
+  <div class="overlay" ng-if="vm.hasGpsBeenChecked && !vm.allowedToLoginOrRegister">
+    <div class="overlay__gps">
+      <span>{{vm.loginOrRegisterMessage}}</span>
+    </div>
+  </div>
+  <section class="login__branding">
+    <span class="branding--full"></span>
+  </section>
+  
+  <div class="login__actions ">
+    <form class="container">
+      <div class="row justify-content-center">
+        <div class="button__group col-md-6">
+          <input asp-for="PassengerID" type="hidden" class="form-control" />
+          <div class="button-group" ng-repeat="provider in vm.providers" ng-show="vm.hasGpsBeenChecked && vm.allowedToLoginOrRegister">
+            <button class="btn btn__social btn__social--{{provider.name | lowercase}}" value={{provider.name}} name="provider" data-ng-click="vm.authExternalProvider(provider.name)"
+              ng-disabled="!vm.allowedToLoginOrRegister">
+              <span>Login with {{provider.name}}</span>
+            </button>
+          </div>
+          <a class="btn btn--rounded btn--ol-white" href="#/dashboard/">Go Back</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="login__alert" ng-if="vm.isAmazonProvider">
+    <p ng-if="vm.ionicUseExternalLink">
+      This site utilizes
+      <a>Login With Amazon</a>. Register one time with just a few clicks, using your Amazon customer account.
+    </p>
+    <p ng-if="!vm.ionicUseExternalLink">
+      This site utilizes
+      <a href="https://developer.amazon.com/login-with-amazon" target="amazon">Login With Amazon</a>. Register one time with just few clicks, using your Amazon customer account.
+    </p>
+  </div>
+</div>

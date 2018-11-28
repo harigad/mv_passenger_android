@@ -1,0 +1,90 @@
+<ion-view hide-nav-bar="false" can-swipe-back="false" cache-view="false">
+    <ng-include src="'app/shared/ionic/ionic-header-partial.html'"></ng-include>
+    <ion-content>
+        <ion-refresher on-refresh="vm.refresh($event)"
+                       pulling-text="Refresh Dashboard"
+                       refreshing-text="Loading Dashboard">
+        </ion-refresher>
+        <div class="content-wrapper">
+            <div ng-if="!vm.loadingServices">
+                <!--
+                    The ion-side-box is created from 'app/dashboard/menu/menu.html'
+                -->
+                <ion-slide-box id="hero" ng-if="!vm.loadingServices" auto-play="true" slide-interval="6000"
+                               show-pager="{{vm.allowedServices.length > 1}}" does-continue="true">
+                    <ion-slide id="{{service.ServiceId}}" ng-repeat="service in vm.allowedServices" >
+                        <div class="carousel-caption">
+                        <span class="branding"></span>
+                        <div class="text-center" id="static" dynamic="service.Html"></div>
+                        <button class="btn-primary icon-pulling button-block" ng-click="vm.navigate(service.Path,service.Type, service.ServiceId)">{{service.ButtonText}}</button>
+                        </div>
+                    </ion-slide>
+                </ion-slide-box>
+
+                <section id="reservations" ng-if="vm.isUserLoggedIn">
+                    <div class="reservations-block" ng-hide="vm.isLoading || vm.loadingServices">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Reservations</h2>
+                            </div>
+                        </div>
+                        <div class="row responsive-sm">
+                            <div id="reservations-ride" ng-class="vm.showDrt ? 'col-sm-6' : 'col-sm-12'" ng-if="vm.showCommuter">
+                                <div id="schedule-ride" class="reservations">
+                                    <div class="group-header">
+                            <a class="cta" href="#/commuter/home-commuter"><span class="title-content"></span> <small>Commuter</small></a>
+                                    </div>
+                                    <div class="routes" ng-if="vm.userReservations.length > 0">
+                                        <ng-include src="'app/modules/shared/dashboard/reservation-include.html'"></ng-include>
+                                    </div>
+                                    <div class="no-trips" ng-if="vm.userReservations.length === 0" ng-cloak>
+                                        <h4 class="text-center">
+                                            YOU DO NOT HAVE ANY RESERVATIONS SCHEDULED TODAY
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="reservations-drt" ng-class="vm.showCommuter ? 'col-sm-6' : 'col-sm-12'" ng-if="vm.showDrt">
+                                <div id="schedule-slu" class="reservations">
+                                    <div class="group-header">
+                            <a class="cta" href="#/on-demand/reservations"><span class="title-content"></span> <small>On Demand</small></a>
+                                    </div>
+                                    <div class="routes" ng-if="vm.todaysTrips.length > 0">
+                                        <ng-include src="'app/modules/shared/dashboard/trip-include.html'"></ng-include>
+                                    </div>
+                                    <div class="no-trips" ng-if="vm.todaysTrips.length === 0">
+                                        <h4 class="text-center">YOU DO NOT HAVE ANY TRIPS SCHEDULED FOR TODAY</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <section id="login-status" ng-if="!vm.loadingServices">
+
+                <div ng-if="vm.isUserLoggedIn" ng-show="vm.isLoading">
+                    <div id="loader">
+                        <div class="loading-block">
+                            <span class="spinner-lg"></span>
+                            <span class="spinner-sm"></span>
+                        </div>
+                        <p class="text-center">
+                            UPDATING
+                        </p>
+                    </div>
+                </div>
+        <h4 class="text-center" ng-hide="vm.isUserLoggedIn"> You are not signed in</h4>
+        <button class="btn-default btn" ng-click="vm.login()" ng-if="!vm.isUserLoggedIn">Sign in now</button>
+            </section>
+            <footer>
+                <div class="powered-by"><small>Powered By</small></div>
+                <div class="mv-branding">
+                    <div class="branding">MV</div>
+                </div>
+                <div class="copyright"><small>&copy; 2011 - {{vm.currentYear}} MV TRANSPORTATION, INC. ALL RIGHTS RESERVED. {{vm.appVersion}}</small></div>
+            </footer>
+        </div>
+    </ion-content>
+</ion-view>

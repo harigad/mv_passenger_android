@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "861945479410",
+    "firebase_url": "https://mvpassenger.firebaseio.com",
+    "project_id": "mvpassenger",
+    "storage_bucket": "mvpassenger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861945479410:android:33ef0e0bf164803a",
+        "android_client_info": {
+          "package_name": "com.mvtransit.passengerapp.d"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861945479410-gacgndkvfqmgqi40ki7okouqpdlk6610.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mvtransit.passengerapp.d",
+            "certificate_hash": "80af36818986cb5a64dfb35575109aa548856508"
+          }
+        },
+        {
+          "client_id": "861945479410-4l40hncut74kfdqunil4k6o544sku87a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYfKpmypI3PetnTcbvlMjyJK_VMuiyZks"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861945479410-4l40hncut74kfdqunil4k6o544sku87a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,175 @@
+<div class="modal__content">
+    <div class="modal__header">
+        <h4 class="modal-title">Trip Reserved</h4>
+        <button type="button" class="btn--back" data-dismiss="modal" ng-click="vm.cancel()" aria-label="Close"></button>
+    </div>
+
+    <div class="modal__body confirm__reservation">
+        <div class="module__group module__group--mast" ng-if="vm.activeTrip.Status === 'Reserved'" ng-swipe-up="swipeUp($event)"
+             ng-swipe-down="swipeDown($event)">
+            <div class="module module--full">
+                <div class="module__header">
+                    <h3>Your ride is on the way</h3>
+                </div>
+                <div class="module__body--full">
+                    <div class="cell d-block">
+                        <p class="text text--caption">Est. Pickup Window</p>
+                        <p class="text-text--primary">{{vm.trip.ScheduledPickupTime | date : 'MM/d/yyyy'}}</p>
+                        <time>{{vm.trip.promiseWindowStartTime}}</time>
+                        <small>to</small>
+                        <time>{{vm.trip.promiseWindowEndTime}}</time>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module__group module__group--mast" ng-if="vm.trip.Status === 'Reserved'">
+            <div class="module module__mast">
+                <div class="module__body">
+                    <div class="cell d-block">
+                        <p class="text text--label">Your ride will arrive between</p>
+                        <p class="text text--primary">
+                            <time>
+                                <strong>{{vm.trip.promiseWindowStartTime}}</strong>
+                            </time>
+                            <small>&mdash;</small>
+                            <time>
+                                <strong>{{vm.trip.promiseWindowEndTime}}</strong>
+                            </time>
+                        </p>
+                        <p class="text-text--primary">{{vm.trip.ScheduledPickupTime | date : 'MM/d/yyyy'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module__group">
+            <div class="module module--wide">
+                <div class="module__body--wide">
+                    <div class="cell">
+                        <p class="text text--label">From</p>
+                        <address class="text text--primary">{{vm.trip.StartAddressViewModel.Name }}</address>
+                    </div>
+                    <div class="cell">
+                        <span class="text text--label">To</span>
+                        <address class="text text--primary">{{vm.trip.EndAddressViewModel.Name}}</address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="module__group">
+            <div class="module__divider">
+                <h4>Trip Details</h4>
+            </div>
+            <div class="module module--wide">
+                <div class="module__body--wide">
+                    <div class="cell cell--pickup" ng-if="vm.trip.TripType != 'APPOINTMENT'">
+                        <p class="text text--label">Estimated Drop off</p>
+                        <time class="text text--primary">{{vm.trip.EstimatedDestinationTime | date: 'h:mm a'}}</time>
+                    </div>
+                    <div class="cell cell--dropoff" ng-if="vm.trip.TripType == 'APPOINTMENT'">
+                        <p class="text text--label">Arrive By</p>
+                        <time class="text text--primary">{{vm.trip.ScheduledDestinationTime | date: 'h:mm a'}}</time>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module__group" ng-if="vm.allowLocationNotes">
+            <div class="module module--wide"> 
+                <div class="module__body--wide">
+                    <div class="cell" ng-if="(!vm.trip.StartAddressViewModel.LocationNote == '')">
+                        <span class="text text--label">Pickup Notes</span>
+                        <span class="text text--primary">{{vm.trip.StartAddressViewModel.LocationNote}}</span>
+                    </div>
+                    <div class="cell" ng-if="(!vm.trip.EndAddressViewModel.LocationNote == '')">
+                        <span class="text text--label">Dropoff Notes</span>
+                        <span class="text text--primary">{{vm.trip.EndAddressViewModel.LocationNote}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="module__group" ng-if="angular.isUndefined(vm.trip.VehicleName) || vm.trip.VehicleName === null || vm.trip.VehicleName.trim() === '' ">
+            <div class="module__divider">
+                <h4>Vehicle Details</h4>
+            </div>
+            <div class="module module--wide">
+                <div class="module__body--wide">
+                    <div class="cell cell--pickup">
+                        <span>Vehicle</span>
+                        <span>{{vm.trip.VehicleName}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module__group" ng-if="vm.trip.NumberOfPassengers + vm.trip.HandicappedPassengerCount >= 1">
+            <div class="module">
+                <div class="module__body">
+                    <div class="cell">
+                        <span class="text text--label">Passengers</span>
+                        <span class="text text--primary">{{vm.trip.NumberOfPassengers + vm.trip.HandicappedPassengerCount}}</span>
+                    </div>
+
+                    <div class="cell" ng-if="vm.trip.NumberOfCompanions > 0">                        
+                        <span class="text text--label" ng-if="!vm.allowChildren">Companions</span>
+                        <span class="text text--label" ng-if="vm.allowChildren">Children</span>
+                        <span class="text text--primary">{{vm.trip.NumberOfCompanions}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module__group">
+            <div class="module__divider">
+                <h4>Additional Options</h4>
+            </div>
+            <div class="module">
+                <div class="module__body">
+                    <div class="cell justify-content-start">
+                        <span class="icon" ng-if="vm.trip.HandicappedPassengerCount > 0">wc</span>
+                        <span class="icon" ng-if="vm.trip.NumberOfXLWheelChairs > 0">wcxl</span>
+                        <span class="icon" ng-if="vm.trip.NumberOfWalkers > 0">wkr</span>
+                        <span class="icon" ng-if="vm.trip.NumberOfScooters > 0">sctr</span>
+                        <span class="icon" ng-if="vm.trip.NumberOfBikes > 0">bike</span>
+                        <span class="icon" ng-if="vm.trip.NumberOfPCAs > 0">pca</span>
+                        <span class="icon" ng-if="vm.trip.NumberOfServiceAnimals > 0">sa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module__group" ng-if="vm.allowFaring">
+            <div class="module">
+                <div class="module__body">
+                    <div class="cell">
+                        <span class="text text--label">Fare</span>
+                        <span class="text text--primary">{{vm.trip.CalculatedFare | currency}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module__group">
+            <div class="module module--full">
+                <div class="module__body--full">
+                    <div class="cell">
+                        <span class="text text--secondary">Confirmation</span>
+                        <span class="text text--secondary">#{{vm.trip.TripID}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal__footer">
+        <div class="btn__group">
+            <button type="button" class="btn btn--default btn--block" ng-click="vm.cancel()" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>

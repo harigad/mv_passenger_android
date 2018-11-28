@@ -1,0 +1,37 @@
+<div class="list-item no-flex" ng-class="{'active' : routeArrival.stop.Id == selectedStopId}">
+  <div class="item-block">
+    <div class="item-content">
+      <p class="name">
+        <a href="#/fixed-route/stops">
+          <span>{{routeArrival.stop.Name}}</span>
+        </a>
+      </p>
+      <ul ng-if="routeArrival.trip.length === 0" class="stop-times">
+        <li>
+          <span>NO ARRIVALS</span>
+        </li>
+      </ul>
+      <ul class="stop-times" ng-if="routeArrival.trip.length > 0">
+        <li ng-repeat="trip in routeArrival.trip" ng-click="showArrivals($index)" ng-class="{'active': selectedArrivalIndex == $index}">
+          <span ng-if="trip.etaInMins > 0">{{trip.scheduleTime | date: "shortTime"}}</span>
+          <span ng-if="trip.etaInMins == 0">Arriving</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="item-well" ng-if="routeArrival.trip.length > 0">
+    <div class="arrival">
+      <i class="i i-xs i-clock"></i>
+      <span>{{routeArrival.trip[selectedArrivalIndex].etaInMins}} MINS</span>
+    </div>
+    <div class="bus" ng-show="{{routeArrival.trip[selectedArrivalIndex].vehicle
+                  && routeArrival.trip[selectedArrivalIndex].vehicle.id != 0}}">
+      <i class="i i-xs i-bus"></i>
+      <span>#{{routeArrival.trip[selectedArrivalIndex].vehicle.name}}</span>
+    </div>
+    <div class="seats" ng-show="{{routeArrival.trip[selectedArrivalIndex].vehicle.capacity > 0}}">
+      <i class="i i-xs i-seats"></i>
+      <span>{{routeArrival.trip[selectedArrivalIndex].vehicle.capacity}}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>i-close</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD---hover-states" transform="translate(-327.000000, -245.000000)" fill="#9B9B9B">
+            <g id="schedule" transform="translate(31.000000, 220.000000)">
+                <g id="Group" transform="translate(296.000000, 24.304878)">
+                    <path d="M11.7929062,11.115117 L1.82622175,1.14092201 L1.48456096,0.799003766 L0.792906205,1.47460127 L1.13456699,1.81651952 L11.1095344,11.7990038 L1.13456699,21.781488 L0.792906205,22.1234063 L1.48456096,22.7990038 L1.82622175,22.4570855 L11.7929062,12.4828905 L21.7595907,22.4570855 L22.1012514,22.7990038 L22.7929062,22.1234063 L22.4512454,21.781488 L12.476278,11.7990038 L22.4512454,1.81651952 L22.7929062,1.47460127 L22.1012514,0.799003766 L21.7595907,1.14092201 L11.7929062,11.115117 Z" id="i-close"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

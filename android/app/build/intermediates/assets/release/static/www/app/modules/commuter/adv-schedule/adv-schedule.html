@@ -1,0 +1,116 @@
+<div class="cal d-md-none">
+  <div class="cal__wrapper">
+    <data-owl-carousel class="cal__content owl-carousel" data-options="vm.carouselOptions">
+      <div class="cal__week" ng-repeat="week in vm.weeks" owl-carousel-item>
+        <div ng-repeat="day in week" class="cal__day" ng-class="{'cal__day--booked' : day.reservation, 'cal__day--active' : day.isOpen, 'cal__day--inactive' : day.disable && !day.reservation}"
+          scroll-to="{{day.dayId}}_{{day.week}}" offset="160" container-id="wrapper">
+          <span class="day__number">{{day.date|date:'dd'}}</span>
+          <span class="day__name">{{day.dayOfWeek}}</span>
+        </div>
+      </div>
+    </data-owl-carousel>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 d-none d-md-block adv-schedule__calender--desktop">
+      <div class="cal__desktop">
+        <div class="cal__week" ng-repeat="week in vm.weeksX">
+          <div ng-repeat="day in week" class="cal__day" ng-class="{'cal__day--booked' : day.reservation, 'cal__day--active' : day.isOpen, 'cal__day--inactive' : day.disable && !day.reservation} "
+            ng-click="vm.showSchedule(day)" scroll-to="{{day.dayId}}_{{day.week}}" offset="160" container-id="wrapper">
+            <span class="day__number">{{day.date | date:'dd'}}</span>
+            <span class="day__name">{{day.dayOfWeek}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-8 adv-schedule">
+      <div class="week__group row" ng-repeat="week in vm.weeks">
+        <div id="{{$index}}" class="module__divider col-12">
+          <h4>{{week[0].date | date:'MM/dd/yyyy'}} &mdash; {{week[week.length-1].date | date:'MM/dd/yyyy'}} </h4>
+        </div>
+        <div class="module__group col-lg-6" ng-repeat="day in week | filter:vm.filterWeekend(day)" id="{{::day.dayId}}_{{::day.week}}">
+          <div class="module module--wide" ng-if="day.isOpen">
+            <div class="module__header--day">
+              <div class="cell__group">
+                <div class="text-group">
+                  <span class="text text--headline">
+                    {{day.date | date:'EEEE'}}
+                  </span>
+                  <span class="text text--caption">{{day.date | date:'MM/dd/yyyy'}}</span>
+                  </span>
+                </div>
+                <div class="cell__group cell__group--list" ng-if="vm.selectedConfig.schedule == 'AM'">
+                  <span class="text text--secondary text--available" ng-if="day.availableParking >= '1'">
+                    Available Parking({{day.availableParking}})
+                  </span>
+                  <span ng-if="day.availableParking <= '0'" class="text text--secondary text--warning">
+                    Parking Unavailable
+                  </span>
+                  <span class="text text--secondary text--link" ng-if="day.vehicle!= undefined && day.vehicle.id != undefined">
+                    {{day.vehicle.licenceplate}}
+                  </span>
+                  <select class="form-control--xs form-control--inline form-control--select" name="pvehicle" ng-model="day.vehicle" ng-if="(day.vehicle == undefined || day.vehicle.id == undefined) && vm.selectedConfig.schedule == 'AM'"
+                    ng-options="vehicle.licenceplate for vehicle in vm.passengerVehicles">
+                  </select>
+                </div>
+              </div>
+              <div class="cell__group cell__group--options">
+              </div>
+            </div>
+            <div class="module__body module__body--wide">
+              <div class="cell cell--no-padding" ng-repeat="trip in day.trips">
+                  <label class="form-control--radio">
+                    <input type="radio" name="{{day.date}}" ng-model="day.selectedTrip" value={{trip.tripId}}>
+                    <span class="cell__group">
+                      <span class="text-group">
+                        <time class="text text__time--from">{{trip.pickupTime}}</time>
+                        <time class="text text__time--to">{{trip.dropoffTime}}</time>
+                      </span>
+                      <seat-availability trip="trip" division-allows-waitlist="vm.divisionAllowsWaitlist"></seat-availability>
+                    </span>
+                  </label>
+              </div>
+            </div>
+            <div class="module__footer">
+              <div class="cell">
+                <div class="cell__group cell__group--align-right cell__group--list justify-content-end">
+                  <a class="text text--caption text--link" href="" ng-click="vm.resetPassengerVehicle(day)" ng-if="day.vehicle.id != undefined && vm.selectedConfig.schedule == 'AM'">
+                    Remove Parking
+                  </a>
+                  <a class="text text--caption text--link" href="" ng-click="day.isOpen = false">Remove Day</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="module module--wide module--disabled" ng-class="{'module--booked' : day.reservation}" ng-if="!day.isOpen">
+            <div class="module__header--day">
+              <div class="cell__group cell__group--align-left">
+                <div class="text-group--block">
+                  <p class="text text--headline">
+                    {{day.date | date:'EEEE'}}
+                  </p>
+                  <p class="text text--secondary">{{day.date | date:'MM/dd/yyyy'}}</p>
+                  </span>
+                </div>
+              </div>
+              <div class="cell__group cell__group--options">
+                <button class="btn btn--xs btn--default btn--rounded" ng-hide="day.disable" ng-click="vm.showSchedule(day)">
+                  Show Schedule
+                </button>
+                <button class="btn btn--default btn--xs" ng-if="day.reservation" ng-click="vm.showReservationInfo(day.reservation)">
+                  View Reservation
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pos__sticky--bottom" ng-cloak>
+    <div class="btn__group row justify-content-end">
+      <button class="btn btn--primary col-md-8" ng-disabled="vm.disableReservation" ng-click="vm.reserve()">Next</button>
+    </div>
+  </div>
+</div>

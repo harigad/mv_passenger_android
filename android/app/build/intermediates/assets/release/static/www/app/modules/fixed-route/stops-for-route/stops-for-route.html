@@ -1,0 +1,30 @@
+<style>
+    .header__mobile .header-group-stuck{
+        opacity: 1;
+    }
+</style>
+<div id="drawer" class="stops-for-route fixed-route__wrapper" ng-class="{true:'open'}[!vm.isHidden]">   
+    <div class="scroll-group" style="padding-bottom:60px;">  
+           <div class="list-item">
+                <div class="item-block">
+                    <div class="item-content">
+                        <p class="name">
+                            <small class="alias">Stops on {{vm.route.shortName}}</small>
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        <stop-arrival-info ng-repeat="arrival in vm.routeArrivals" selected-stop-id="vm.selectedStopId"
+                           route-arrival="arrival"></stop-arrival-info>
+    </div>
+    
+</div>
+<div class="show-on-map d-md-none"  style="top:100%;" ng-if="vm.routeArrivals.length >= 1">
+    <button class="btn btn--primary btn--block" ng-class="{true:'active'}[vm.isHidden]" ng-click="vm.isHidden = !vm.isHidden">{{vm.isHidden ? 'Show Routes' : 'Show Map'}}</button>
+</div>
+<div id="map-container">
+    <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+        <ui-gmap-marker coords="vm.position.coords" idKey="99999" options="{icon: vm.position.icon, zIndex:10}"></ui-gmap-marker>            
+    </ui-gmap-google-map>
+</div>

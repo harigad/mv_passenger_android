@@ -1,0 +1,41 @@
+<div class="login__verification">
+    <div class="container-fluid">
+        <div class="header-group">
+                <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+                <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+        </div>
+    </div>
+    
+    <form name="formUser" id="formUser" ng-submit="formUser.$valid;vm.isClicked=!vm.isClicked; vm.registerExternal() " novalidate="">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-12">
+                    <div class="module__group">
+                        <div class="module__divider">
+                            <h4>Registration Code</h4>
+                        </div>
+                    <div class="module--full">
+                        <div class="module__body--full">
+                            <div class="cell cell--form-group">
+                                    <label class="text text--label" for="regCode">Access Code</label>
+                                    <div class="form-control--input">
+                                        <input type="text" ng-model="vm.code" name="regCode"/>
+                                    </div>
+
+                            </div> 
+                            <div class="cell form-control--errors" ng-if="vm.message">
+                                <detail class="text text--warning text--caption">{{vm.message}}</detail>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="btn__group">
+                            <input type="button" value="Cancel" ng-disabled="vm.isClicked" ng-click="vm.cancel()" class="btn btn--default btn--block" />
+                            <input type="submit" value="Confirm" ng-disabled="formUser.$invalid || vm.isClicked"
+                            class="btn btn--primary btn--block" />
+                    </div>
+                </div>
+            </div>
+         </div>
+    </form>
+</div>

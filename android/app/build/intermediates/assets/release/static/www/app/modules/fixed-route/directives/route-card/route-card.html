@@ -1,0 +1,33 @@
+<div class="list-item">
+    <div class="item-block">
+        <div class="item-content">
+            <p class="name" ng-click="gotoRouteWithStops()"><span>{{routeInfo.route.shortName}}</span> <small class="alias">{{routeInfo.route.name | routeStopsName }}</small></p>
+            <ul class="stop-times">
+                <li ng-repeat="trip in routeInfo.trips" ng-class="{'active': trip.isActive, '': (undefined || !trip.isActive)}">
+                    <span ng-click="activateTrip(trip)">{{trip.scheduleTime | date:'shortTime'}}</span>
+                </li>
+            </ul>
+        </div>
+       
+    </div>
+
+    <div class="item-buttons" ng-show="pinnable">
+            <button class="pin" ng-click="activateRoute()">
+                <i class="i i-pin" ng-class="{'active': routeInfo.isSelected}"></i>
+        </button>
+    </div>
+
+    <div class="item-well">
+        <div class="arrival">
+            <i class="i i-xs i-clock"></i>
+            <span ng-if="activeTrip.etaInMins > 0">{{activeTrip.etaInMins}}MINS</span>
+            <span ng-if="activeTrip.etaInMins == 0">Arriving</span>
+        </div>
+        <div class="bus" ng-show="{{activeTrip.vehicle && activeTrip.vehicle.name}}">
+            <!--<i class="i i-xs i-bus"></i>--><span>#{{activeTrip.vehicle.name}}</span>
+        </div>
+        <div class="seats" ng-show="{{activeTrip.vehicle.capacity > 0}}">
+            <i class="i i-xs i-seats"></i><span>{{activeTrip.vehicle.capacity}}</span>
+        </div>
+    </div>
+</div>

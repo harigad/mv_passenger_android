@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="header-group">
+    <h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+    <p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+  </div>
+</div>
+
+<div id="hero" class="carousel__commuter">
+  <data-owl-carousel class="dashboard__carousel owl-carousel" data-options="carouselOptions">
+    <div ng-repeat="features in vm.commuterFeatures" class="carousel__item {{::features.class}}" owl-carousel-item>
+      <div class="carousel__item--content">
+        <p class="text text__carousel-callout">{{::features.headline}}</p>
+        <h1 class="text__carousel--title">{{::features.title}}</h1>
+        <p class="text text__carousel--footnote">{{::features.description}}</p>
+      </div>
+      <button class="carousel__item--trigger btn btn--ol-white btn--xs" data-tap-disabled="true" ng-click="vm.ctaAction(features.link)">{{::features.cta}}</button>
+    </div>
+  </data-owl-carousel>
+</div>
+
+<div class="module__group module__group--mast" ng-cloak>
+  <div class="container" ng-if="vm.isUserLoggedIn">
+    <div class="module__divider">
+      <h4>TODAY'S RESERVATIONS</h4>
+    </div>
+    <ng-include src="'app/modules/shared/dashboard/reservation-include.html'"></ng-include>
+    <div class="module" ng-if="vm.passengerReservations == null || vm.passengerReservations.length == 0">
+      <div class="module__body">
+        <div class="cell">
+            <p class="text text--primary">You do not have any reservations scheduled for today.</p>
+          </p>
+        </div>
+      </div>
+      <div class="module__footer">
+        <div class="cell cell--align-end">
+            <a href="#/commuter/adv-schedule-setup" class="text text--link text--clickable">Create a Reservation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" ng-if="!vm.isUserLoggedIn">
+    <div class="module">
+      <div class="module__header module__header--default">
+        <span class="module__header--title">You are not signed in</span>
+      </div>
+      <div class="module__body">
+        <div class="cell">
+          <button class="btn--primary btn--block btn" ng-click="vm.login()">Sign in now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="powered-by">
+  <div class="mv-branding-container">
+  <small>Powered By</small>
+  <div class="mv-branding">
+    <div class="branding">MV</div>
+  </div>
+  <div class="copyright">
+    <small>&copy; 2011 - {{vm.currentYear}} MV TRANSPORTATION, INC. ALL RIGHTS RESERVED.</small>
+  </div>
+  </div>
+</div>
+

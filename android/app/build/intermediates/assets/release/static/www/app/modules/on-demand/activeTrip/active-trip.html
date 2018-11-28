@@ -1,0 +1,238 @@
+<style>
+    .header-group-stuck{
+        opacity: 1!important;
+    }
+    .header__mobile, .header__desktop{
+      background-color: rgba(255,255,255,.7)!important;
+    }
+</style>
+<link href="css/main2.css" rel="stylesheet"/>
+<section class="trip__drawer ng-cloak"  ng-if="vm.activeTrip.Status" ng-class="{'fullscreen' : vm.drawerState === 2, 'minimize' : vm.drawerState === 0}">
+  <!-- DRAWER HEADER-->
+
+  <div class="module__group module__group--mast" ng-if="vm.activeTrip.Status === 'Reserved'" ng-swipe-up="swipeUp($event)"
+    ng-swipe-down="swipeDown($event)">
+    <div class="module module--full">
+      <div class="module__header">
+        <h3>Your ride is on the way</h3>
+      </div>
+      <div class="module__body--full">
+        <div class="cell d-block">
+          <p class="text text--caption">Est. Pickup Window</p>
+          <p class="text text--primary">
+            <time>
+              <strong>{{vm.activeTrip.promiseWindowStartTime}}</strong>
+            </time>
+            <small>&mdash;</small>
+            <time>
+              <strong>{{vm.activeTrip.promiseWindowEndTime}}</strong>
+            </time>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="module__group module__group--mast" ng-if="vm.activeTrip.Status === 'Start'" ng-swipe-up="swipeUp($event)" ng-swipe-down="swipeDown($event)">
+    <div class="module module--full">
+      <div class="module__header">
+        <h3>You are in route</h3>
+      </div>
+      <div class="module__body--full">
+        <div class="cell d-block" ng-if="vm.activeTrip.TripType != 'APPOINTMENT'">
+          <p class="text text--caption">Est. Arrival</p>
+          <p class="text text--primary">
+            <time>{{vm.activeTrip.EstimatedDestinationTime | date: 'h:mm a'}}</time>
+          </p>
+        </div>
+        <div class="cell" ng-if="vm.activeTrip.TripType == 'APPOINTMENT'">
+          <p class="text text--caption">Arrive By</p>
+          <p class="text text--primary">
+            <time>{{vm.activeTrip.ScheduledDestinationTime | date: 'h:mm a'}}</time>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="trip__drawer--wrapper">
+    <!-- Location Information-->
+    <div class="module__group">
+      <div class="module">
+        <div class="module__body">
+          <div class="cell">
+            <p class="text text--label">From</p>
+            <p class="text text--primary"> {{vm.activeTrip.StartAddressViewModel.Name }}</p>
+          </div>
+          <div class="cell">
+            <p class="text text--label">To</p>
+            <p class="Text text--primary">{{vm.activeTrip.EndAddressViewModel.Name}}</p>
+          </div>
+          <div class="cell" ng-if="vm.reservationFormOptions.allowFaring">
+            <span class="text text--label">Fare Due</span>
+            <span class="text text--primary">{{vm.activeTrip.CalculatedFare | currency}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- VEHICLE INFORMATION-->
+    <div class="module__group">
+      <div class="module__divider">
+        <h4>Vehicle Information</h4>
+      </div>
+      <div class="module">
+        <div class="module__body">
+          <div class="cell">
+            <span class="text text--label">Vehicle Number</span>
+            <span class="text text--primary">{{vm.activeTrip.VehicleName}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="module" ng-if="(vm.activeTrip.Status == 'Reserved' || vm.activeTrip.OriginDepartTime == null) && (vm.reservationFormOptions.allowPassengerToCall ||vm.reservationFormOptions.allowPassengerToSms)
+      ">
+        <div class="module__body">
+          <div class="cell">
+              <span class="text text--primary">Contact Driver</span>
+          </div>
+          <div class="cell cell--inline-buttons">
+              <button class="btn btn--rounded btn--xs btn--default btn--block" ng-click="vm.tryContactDriver('call');" ng-if="vm.reservationFormOptions.allowPassengerToCall">
+                Call Driver
+              </button>
+              <button class="btn btn--rounded btn--default btn--xs btn--block" ng-click="vm.tryContactDriver('sms');" ng-if="vm.reservationFormOptions.allowPassengerToSms">
+                Text Driver
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <!--Location Notes-->
+  <div class="module__group" >
+    <div class="module__divider">
+      <h4>Trip Details</h4>
+    </div>
+    <div class="module">
+        <div class="module__body">
+          <div class="cell" ng-if="vm.activeTrip.Status === 'Reserved'">
+            <span class="text text--label">Est. Departure</span>
+            <span class="text text--primary">{{vm.activeTrip.ETA}}</span>
+          </div>
+          <div class="cell" ng-if="vm.activeTrip.OriginDepartTime && vm.activeTrip.Status === 'Start'">
+            <span class="text text--label">Departed At</span>
+            <span class="text text--primary">{{vm.activeTrip.OriginDepartTime | date: 'h:mm a'}}</span>
+          </div>
+  
+          <!-- add logic here to update active trip -->
+          <div class="cell" ng-if="vm.activeTrip.TripType != 'APPOINTMENT'">
+            <span class="text text--label">Est. Arrival</span>
+            <span class="text text--primary">
+              <time>{{vm.activeTrip.EstimatedDestinationTime | date: 'h:mm a'}}</time>
+            </span>
+  
+          </div>
+          <div class="cell" ng-if="vm.activeTrip.TripType == 'APPOINTMENT'">
+            <span class="text text--label">Arrive By</span>
+            <span class="text text--primary">
+              <time>{{vm.activeTrip.ScheduledDestinationTime | date: 'h:mm a'}}</time>
+            </span>
+  
+          </div>
+        </div>
+      </div>
+
+    <div class="module" ng-if="vm.reservationFormOptions.allowLocationNotes">
+      <div class="module__body">
+        <div class="cell" ng-if="(!vm.activeTrip.EndAddressViewModel.LocationNote == '')">
+          <span class="text text--label">Pickup Notes</span>
+          <span class="text text--primary">{{vm.activeTrip.StartAddressViewModel.LocationNote}}</span>
+        </div>
+        <div class="cell" ng-if="(!vm.activeTrip.EndAddressViewModel.LocationNote == '')">
+          <span class="text text--label">Dropoff Notes</span>
+          <span class="text text--primary">{{vm.activeTrip.EndAddressViewModel.LocationNote}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Trip Schedule -->
+
+
+  <div class="module__group">
+    <div class="module">
+      <div class="module__body">
+        <div class="cell" ng-if="vm.activeTrip.NumberOfPassengers >= 1 &&  vm.reservationFormOptions.allowMultipleSeatBooking">
+          <span class="text text--label">Passengers</span>
+          <span class="text text--primary">{{vm.activeTrip.NumberOfPassengers}}</span>
+        </div>
+        <div class="cell" ng-if="vm.activeTrip.NumberOfCompanions > 0">
+          <span class="text text--label" ng-if = "!vm.reservationFormOptions.allowChildren">Companions</span>
+            <span class="text text--label" ng-if= "vm.reservationFormOptions.allowChildren">Children</span>
+          <span class="text text--primary">{{vm.activeTrip.NumberOfCompanions}}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="module__group" ng-if="vm.activeTrip.NumberOfServiceAnimals > 0 || vm.activeTrip.NumberOfPCAs > 0 || vm.activeTrip.NumberOfScooters > 0 || vm.activeTrip.NumberOfWalkers > 0 || vm.activeTrip.HandicappedPassengerCount > 0 || vm.activeTrip.NumberOfXLWheelChairs > 0 || vm.activeTrip.NumberOfWalkers > 0 || vm.activeTrip.NumberOfBikes > 0">
+    <div class="module__divider">
+      <h4>Accessability Options</h4>
+    </div>
+    <div class="module">
+      <div class="module__body">
+        <div class="cell">
+          <span class="icon" ng-if="vm.activeTrip.HandicappedPassengerCount > 0">wc</span>
+          <span class="icon" ng-if="vm.activeTrip.NumberOfXLWheelChairs > 0">wcxl</span>
+          <span class="icon" ng-if="vm.activeTrip.NumberOfWalkers > 0">wkr</span>
+          <span class="icon" ng-if="vm.activeTrip.NumberOfScooters > 0">sctr</span>
+          <span class="icon" ng-if="vm.activeTrip.NumberOfBikes > 0">bike</span>
+          <span class="icon" ng-if="vm.activeTrip.NumberOfPCAs > 0">pca</span>
+          <span class="icon" ng-if="vm.activeTrip.NumberOfServiceAnimals > 0">sa</span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module__group">
+    <div class="module">
+      <div class="module__body">
+        <div class="cell">
+          <span class="text text--caption">Confirmation</span>
+          <span class="text text--caption">{{vm.activeTrip.TripID}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="btn__group">
+    <a class="btn btn--sm btn--rounded btn--default" href="#/on-demand/my-trips">View all trips</a>
+    <button class="btn btn--cancel btn--block btn__space--top" ng-disabled="vm.isCancelling" ng-click="vm.cancelTrip(vm.activeTrip)"
+      ng-if="vm.activeTrip.Status === 'Reserved'">
+      {{vm.isCancelling?"Cancelling Trip":"Cancel Trip"}}
+    </button>
+  </div>
+  </div>
+</section>
+
+<!-- <section class="trip__drawer" ng-if="!vm.activeTrip" ng-cloak>
+    <div class="module__group">
+        <div class="module">
+            <div class="module__body">
+            <div class="cell">
+                <p>You do not have an active trip</p>
+                <a class="btn btn-link btn-block" href="/#/on-demand/reservations">Request a Ride</a>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+<div class="container-fluid">
+  <div id="map-container">
+    <ui-gmap-google-map center="vm.center" zoom="vm.zoom" control="vm.mapControl" options="vm.mapOptions" pan="true" draggable="true">
+      <ui-gmap-marker ng-repeat="marker in vm.scheduleMarkers" coords="marker" idKey="marker.tripId" options="{icon: marker.icon}"></ui-gmap-marker>
+      <ui-gmap-marker coords="vm.vehicleInfo.coords" ng-if="vm.vehicleInfo != null" idKey="99999" options="{icon: vm.vehicleInfo.icon, zIndex:10}"></ui-gmap-marker>
+    </ui-gmap-google-map>
+  </div>
+</div>

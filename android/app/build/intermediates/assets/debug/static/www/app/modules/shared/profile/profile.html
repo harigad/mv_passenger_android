@@ -1,0 +1,22 @@
+<section id="profile">
+	<div class="container-fluid">
+		<div class="header-group">
+			<h1 class="title" ng-cloak>{{vm.PageService.title()}}</h1>
+			<p class="headline" ng-cloak>{{vm.PageService.headline()}}</p>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center">	
+			<div class="col-md-6">
+				<home-address-directive data="vm.passenger.HomeAddress" invalid="vm.invalid" ></home-address-directive>
+			</div>
+		</div>
+
+		<div class="btn__group">
+			<button id="btnSubmit" type="submit" class="btn btn-primary" ng-click="vm.UpdateProfile()" ng-show="vm.allowEditHomeAddress"
+					ng-disabled="vm.invalid">
+				Update Home Address
+			</button>
+		</div>
+	</div>
+</section>

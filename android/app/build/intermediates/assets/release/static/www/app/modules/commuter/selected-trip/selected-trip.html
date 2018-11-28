@@ -1,0 +1,29 @@
+
+<section class="content">
+
+    <ui-gmap-google-map center='vm.center' zoom='vm.zoom' control="vm.mapControl" style="height:350px">   
+             
+    </ui-gmap-google-map>
+
+    <div class="container">
+        <div class="row">
+            <label>Next Stops (*Times shown are estimated times)</label>
+            <table>
+                <tbody ng-repeat="stop in vm.upComingStops">
+                    <tr>
+                        <td>
+                            <span>{{stop.Comments}}</span><br />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+    <!--<div class="container-fluid">
+        <section class="content">
+            <div class="embed-responsive embed-responsive-16by9">
+                <div id="map" style="height:450px"></div>
+            </div>
+        </section>
+    </div>-->
+</section>

@@ -1,0 +1,32 @@
+<div class="module" ng-click="detailsModal();">
+    <div class="module__header module__header--demand" ng-class="{'module__header--cancelled': passengerTrip.Status == 'Cancel'}">
+        <span class="module__header--title">{{passengerTrip.tripType}}</span>
+        <span class="module__header--date">{{passengerTrip.serviceDate | date:'MM/dd/yyyy'}} {{getDisplayStatus(passengerTrip.Status)}}</span>
+    </div>
+    <div class="module__body module__body--carot">
+        <div class="cell cell--location">
+            <div class="cell__label">
+                <span class="text text--primary">From</span>
+            </div>
+            <div class="cell__group cell__group--align-right">
+                <p class="text text--primary">{{passengerTrip.startName}}</p>
+                <p class="text text--secondary">{{passengerTrip.startAddress}}</p>
+                <span class="text text--secondary">
+                    {{passengerTrip.promiseWindowStartTime | date: 'h:mm a'}} - {{passengerTrip.promiseWindowEndTime | date: 'h:mm a'}}
+                </span>
+            </div>
+        </div>
+        <div class="cell cell--location">
+            <div class="cell__label">
+                <span class="text text--primary">To</span>
+            </div>
+            <div class="cell__group cell__group--align-right">
+                <p class="text text--primary">{{passengerTrip.endName}}</p>
+                <p class="text text--secondary">{{passengerTrip.endAddress}}</p>
+                <span class="text text--caption">{{passengerTrip.estimatedDestinationTime | date: 'h:mm a'}}</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>

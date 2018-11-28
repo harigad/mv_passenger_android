@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">861945479410-4l40hncut74kfdqunil4k6o544sku87a.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://mvpassenger.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">861945479410</string>
+    <string name="google_api_key" translatable="false">AIzaSyDYfKpmypI3PetnTcbvlMjyJK_VMuiyZks</string>
+    <string name="google_app_id" translatable="false">1:861945479410:android:33ef0e0bf164803a</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDYfKpmypI3PetnTcbvlMjyJK_VMuiyZks</string>
+    <string name="google_storage_bucket" translatable="false">mvpassenger.appspot.com</string>
+    <string name="project_id" translatable="false">mvpassenger</string>
+</resources>
